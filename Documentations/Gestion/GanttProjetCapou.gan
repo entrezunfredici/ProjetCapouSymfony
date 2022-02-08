@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2022-05-16" view-index="0" gantt-divider-location="430" resource-divider-location="300" version="3.1.3100" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:5" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="185" order="0"/>
+        <field id="tpd4" name="Date de début" width="90" order="1"/>
+        <field id="tpd5" name="Date de fin" width="88" order="2"/>
+        <field id="tpd13" name="Ressources" width="48" order="3"/>
+        <option id="taskLabelUp" value="name"/>
+        <option id="taskLabelLeft" value="resources"/>
+        <option id="taskLabelRight" value=""/>
+        <option id="color.recent">
+            <![CDATA[#000000 #00cc00 #ff0000]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="true"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Sprint1" meeting="false" start="2022-01-24" duration="28" complete="0" expand="false">
+            <depend id="2" type="2" difference="0" hardness="Strong"/>
+            <task id="61" name="Élaboration Des Diagrammes" color="#8cb6ce" meeting="false" start="2022-01-24" duration="14" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true">
+                <depend id="57" type="2" difference="0" hardness="Strong"/>
+                <depend id="62" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="26" name="Réalisation du cahier des charges" color="#8cb6ce" meeting="false" start="2022-01-24" duration="14" complete="0" thirdDate="2022-01-31" thirdDate-constraint="0" expand="true">
+                <depend id="57" type="2" difference="0" hardness="Strong"/>
+                <depend id="62" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="57" name="Organisation Des Tâches" color="#8cb6ce" meeting="false" start="2022-02-07" duration="14" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" expand="true"/>
+            <task id="62" name="Charte Graphique" color="#8cb6ce" meeting="false" start="2022-02-07" duration="14" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="2" name="Sprint2" color="#000000" meeting="false" start="2022-02-21" duration="14" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="false">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+            <task id="82" name="Construction des fondations du site" color="#8cb6ce" meeting="false" start="2022-02-21" duration="14" complete="0" thirdDate="2022-02-21" thirdDate-constraint="0" expand="true"/>
+            <task id="87" name="Création de la BDD" color="#8cb6ce" meeting="false" start="2022-02-21" duration="14" complete="0" thirdDate="2022-02-21" thirdDate-constraint="0" expand="true"/>
+            <task id="91" name="Organisation des droits utilisateurs" color="#8cb6ce" meeting="false" start="2022-02-21" duration="7" complete="0" thirdDate="2022-02-21" thirdDate-constraint="0" expand="true">
+                <depend id="92" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="92" name="Conception du système d'authentification" color="#8cb6ce" meeting="false" start="2022-02-28" duration="7" complete="0" thirdDate="2022-02-28" thirdDate-constraint="0" expand="true"/>
+            <task id="29" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-02-21" duration="14" complete="0" thirdDate="2022-02-21" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="6" name="Sprint3" color="#000000" meeting="false" start="2022-03-07" duration="14" complete="0" thirdDate="2022-02-13" thirdDate-constraint="0" expand="false">
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <task id="99" name="Création de l'interface administrateur" color="#8cb6ce" meeting="false" start="2022-03-07" duration="14" complete="0" thirdDate="2022-03-07" thirdDate-constraint="0" expand="true"/>
+            <task id="98" name="Création de l'interface technicien" color="#8cb6ce" meeting="false" start="2022-03-07" duration="14" complete="0" thirdDate="2022-03-07" thirdDate-constraint="0" expand="true"/>
+            <task id="100" name="Sauvegarde des coordonnées des parcelles" color="#8cb6ce" meeting="false" start="2022-03-07" duration="7" complete="0" thirdDate="2022-03-07" thirdDate-constraint="0" expand="true">
+                <depend id="111" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="111" name="Mise en place des logs" color="#8cb6ce" meeting="false" start="2022-03-14" duration="7" complete="0" thirdDate="2022-03-11" thirdDate-constraint="0" expand="true"/>
+            <task id="34" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-03-07" duration="14" complete="0" thirdDate="2022-03-07" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="7" name="Sprint4" color="#000000" meeting="false" start="2022-03-21" duration="14" complete="0" thirdDate="2022-03-21" thirdDate-constraint="0" expand="false">
+            <depend id="9" type="2" difference="0" hardness="Strong"/>
+            <task id="105" name="Gestion des comptes par l'administrateur" color="#8cb6ce" meeting="false" start="2022-03-21" duration="14" complete="0" thirdDate="2022-03-21" thirdDate-constraint="0" expand="true"/>
+            <task id="106" name="Élaboration du système d'attribution des piquets" color="#8cb6ce" meeting="false" start="2022-03-21" duration="14" complete="0" thirdDate="2022-03-21" thirdDate-constraint="0" expand="true"/>
+            <task id="107" name="Élaboration du système d'attribution des parcelles" color="#8cb6ce" meeting="false" start="2022-03-21" duration="14" complete="0" thirdDate="2022-03-21" thirdDate-constraint="0" expand="true"/>
+            <task id="36" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-03-21" duration="14" complete="0" thirdDate="2022-03-21" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="9" name="Sprint5" color="#000000" meeting="false" start="2022-04-04" duration="14" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="false">
+            <depend id="11" type="2" difference="0" hardness="Strong"/>
+            <task id="108" name="Conception de la carte administrateur" color="#8cb6ce" meeting="false" start="2022-04-04" duration="14" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="true"/>
+            <task id="109" name="Conception de la carte technicien" color="#8cb6ce" meeting="false" start="2022-04-04" duration="14" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="true"/>
+            <task id="110" name="Conception de la carte visiteur" color="#8cb6ce" meeting="false" start="2022-04-04" duration="14" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="true"/>
+            <task id="38" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-04-04" duration="14" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="11" name="Sprint6" color="#000000" meeting="false" start="2022-04-18" duration="14" complete="0" thirdDate="2022-04-18" thirdDate-constraint="0" expand="false">
+            <depend id="13" type="2" difference="0" hardness="Strong"/>
+            <task id="121" name="Affichage des données carte administrateur" color="#8cb6ce" meeting="false" start="2022-04-18" duration="14" complete="0" thirdDate="2022-04-18" thirdDate-constraint="0" expand="true"/>
+            <task id="122" name="Création de l'interface des vannes" color="#8cb6ce" meeting="false" start="2022-04-18" duration="8" complete="0" thirdDate="2022-04-18" thirdDate-constraint="0" expand="true">
+                <depend id="123" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="123" name="Mise en place du changement d'état des vannes" color="#8cb6ce" meeting="false" start="2022-04-26" duration="6" complete="0" thirdDate="2022-04-26" thirdDate-constraint="0" expand="true"/>
+            <task id="141" name="Affichage des piquets" color="#8cb6ce" meeting="false" start="2022-04-18" duration="7" complete="0" thirdDate="2022-04-18" thirdDate-constraint="0" expand="true">
+                <depend id="142" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="142" name="Affichage des relevés des piquets" color="#8cb6ce" meeting="false" start="2022-04-25" duration="7" complete="0" thirdDate="2022-04-25" thirdDate-constraint="0" expand="true"/>
+            <task id="40" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-04-18" duration="14" complete="0" thirdDate="2022-04-18" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="13" name="Sprint7" color="#000000" meeting="false" start="2022-05-02" duration="14" complete="0" thirdDate="2022-05-02" thirdDate-constraint="0" expand="true">
+            <task id="126" name="Affichage des données carte technicien" color="#8cb6ce" meeting="false" start="2022-05-02" duration="14" complete="0" thirdDate="2022-05-02" thirdDate-constraint="0" expand="true"/>
+            <task id="127" name="BAM" color="#8cb6ce" meeting="false" start="2022-05-02" duration="14" complete="0" thirdDate="2022-05-02" thirdDate-constraint="0" expand="true"/>
+            <task id="128" name="BOOM" color="#8cb6ce" meeting="false" start="2022-05-02" duration="14" complete="0" thirdDate="2022-05-02" thirdDate-constraint="0" expand="true"/>
+            <task id="42" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-05-02" duration="14" complete="0" thirdDate="2022-05-02" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="15" name="EpreuveEcriteBTS" color="#ff0000" meeting="false" start="2022-05-16" duration="7" complete="0" thirdDate="2022-05-16" thirdDate-constraint="0" expand="false">
+            <task id="56" name="epreuve d'épreuve" meeting="false" start="2022-05-16" duration="7" complete="0" expand="true"/>
+        </task>
+        <task id="17" name="Sprint8" color="#000000" meeting="false" start="2022-05-23" duration="14" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" expand="true">
+            <task id="132" name="Conception du système d'oubli de mot de passe" color="#8cb6ce" meeting="false" start="2022-05-23" duration="14" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" expand="true"/>
+            <task id="133" name="tâche_133" color="#8cb6ce" meeting="false" start="2022-05-23" duration="14" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" expand="true"/>
+            <task id="134" name="tâche_134" meeting="false" start="2022-05-23" duration="14" complete="0" expand="true"/>
+            <task id="45" name="Tâche pour Le Salim" color="#8cb6ce" meeting="false" start="2022-05-23" duration="14" complete="0" thirdDate="2022-05-23" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="20" name="EpreuveDeProjet" color="#ff0000" meeting="false" start="2022-06-06" duration="14" complete="0" thirdDate="2022-06-06" thirdDate-constraint="0" expand="true"/>
+        <task id="23" name="Livraison" color="#00cc00" meeting="false" start="2022-06-20" duration="7" complete="0" thirdDate="2022-06-20" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Sarah" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Mélissa" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Salim" function="Default:0" contacts="" phone=""/>
+        <resource id="3" name="Frédéric" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="61" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="26" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="57" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="62" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="26" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="57" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="62" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="61" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="26" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="57" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="62" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="61" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="34" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="36" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="38" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="40" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="42" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="45" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="26" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="57" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="62" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="61" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
