@@ -6,10 +6,15 @@
  */
 // CSS files
 import './styles/app.css';
+import './styles/navbar.css';
+import './styles/annimations.css';
+//fonts
+import './fonts/fonts.css';
 //bootstrap
 import './bootstrap/bootstrap.min.css';
 // JS files
 import './controllers/hello_controller';
+import './controllers/colors'
 //boostrap
 import './bootstrap/bootstrap.bundle.min';
 //JQuery
