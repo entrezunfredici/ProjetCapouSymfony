@@ -1,3 +1,7 @@
+.page-holder {
+    width: 100%;
+    min-height: 100vh;
+}
 /*
     #header
 */
@@ -5,7 +9,6 @@ header{
     z-index: 997;
     padding: 20px 0;
 }
-
 /*
     # Hero Section
 */
@@ -30,10 +33,21 @@ header{
     text-align: center;
     padding: 0 15px;
 }
+@media (min-width: 1024px) {
+    #hero {
+      background-attachment: fixed;
+    }
+}
+@media (max-height: 500px) {
+    #hero {
+      height: 150vh;
+    }
+}
 /*
+    # Map Section
 */
-/*
 
+/*
     #texts
 */
 h1 {

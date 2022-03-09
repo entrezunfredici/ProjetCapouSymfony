@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Projet Capour Symfony{% endblock %}
+{% block title %}Projet Capou Symfony{% endblock %}
 
 {% block body %}
 <!--Header-->
@@ -10,9 +10,9 @@
           <img class="logo fixed-top" src="{{ asset('pictures/logo.jpg')}}"/>
         </a>
         <ul>
-          <li><a class="nav-link scrollto active" href="#frame_1">Home</a></li>
-          <li><a class="nav-link scrollto" href="#frame_2">Carte</a></li>
-          <li><a class="nav-link scrollto" href="#frame_3">Informations</a></li>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#MAP">Carte</a></li>
+          <li><a class="nav-link scrollto" href="#info">Informations</a></li>
           <li><a href="">Authentification</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -26,13 +26,21 @@
     </div>
 </section>
 <!---->
-<!--Body-->
-<main>
-
+<!--Main-->
+<main id="main">
+    <!--Map Section-->
+    <div id="MAP" class="MAP">
+        <div class="container">
+            <!--Map is here-->
+            <div id="MAP-Example"></div> 
+            <!---->
+        </div>
+    </div>
+    <!---->
 </main>
 <!---->
 <!--Footer-->
-<footer>
+<footer id="footer">
     <h2 id="text">mentions légales</h2>
 </footer>
 <!---->

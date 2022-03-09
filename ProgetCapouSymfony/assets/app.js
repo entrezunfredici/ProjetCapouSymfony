@@ -6,19 +6,27 @@
  */
 // CSS files
 import './styles/app.css';
-import './styles/navbar.css';
+import './styles/navbar.css'; 
+import './styles/map.css'; //css for the map
 import './styles/annimations.css';
 //fonts
 import './fonts/fonts.css';
 //bootstrap
 import './bootstrap/bootstrap.min.css';
+//swipper
+import './swipper/swiper-bundle.min.css';
+
 // JS files
 import './controllers/hello_controller';
 import './controllers/colors'
+import './controllers/navbar'
 //boostrap
 import './bootstrap/bootstrap.bundle.min';
 //JQuery
 import './controllers/jquery-3.3.1.slim.min';
+//swipper
+import './swipper/swiper-bundle.min';
+
 // start the Stimulus application
 import './bootstrap';
 

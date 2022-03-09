@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //couleur du body
     document.body.style.background = backgroundColor;
     //couleur des fonds
-    SetBkgndColorByID('endPage', specBrown);
+    SetBkgndColorByID('footer', specBrown);
     //couleurs des textes
     SetTxtColorByID('text', specBlue);
 });

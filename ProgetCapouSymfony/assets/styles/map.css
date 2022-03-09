@@ -1,0 +1,8 @@
+/*
+    * This CSS is for the map 
+*/
+#MAP-Example{
+    background-image:url('./../../public/pictures/carte.png');
+    width: 100%;
+    min-height: 100vh;
+}

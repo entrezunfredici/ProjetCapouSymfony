@@ -1,24 +1,27 @@
+/*
+    * This CSS is for the Annimations in the website
+*/
 /* *********************** ANNIMATIONS  ********************** */
 @keyframes from-below {
-    0% {
-      opacity: 0;
-      transform: translateY(350px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0px);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(350px);
   }
-  @keyframes from-above {
-    0% {
-      opacity: 0;
-      transform: translateY(-100px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0px);
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
+}
+@keyframes from-above {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
   @keyframes apparition {
     0% {
       opacity: 0;
