@@ -1,3 +1,21 @@
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+    transition: all 0.5s;
+    z-index: 997;
+    padding: 20px 0;
+}
+#header.header-scrolled, #header.header-inner-pages {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 12px 0;
+}
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/**
+* Desktop Navigation 
+*/
 .navbar {
     padding: 0;
 }
@@ -19,9 +37,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: "Poppins", sans-serif;
+    font-family: "montserrat-thin";
     color: #fff;
-    font-size: 15px;
+    font-size: 20px;
     padding: 0 4px;
     white-space: nowrap;
     transition: 0.3s;

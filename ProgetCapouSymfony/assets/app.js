@@ -13,19 +13,26 @@ import './styles/annimations.css';
 import './fonts/fonts.css';
 //bootstrap
 import './bootstrap/bootstrap.min.css';
+import './bootstrap-icons/bootstrap-icons.css';
 //swipper
 import './swipper/swiper-bundle.min.css';
+//glightbox
+import './glightbox/css/glightbox.min.css';
 
 // JS files
 import './controllers/hello_controller';
 import './controllers/colors'
-import './controllers/navbar'
+import './controllers/move'
 //boostrap
 import './bootstrap/bootstrap.bundle.min';
 //JQuery
 import './controllers/jquery-3.3.1.slim.min';
 //swipper
 import './swipper/swiper-bundle.min';
+//isotope-layout
+import './isotope-layout/isotope.pkgd.min';
+//glightbox
+import './glightbox/js/glightbox.min';
 
 // start the Stimulus application
 import './bootstrap';
