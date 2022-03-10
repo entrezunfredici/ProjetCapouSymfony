@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //couleur des fonds
     SetBkgndColorByID('footer', specBrown);
     //couleurs des textes
-    SetTxtColorByID('text', specBlue);
+    SetTxtColorByID('main', specBlue);
 });
 function SetBkgndColorByID(id, color){
     document.getElementById(id).style.background = color;
