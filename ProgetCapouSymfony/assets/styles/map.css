@@ -7,7 +7,7 @@
 }
 #MAP-Example{
     background-image:url('./../../public/pictures/carte.png');
-    max-width: 80%;
+    max-width: 100%;
     height: 80vh;
     background-size: cover;
 }
