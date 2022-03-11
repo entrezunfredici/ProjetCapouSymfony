@@ -9,6 +9,7 @@ import './styles/app.css';
 import './styles/navbar.css'; 
 import './styles/map.css'; //css for the map
 import './styles/annimations.css';
+import './styles/topbar.css';
 //fonts
 import './fonts/fonts.css';
 //bootstrap

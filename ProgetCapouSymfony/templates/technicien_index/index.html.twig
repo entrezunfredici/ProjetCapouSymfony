@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Technicien{% endblock %}
+
+{% block body %}
+<!--Header-->
+<header  id="header" class="fixed-top ">
+    <nav id="topbar" class="topbar">
+        <a href="#" class="fixed-top">
+          <img class="logo fixed-top" src="{{ asset('pictures/logo.jpg')}}"/>
+        </a>
+
+    </nav>
+</header>
+<!---->
+<!--main-->
+<main>
+    <!--Parcelle Section-->
+    <section id="Interface" class="Interface">
+        <div class="container">
+            <div class="row content">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-8">
+                    <div class="DashBoard">
+                        <!--Map is here-->
+                        <div id="MAP-Example"></div> 
+                        <!---->
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!---->
+    <container>
+
+    </container>
+    <nav id="leftbar" class="leftbar">
+
+    </nav>
+</main>
+<!---->
+<footer>
+
+</footer>
+{% endblock %}

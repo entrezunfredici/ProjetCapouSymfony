@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.background = backgroundColor;
     //couleur des fonds
     SetBkgndColorByID('footer', specBrown);
+    SetBkgndColorByID('footer-top', specGreen);
     //couleurs des textes
     SetTxtColorByID('main', specBlue);
 });
