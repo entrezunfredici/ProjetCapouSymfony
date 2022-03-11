@@ -9,7 +9,8 @@ import './styles/app.css';
 import './styles/navbar.css'; 
 import './styles/map.css'; //css for the map
 import './styles/annimations.css';
-import './styles/topbar.css';
+import './styles/dashboard.css';
+import './styles/colors.css';
 //fonts
 import './fonts/fonts.css';
 //bootstrap
@@ -22,7 +23,6 @@ import './glightbox/css/glightbox.min.css';
 
 // JS files
 import './controllers/hello_controller';
-import './controllers/colors'
 import './controllers/move'
 //boostrap
 import './bootstrap/bootstrap.bundle.min';

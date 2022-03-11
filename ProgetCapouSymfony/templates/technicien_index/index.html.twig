@@ -5,30 +5,40 @@
 {% block body %}
 <!--Header-->
 <header  id="header" class="fixed-top ">
-    <nav id="topbar" class="topbar">
-        <a href="#" class="fixed-top">
-          <img class="logo fixed-top" src="{{ asset('pictures/logo.jpg')}}"/>
-        </a>
-
-    </nav>
 </header>
 <!---->
 <!--main-->
-<main>
-    <!--Parcelle Section-->
-    <section id="Interface" class="Interface">
+<main id>
+    <!--Dashboard Section-->
+    <section id="DashBoard" class="DashBoard">
         <div class="container">
             <div class="row content">
-                <div class="col-lg-2">
+                <div class="col-lg-30">
+                    <nav id="tech-color-bkgnd" class="topbar">
+                        <a href="#" class="fixed-top">
+                            <img class="logo fixed-top" src="{{ asset('pictures/logo.jpg')}}"/>
+                        </a>
 
+                    </nav>
                 </div>
-                <div class="col-lg-8">
-                    <div class="DashBoard">
+            </div>
+            <div class="row content">
+                <div class="col-lg-2">
+                    <div id="tech-color-bkgnd" class="left-side-tools">
+
+                    </div>
+                </div>
+                <div class="col-lg-26">
+                    <div class="MAP">
                         <!--Map is here-->
                         <div id="MAP-Example"></div> 
                         <!---->
                     </div>
-                    
+                </div>
+                <div  id="tech-color-bkgnd" class="col-lg-2">
+                    <div class="right-side-tools">
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -14,3 +14,6 @@ export default class extends Controller {
         this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.background = "#383e42";
+});
