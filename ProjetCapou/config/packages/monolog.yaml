@@ -11,7 +11,7 @@ when@dev:
                 max_files: 10
                 path: '%kernel.logs_dir%/security.%kernel.environment%.log'
                 channels:
-                    - security
+                    - "security"
             main:
                 type: rotating_file
                 max_files: 10

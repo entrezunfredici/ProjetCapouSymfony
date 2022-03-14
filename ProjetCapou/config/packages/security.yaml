@@ -21,7 +21,6 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppAuthenticator
-            #custom_authenticator: App\EventSubscriber\AuthenticatorSubscriber
             logout:
                 path: app_logout
                 # where to redirect after logout

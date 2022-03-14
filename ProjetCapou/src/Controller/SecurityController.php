@@ -27,6 +27,21 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
+        $this->logger->info("******** Test log de déconnexion ********");
+        
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+    
+//     public function logout(Request $Request, Response $Response, TokenInterface $Token) {
+//         $this->logger->info('teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest');
+
+//         if(!$Response || !$Token){
+//             return;
+//         }
+
+//         ['user_IP' => $userIP] = $this->getRouteNameAndUserIP();
+//         $userEmail = $this->getUserEmail($Token);
+//         $targetUrl = $Response->getTargetUrl();
+//         $this->logger->info("L'utilisateur ayant l'adresse IP '{$userIP}' et l'email '{$userEmail}' s'est déconecté et a été redirigé vers l'url suivante: '{$targetUrl}'");
+//     }
 }

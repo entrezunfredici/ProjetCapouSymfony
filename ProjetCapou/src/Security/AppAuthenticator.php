@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-//use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -18,7 +17,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Core\Security;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class AppAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -29,12 +28,14 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     private UrlGeneratorInterface $urlGenerator;
     private LoggerInterface $logger;
     private RequestStack $requestStack;
+    private Security $security;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, LoggerInterface $logger, RequestStack $requestStack)
+    public function __construct(UrlGeneratorInterface $urlGenerator, LoggerInterface $logger, RequestStack $requestStack, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->logger = $logger;
         $this->requestStack = $requestStack;
+        $this->security = $security;
     }
 
     public function authenticate(Request $request): Passport
@@ -51,69 +52,48 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             ]
         );
     }
-
+    
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
         
-        $this->logger->info('teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest');
         [
-            'user_IP' => $userIP,
-            'route_name' => $routeName
+            'user_IP' => $userIP
         ] = $this->getRouteNameAndUserIP();
 
-
-//         if(empty($this->getAuthenticationToken()->getRoleNames())){
-//             $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient d'accèder à la page: '{$routeName}' ");
-//         }
-//         else {
-// //             /** @var TokenInterface $securityToken */
-// //             $securityToken = $this->event->getAuthenticationToken();
-// //             $userEmail = $this->getUserEmail($securityToken);
-//             $this->logger->info("Un utilisateur anonyme vient d'accèder à la page ");
-            
-// //             $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient de se connecter avec l'email '{$userEmail}'");
-//         }
-
-        //$this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient d'accèder à la page: '{$routeName}' ");
-        
-        
-        /** @var User $user*/
-        //$user = $token->getUser();
-        //return $user->getEmail();
-        
-        $userEmail = $user->getEmail();
-        
+        $userEmail = $this->getUserEmail($token);            
         $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient de se connecter avec l'email '{$userEmail}'");
-        
         
         // For example:
         //return new RedirectResponse($this->urlGenerator->generate('some_route'));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate('home'));
-        
-  
+        return new RedirectResponse($this->urlGenerator->generate('login_user'));
     }
-
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
+     
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): response
     {
-        ['user_IP' => $userIP] = $this->getRouteNameAndUserIP();
-
-        /** @var TokenInterface $securityToken */
-        $securityToken = $event->getAuthenticationToken();
-
-        $userEmail = $this->getUserEmail($securityToken);
-
-        $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient de se connecter avec l'email '{$userEmail}'");
+        //dd($exception);
+        if ($request->hasSession()) {
+            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        }
+        
+        $url = $this->getLoginUrl($request);
+        [
+            'user_IP' => $userIP,
+            'route_name' => $routeName
+        ] = $this->getRouteNameAndUserIP();    
+        
+        $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' a tenté d'accèder à la page: '{$routeName}'");
+        
+        return new RedirectResponse($url);
     }
 
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
-    
     
     /**
      * Return the user IP and the name of the route where the user has arrived.
@@ -123,13 +103,6 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     private function getRouteNameAndUserIP(): array
     {
         $request = $this->requestStack->getCurrentRequest();
-
-//         if(!request){
-//             return [
-//                 'user_IP' => 'Inconnue',
-//                 'route_name' => 'Inconnue'
-//             ];
-//         }
 
         return [
             'user_IP' => $request->getClientIp() ?? 'Inconnue',
@@ -143,4 +116,5 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $user = $securityToken->getUser();
         return $user->getEmail();
     }
+    
 }
