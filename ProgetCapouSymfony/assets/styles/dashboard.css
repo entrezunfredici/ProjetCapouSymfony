@@ -1,4 +1,24 @@
 .top-side-bar{
-    min-height:70px;
-    width:100%;
+    padding: 0;
+}
+.top-side-bar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-items: center;
+}
+.top-side-bar li {
+    position: relative;
+}
+.top-side-bar > ul > li {
+    padding: 10px 0 10px 24px;
+}
+.top-side-bar > ul > li > a > i {
+    font-size: 20px;
+}
+.StatsBoard{
+    display: none;
+}
+.MapBoard{
+    display: none;
 }

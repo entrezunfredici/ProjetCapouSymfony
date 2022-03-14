@@ -3,54 +3,78 @@
 {% block title %}Hello Technicien{% endblock %}
 
 {% block body %}
-<!--Header-->
-<header  id="header" class="fixed-top ">
-</header>
 <!---->
 <!--main-->
+<!-- menus
+<div class="row content">
+                <nav id="tech-color-bkgnd" class="top-side-bar fixed-top">
+                    <a href="#" class="fixed-top">
+                        <img class="logo fixed-top" src="{{ asset('pictures/logo.jpg')}}"/>
+                    </a>
+                    <ul>
+                        <li><a href=""><i class=""></i></a></li>
+                        <li><a href=""><i class=""></i></a></li>
+                        <li><a href=""><i class=""></i></a></li>
+                        <li><a href="../index"><i class="bi bi-person-x"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="row content">
+                <div class="col-lg-2">
+                    <div id="tech-color-bkgnd" class="left-side-tools">
+                        <ul><li><a href=""><i class="bi bi-graph-up"></i> statistiques</a></li></ul>
+                        <ul><li><a href=""><i class="bi bi-cursor"></i> carte</a></li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-10">
+                    <div class="StatsBoard">
+                        <h1>Statistiques</h1>
+                    </div>
+                    <div class="MapBoard">
+                        <div class="MAP">
+                            Map is here
+                            <div id="MAP-Example"></div> 
+                            
+                        </div>
+                    </div>
+                </div>
+-->
 <main id>
     <!--Dashboard Section-->
     <section id="DashBoard" class="DashBoard">
-        <div class="container">
-            <div class="row content">
-                <div class="col-lg-30">
-                    <nav id="tech-color-bkgnd" class="top-side-bar fixed-top">
-                        <a href="#" class="fixed-top">
-                            <img class="logo fixed-top" src="{{ asset('pictures/logo.jpg')}}"/>
-                        </a>
-                        <ul>
-                            <li><a href=""><i class=""></i></a></li>
-                            <li><a href=""><i class=""></i></a></li>
-                            <li><a href=""><i class=""></i></a></li>
-                            <li><a href=""><i class=""></i></a></li>
-                        </ul>
-                    </nav>
-                </div>
+        <div id="tech-color-bkgnd" class="top-side-bar">
+            <a href="#">
+                <img class="logo" src="{{ asset('pictures/logo.jpg')}}"/>
+            </a>
+            <ul>
+                <li><a href=""><i class=""></i></a></li>
+                <li><a href=""><i class=""></i></a></li>
+                <li><a href=""><i class=""></i></a></li>
+                <li><a href="../index"><i class="bi bi-person-x"></i></a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <!--Occupe 2 colonnes-->
+            <div id="tech-color-bkgnd" class="col-2">
+                <ul><li><a href=""><i class="bi bi-graph-up"></i> statistiques</a></li></ul>
+                <ul><li><a href=""><i class="bi bi-cursor"></i> carte</a></li></ul>
             </div>
-            <div class="row content">
-                <div class="col-lg-4">
-                    <div id="tech-color-bkgnd" class="left-side-tools">
-                        <ul><li><a href=""><i class=""></i></a></li></ul>
-                        <ul><li><a href=""><i class=""></i></a></li></ul>
-                    </div>
+            <!--Occupe 4 colonnes-->
+            <div class="col-10">
+                <div class="StatsBoard">
+                    <h1>Statistiques</h1>
                 </div>
-                <div class="col-lg-26">
+                <div class="MapBoard">
                     <div class="MAP">
                         <!--Map is here-->
-                        <div id="MAP-Example"></div> 
-                        <!---->
+                        <div id="MAP-Example"></div>     
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!---->
-    <container>
-
-    </container>
-    <nav id="leftbar" class="leftbar">
-
-    </nav>
 </main>
 <!---->
 <footer>
