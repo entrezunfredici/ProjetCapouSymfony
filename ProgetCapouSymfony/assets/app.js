@@ -24,6 +24,7 @@ import './glightbox/css/glightbox.min.css';
 // JS files
 import './controllers/hello_controller';
 import './controllers/move'
+import './controllers/dashboard'
 //boostrap
 import './bootstrap/bootstrap.bundle.min';
 //JQuery
