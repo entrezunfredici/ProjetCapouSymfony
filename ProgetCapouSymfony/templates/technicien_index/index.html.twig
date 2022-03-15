@@ -21,27 +21,36 @@
         </div>
         <div class="row">
             <div id="tech-color-bkgnd" class="col-1 left-side-bar">
-                <ul><li><a class="nav-link" href=""><i class="bi bi-graph-up"></i> statistiques</a></li></ul>
-                <ul><li><a class="nav-link" href=""><i class="bi bi-cursor"></i> carte</a></li></ul>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
+                            <i class="bi bi-graph-up"></i> statistiques
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="javascript:Change('StatsBoard', 'MapBoard')">
+                            <i class="bi bi-cursor"></i> carte
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div class="col-10">
-                <div id="StatsBoard" class="StatsBoard Hidden container">
-                    <div class="row">
+                <div id="StatsBoard" class="StatsBoard Show container">
+                    <div id="tech-color-txt" class="row">
                         <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                        <div class="col">L'élément occupe toute la ligne</div>
+                        <div class="col"><h1>Statistiques</h1></div>
                     </div>
-                    <div class="row">
-                        <div class="col">1er élément de la 3è ligne</div>
-                        <div class="col">2è élément de la 3è ligne</div>
+                    <div id="tech-color-txt" class="row">
+                        <div class="col"></div>
+                        <div class="col"></div>
                     </div>
-                    <h1>Statistiques</h1>
                 </div>
-                <div id="MapBoard" class="MapBoard">
-                    <div class="MAP Show container">
-                        <div class="row">
-                            <!--Map is here-->
-                            <div id="MAP-Example"></div> 
-                        </div>        
+                <div id="MapBoard" class="MapBoard Hidden container">
+                    <div class="row">
+                        <!--Map is here-->
+                        <div id="MAP-Example"></div>       
                     </div>
                 </div>
             </div>
