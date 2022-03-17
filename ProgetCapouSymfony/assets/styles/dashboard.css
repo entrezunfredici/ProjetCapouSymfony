@@ -16,7 +16,7 @@
     * Left side bar
 */
 .left-side-bar{
-    height:100vh;
+    min-height:100vh;
 }
 .left-side-bar ul{
     margin: 0;

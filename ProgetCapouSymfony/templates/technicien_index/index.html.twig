@@ -12,12 +12,12 @@
                     <img class="logo" src="{{ asset('pictures/logo.svg')}}"/>
                 </a>
             </div>
-            <ul class="col-9">
-                <li><a href=""><i class=""></i></a></li>
-                <li><a href=""><i class=""></i></a></li>
+            <ul class="col-7">
+                <li><a class="nav-link" href=""><i class=""></i></a></li>
+                <li><a class="nav-link" href=""><i class=""></i></a></li>
             </ul>
-            <ul class="col-1">
-                <li class="dropdown"><a href="#"><span>Parselles</span> <i class="bi bi-chevron-down"></i></a>
+            <ul class="col-2">
+                <li class="dropdown"><a class="nav-link" href="#"><span>Parselles</span> <i class="bi bi-chevron-down"></i></a>
                     <!--<ul>
                         <li><a href="#">Drop Down 1</a></li>
                         <li><a href="#">Drop Down 2</a></li>
@@ -26,8 +26,8 @@
                     </ul>-->
                 </li>
             </ul>
-            <ul class="col-1">
-                <li><a href="../index"><span id="UserName">Tehcnicien</span><i class="bi bi-person-x"></i></a></li>
+            <ul class="col-2">
+                <li><a class="nav-link" href="../index"><span id="UserName">Tehcnicien</span><i class="bi bi-person-x"></i></a></li>
             </ul>
         </div>
         <div class="row">
@@ -56,31 +56,109 @@
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <div class="col"><h2>Humiditée</h2></div>
-                            </div>
-                            <div class="row">
+                                <h2>données actuelles</h2>
                                 <div class="col">
-                                    <h3>actuelle</h3>
-                                    
+                                    <h3>Humiditée %</h3>
+                                    <canvas id="Humidity" width="300px" height="300px"></canvas>
+                                    <script>
+                                        humidity=32
+                                        new RGraph.Gauge({
+                                            id: 'Humidity',
+                                            min: 0,
+                                            max: 100,
+                                            value: humidity
+                                        }).draw();
+                                    </script>
                                 </div>
                                 <div class="col">
-                                    <h3>ces derniers jours</h3>
-
+                                    <h3>Température °C</h3>
+                                    <canvas id="Temperature" width="100px" height="400px"></canvas>
+                                    <script>
+                                        temperature=25
+                                        new RGraph.Thermometer({
+                                            id: 'Temperature',
+                                            min: -30,
+                                            max: 50,
+                                            value: temperature
+                                        }).draw();
+                                    </script>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
                             <div class="row">
-                                <div class="col"><h2>Température</h2></div>
-                            </div>
-                            <div class="row">
+                                <h2>réçamment</h2>
                                 <div class="col">
-                                    <h3>actuelle</h3>
-
+                                    <h3>Humiditée</h3>
+                                    <canvas id="HumidityGraph" width="300px" height="200px"></canvas>
+                                    <script>
+                                        data = [40,20,6,16,35,10,6,7,50];
+                                        xaxisLabels = ['Aujourdhui', 'J-1', 'J-2', 'J-3', 'J-4', 'J-5', 'J-6', 'J-7', 'J-8'];
+                                        new RGraph.Line({
+                                            id: 'HumidityGraph',
+                                            data: data,
+                                            options: {
+                                                tooltips: '%{key}',
+                                                tooltipsFormattedUnitsPost: '%',
+                                                tooltipsFormattedKeyColors: ['red','blue','#0f0'],
+                                                tooltipsFormattedKeyLabels: ['John','Richard','Luis'],
+                                                tooltipsCss: {
+                                                    fontSize: '16pt',
+                                                    textAlign: 'left'
+                                                },
+                                                backgroundGridVlines: false,
+                                                backgroundGridBorder: false,
+                                                colors: ['red','blue','green'],
+                                                linewidth: 2,
+                                                spline: true,
+                                                tickmarksStyle: 'dot',
+                                                tickmarksSize: 6,
+                                                xaxisLabels: xaxisLabels,
+                                                xaxis: false,
+                                                yaxis: false,
+                                                marginLeft: 40,
+                                                shadow: false,
+                                                labelsAbove: true,
+                                                labelsAboveUnitsPost: '%',
+                                                labelsAboveOffsety: -5
+                                            }
+                                        }).trace();
+                                    </script>
                                 </div>
                                 <div class="col">
-                                    <h3>ces derniers jours</h3>
-
+                                    <h3>Température</h3>
+                                    <canvas id="TemperatureGraph" width="300px" height="200px"></canvas>
+                                    <script>
+                                        data = [25,20,6,0,0,10,8,16,5];
+                                        xaxisLabels = ['Aujourdhui', 'J-1', 'J-2', 'J-3', 'J-4', 'J-5', 'J-6', 'J-7', 'J-8'];
+                                        new RGraph.Line({
+                                            id: 'TemperatureGraph',
+                                            data: data,
+                                            options: {
+                                                tooltips: '%{key}',
+                                                tooltipsFormattedUnitsPost: '%',
+                                                tooltipsFormattedKeyColors: ['red','blue','#0f0'],
+                                                tooltipsFormattedKeyLabels: ['John','Richard','Luis'],
+                                                tooltipsCss: {
+                                                    fontSize: '16pt',
+                                                    textAlign: 'left'
+                                                },
+                                                backgroundGridVlines: false,
+                                                backgroundGridBorder: false,
+                                                colors: ['red','blue','green'],
+                                                linewidth: 2,
+                                                spline: true,
+                                                tickmarksStyle: 'dot',
+                                                tickmarksSize: 6,
+                                                xaxisLabels: xaxisLabels,
+                                                xaxis: false,
+                                                yaxis: false,
+                                                marginLeft: 40,
+                                                shadow: false,
+                                                labelsAbove: true,
+                                                labelsAboveUnitsPost: '%',
+                                                labelsAboveOffsety: -5
+                                            }
+                                        }).trace();
+                                    </script>
                                 </div>
                             </div>
                         </div>
