@@ -6,21 +6,32 @@
 <main id>
     <!--Dashboard Section-->
     <section id="DashBoard" class="DashBoard">
-        <div id="tech-color-bkgnd" class="top-side-bar row">
+        <div class="top-side-bar row tech-color-bkgnd">
             <div class="col-1">
                 <a href="#">
-                    <img class="logo" src="{{ asset('pictures/logo.jpg')}}"/>
+                    <img class="logo" src="{{ asset('pictures/logo.svg')}}"/>
                 </a>
             </div>
-            <ul class="col-10">
+            <ul class="col-9">
                 <li><a href=""><i class=""></i></a></li>
                 <li><a href=""><i class=""></i></a></li>
-                <li><a href=""><i class=""></i></a></li>
-                <li><a href="../index"><i class="bi bi-person-x"></i></a></li>
+            </ul>
+            <ul class="col-1">
+                <li class="dropdown"><a href="#"><span>Parselles</span> <i class="bi bi-chevron-down"></i></a>
+                    <!--<ul>
+                        <li><a href="#">Drop Down 1</a></li>
+                        <li><a href="#">Drop Down 2</a></li>
+                        <li><a href="#">Drop Down 3</a></li>
+                        <li><a href="#">Drop Down 4</a></li>
+                    </ul>-->
+                </li>
+            </ul>
+            <ul class="col-1">
+                <li><a href="../index"><span id="UserName">Tehcnicien</span><i class="bi bi-person-x"></i></a></li>
             </ul>
         </div>
         <div class="row">
-            <div id="tech-color-bkgnd" class="col-1 left-side-bar">
+            <div class="col-1 left-side-bar tech-color-bkgnd">
                 <ul>
                     <li>
                         <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
@@ -37,17 +48,45 @@
                 </ul>
             </div>
             <div class="col-10">
-                <div id="StatsBoard" class="StatsBoard Show container">
+                <div id="StatsBoard" class="StatsBoard Show container tech-color-txt">
                     <div id="tech-color-txt" class="row">
                         <!--La classe bg-danger ajoute un fond rouge à l'élément-->
                         <div class="col"><h1>Statistiques</h1></div>
                     </div>
-                    <div id="tech-color-txt" class="row">
-                        <div class="col"></div>
-                        <div class="col"></div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col"><h2>Humiditée</h2></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h3>actuelle</h3>
+                                    
+                                </div>
+                                <div class="col">
+                                    <h3>ces derniers jours</h3>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col"><h2>Température</h2></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h3>actuelle</h3>
+
+                                </div>
+                                <div class="col">
+                                    <h3>ces derniers jours</h3>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="MapBoard" class="MapBoard Hidden container">
+                <div id="MapBoard" class="MapBoard Hidden container tech-color-txt">
                     <div class="row">
                         <!--Map is here-->
                         <div id="MAP-Example"></div>       

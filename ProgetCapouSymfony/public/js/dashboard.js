@@ -3,10 +3,16 @@ function Change(id_Object_Hidden, id_Object_Shown){
     Show(id_Object_Shown);
 }
 function Show(id_Object){
-    document.getElementById(id_Object).classList.remove('Hidden');
-    document.getElementById(id_Object).classList.add('Show');
+    objectID=document.getElementById(id_Object);
+    if(objectID.classList.contains('Hidden')){
+        objectID.classList.remove('Hidden');
+    }
+    objectID.classList.add('Show');
 }
 function Hide(id_Object){
-    document.getElementById(id_Object).classList.remove('Show');
-    document.getElementById(id_Object).classList.add('Hidden');
+    objectID=document.getElementById(id_Object);
+    if(objectID.classList.contains('Show')){
+        objectID.classList.remove('Show');
+    }
+    objectID.classList.add('Hidden');
 }

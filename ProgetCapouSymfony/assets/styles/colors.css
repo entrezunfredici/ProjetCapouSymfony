@@ -10,21 +10,18 @@ backgroundColor="#383e42";//couleur de fond
 #footer{
     background: #622a27;
 }
-#footer-top{
-    background: #b1c903;
-}
-#home-color-txt{
+.home-color-txt{
     color:#0090d4;
 }
-#admin-color-bkgnd{
+.admin-color-bkgnd{
     background: #0090d4;
 }
-#admin-color-txt{
+.admin-color-txt{
     color:#0090d4;
 }
-#tech-color-bkgnd{
+.tech-color-bkgnd{
     background: #b1c903;
 }
-#tech-color-txt{
+.tech-color-txt{
     color:#b1c903
 }
