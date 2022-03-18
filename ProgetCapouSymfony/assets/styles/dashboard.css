@@ -29,6 +29,20 @@
 .left-side-bar > ul > li >a{
     color:white;
 }
+.title{
+    text-align:center;
+}
+.DropDownItems{
+    position:fixed;
+    padding-top:50px;
+}
+.DropDownItems ul {
+    background-color:black;
+    list-style: none;
+}
+.DropDownItems > ul > li >a{
+    color:white;
+}
 /*show element*/
 .Show{
     display: block;

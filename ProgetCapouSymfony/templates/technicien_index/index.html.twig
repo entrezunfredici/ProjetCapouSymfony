@@ -14,25 +14,28 @@
             </div>
             <ul class="col-2">
                 <li>
-                    <a class="nav-link" href="javascript:ChangeMenuWhithButton('lsbbutton', 'bi-list', 'bi-x-lg', 'lsb')">
-                        <i id="lsbbutton" class="bi bi-list"></i>
+                    <a class="nav-link" href="javascript:ChangeMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
+                        <i id="LsbButton" class="bi bi-list"></i>
                     </a>
                 </li>
             </ul>
             <ul class="col-5">
             </ul>
             <ul class="col-2">
-                <li class="dropdown"><a class="nav-link" href="#"><span>Parselles</span> <i class="bi bi-chevron-down"></i></a>
-                    <!--<ul>
-                        <li><a href="#">Drop Down 1</a></li>
-                        <li><a href="#">Drop Down 2</a></li>
-                        <li><a href="#">Drop Down 3</a></li>
-                        <li><a href="#">Drop Down 4</a></li>
-                    </ul>-->
+                <li>
+                    <a class="nav-link" href="javascript:ChangeMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
+                        <i id="DropDown" class="bi bi-arrow-bar-down"></i>
+                    </a>
+                    <div id="DDI" class="DropDownItems Hidden">
+                        <ul>
+                            <li><a class="nav-link" href="#">général</a></li>
+                            <li><a class="nav-link" href="#">parselle 1</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <ul class="col-2">
-                <li><a class="nav-link" href="../index"><span id="UserName">Tehcnicien</span><i class="bi bi-person-x"></i></a></li>
+                <li><a class="nav-link" href="../index"><span id="UserName"><!--name of the technician is here-->Tehcnicien </span><i class="bi bi-person-x"></i></a></li>
             </ul>
         </div>
         <div class="row">
@@ -52,11 +55,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-10">
                 <div id="StatsBoard" class="StatsBoard Show container">
                     <div class="row">
-                        <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                        <div class="col"><h1>Statistiques</h1></div>
+                        <div class="col title"><h1>Statistiques</h1></div>
                     </div>
                     <div class="row">
                         <div class="col">

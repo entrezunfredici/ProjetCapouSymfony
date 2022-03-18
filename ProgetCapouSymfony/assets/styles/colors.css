@@ -28,8 +28,11 @@ backgroundColor="#383e42";//couleur de fond
 .DashBoard{
     background-color: white;
     color:#383e42;
+    /*background-color:#383e42;
+    color: white;*/
 }
 .DashBar{
     background-color: #383e42;
+    /*background-color:black;*/
     color: white;
 }
