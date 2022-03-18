@@ -25,3 +25,11 @@ backgroundColor="#383e42";//couleur de fond
 .tech-color-txt{
     color:#b1c903
 }
+.DashBoard{
+    background-color: white;
+    color:#383e42;
+}
+.DashBar{
+    background-color: #383e42;
+    color: white;
+}

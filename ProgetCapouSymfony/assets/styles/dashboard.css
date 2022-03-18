@@ -9,6 +9,9 @@
     padding: 0;
     list-style: none;
 }
+.top-side-bar > ul > li > a{
+    color:white;
+}
 .top-side-bar > ul > li > a > i {
     font-size: 30px;
 }  
@@ -23,8 +26,9 @@
     padding: 0;
     list-style: none;
 }
-
-
+.left-side-bar > ul > li >a{
+    color:white;
+}
 /*show element*/
 .Show{
     display: block;
