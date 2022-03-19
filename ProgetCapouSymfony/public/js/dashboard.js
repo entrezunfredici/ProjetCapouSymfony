@@ -19,14 +19,15 @@ function ChangeMenuWhithButton(idButton, buttonClass1, buttonClass2, idBalise){
 }
 
 function Irrigation(idButton, buttonColor1, buttonColor2){
-    alert("test");
     buttonID=document.getElementById(idButton);
     if(buttonID.classList.contains(buttonColor1)){
         buttonID.classList.remove(buttonColor1);
         buttonID.classList.add(buttonColor2);
+        //irrigation on
     }else if(buttonID.classList.contains(buttonColor2)){
         buttonID.classList.remove(buttonColor2);
         buttonID.classList.add(buttonColor1);
+        //irrigation off
     }
 
 }
