@@ -1,12 +1,12 @@
-function ChangeMenuWhithButton(idButton, buttonClass1, buttonClass2, idObject){
-    objectID=document.getElementById(idObject);
+function ChangeMenuWhithButton(idButton, buttonClass1, buttonClass2, idBalise){
+    baliseID=document.getElementById(idBalise);
     buttonID=document.getElementById(idButton);
-    if(objectID.classList.contains('Hidden')){
-        objectID.classList.remove('Hidden');
-        objectID.classList.add('Show');
-    }else if(objectID.classList.contains('Show')){
-        objectID.classList.remove('Show');
-        objectID.classList.add('Hidden');
+    if(baliseID.classList.contains('Hidden')){
+        baliseID.classList.remove('Hidden');
+        baliseID.classList.add('Show');
+    }else if(baliseID.classList.contains('Show')){
+        baliseID.classList.remove('Show');
+        baliseID.classList.add('Hidden');
     }
 
     if(buttonID.classList.contains(buttonClass1)){
@@ -17,23 +17,36 @@ function ChangeMenuWhithButton(idButton, buttonClass1, buttonClass2, idObject){
         buttonID.classList.add(buttonClass1);
     }
 }
+
+function Irrigation(idButton, buttonColor1, buttonColor2){
+    alert("test");
+    buttonID=document.getElementById(idButton);
+    if(buttonID.classList.contains(buttonColor1)){
+        buttonID.classList.remove(buttonColor1);
+        buttonID.classList.add(buttonColor2);
+    }else if(buttonID.classList.contains(buttonColor2)){
+        buttonID.classList.remove(buttonColor2);
+        buttonID.classList.add(buttonColor1);
+    }
+
+}
 //this function hide one Object and Show one other object
-function Change(id_Object_Hidden, id_Object_Shown){
-    Hide(id_Object_Hidden);
-    Show(id_Object_Shown);
+function Change(idBaliseHidden, idBaliseShown){
+    Hide(idBaliseHidden);
+    Show(idBaliseShown);
 }
 
-function Show(id_Object){
-    objectID=document.getElementById(id_Object);
-    if(objectID.classList.contains('Hidden')){
-        objectID.classList.remove('Hidden');
+function Show(idBalise){
+    baliseID=document.getElementById(idBalise);
+    if(baliseID.classList.contains('Hidden')){
+        baliseID.classList.remove('Hidden');
     }
-    objectID.classList.add('Show');
+    baliseID.classList.add('Show');
 }
-function Hide(id_Object){
-    objectID=document.getElementById(id_Object);
-    if(objectID.classList.contains('Show')){
-        objectID.classList.remove('Show');
+function Hide(idBalise){
+    baliseID=document.getElementById(idBalise);
+    if(baliseID.classList.contains('Show')){
+        baliseID.classList.remove('Show');
     }
-    objectID.classList.add('Hidden');
+    baliseID.classList.add('Hidden');
 }

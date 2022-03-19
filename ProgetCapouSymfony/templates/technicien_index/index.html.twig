@@ -21,7 +21,7 @@
             </ul>
             <ul class="col-5">
             </ul>
-            <ul class="col-2">
+            <ul class="col-1">
                 <li>
                     <a class="nav-link" href="javascript:ChangeMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
                         <i id="DropDown" class="bi bi-arrow-bar-down"></i>
@@ -34,8 +34,15 @@
                     </div>
                 </li>
             </ul>
+            <ul class="col-1">
+                <li>
+                    <a class="nav-link" href="javascript:Irrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
+                        <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
+                    </a>
+                </li>
+            </ul>
             <ul class="col-2">
-                <li><a class="nav-link" href="../index"><span id="UserName"><!--name of the technician is here-->Tehcnicien </span><i class="bi bi-person-x"></i></a></li>
+                <li><a class="nav-link" href="../index"><span id="UserName"><!--name of the technician is here-->Technicien </span><i class="bi bi-person-x"></i></a></li>
             </ul>
         </div>
         <div class="row">
@@ -99,6 +106,6 @@
 </main>
 <!---->
 <footer>
-    <script type="text/javascript" src="{{ asset('../js/ShowMesures.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('../js/ShowMesure.js')}}"></script>
 </footer>
 {% endblock %}
