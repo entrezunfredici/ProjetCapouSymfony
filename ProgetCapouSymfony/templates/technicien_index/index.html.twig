@@ -6,7 +6,7 @@
 <main id>
     <!--Dashboard Section-->
     <section id="DashBoard" class="DashBoard">
-        <div class="top-side-bar row DashBar">
+        <div id="DashBar" class="top-side-bar row DashBar">
             <div class="col-1" class="DashLogo">
                 <a href="#">
                     <img class="logo" src="{{ asset('pictures/logo.svg')}}"/>
@@ -19,7 +19,14 @@
                     </a>
                 </li>
             </ul>
-            <ul class="col-5">
+            <ul class="col-4">
+            </ul>
+            <ul class="col-1">
+                <li>
+                    <a class="nav-link" href="javascript:DarkTheme('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
+                        <i id="DTBTN" class="bi bi-sun"></i>
+                    </a>
+                </li>
             </ul>
             <ul class="col-1">
                 <li>
@@ -72,11 +79,11 @@
                             <div class="row">
                                 <h2>données actuelles</h2>
                                 <div class="col">
-                                    <h3>Humiditée %</h3>
+                                    <h3>Humiditée <span id="HumidityValue"></span>%</h3>
                                     <canvas id="Humidity" width="300px" height="300px"></canvas>
                                 </div>
                                 <div class="col">
-                                    <h3>Température °C</h3>
+                                    <h3>Température <span id="TemperatureValue"></span>°C</h3>
                                     <canvas id="Temperature" width="100px" height="400px"></canvas>
                                 </div>
                             </div>
