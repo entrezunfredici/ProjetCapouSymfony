@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Irrigation Connectée{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/animations.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/app.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/colors.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/navbar.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/fonts/fonts.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/map.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+	<!--Header-->
+	<header  id="header" class="fixed-top ">
+		{% include "_elements/_navbar.html.twig" %}
+    </header>
+    <!---->
+    <!--Hero-->
+    <section id="hero">
+        <div class="hero-container">
+            <h1 id="Title">Campus Terre et vie</h1>
+        </div>
+    </section>
+    <!---->
+    <!--Main-->
+    <main id="home-color-txt">
+        <!--Map Section-->
+        <section id="MAP" class="MAP">
+            <div class="container">
+                <div class="row content">
+                    <!--Map is here-->
+                    <div id="mapMenu" class="map"></div> 
+                    <!---->
+                </div>
+            </div>
+        </section>
+        <!---->
+        <!--Informations Section-->
+        <section id="info" class="info page-holder">
+            <div class="container ">
+                <div class="section-title">
+                    <h2>informations</h2>
+                </div>
+                <div class="row content">
+                    <div class="col-lg-6">
+                        <h3>
+                            Etablissement:
+                        </h3>
+                        <h4>
+                            nom: Capou <br/>
+                            type: lycée agricole<br/>
+                        </h4>
+                        <h3>
+                            Site Web:
+                        </h3>
+                        <h4>
+                            Ce site web est un site web qui permet  permettant de contrôler le système d'irrigation 
+                            des champs agricoles du lycée capou à distance.
+                        </h4>
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0">
+                        <img class="image" src="{{ asset('pictures/etablissement.jpg')}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!---->
+    </main>
+    <!---->
+    <!--Footer-->
+    {% include "_elements/_footer.html.twig" %}
+    <!---->
+    <script src="{{ asset('js/move.js')}}"></script>
+{% endblock %}
