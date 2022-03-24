@@ -1,0 +1,19 @@
+<nav id="navbar" class="navbar">
+    <a href="#" class="nav-link fixed-top">
+        <img class="logo fixed-top" src="{{ asset('pictures/logo.svg')}}"/>
+    </a>
+    <ul>
+        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+        <li><a class="nav-link scrollto" href="#MAP">Carte</a></li>
+        <li><a class="nav-link scrollto" href="#info">Informations</a></li>
+        <li><a class="nav-link" href="{{ path('app_login') }}">Authentification</a></li><!--bouton pour acceder au formulaire de connexion-->
+    </ul>
+    <div class="mobile-nav-toggle">
+        <ol>
+            <li><a class="scrollto" href="#hero"><i class="bi bi-house-door-fill buttons_size"></i></a></li>
+            <li><a class="scrollto" href="#MAP"><i class="bi bi-geo buttons_size"></i></a></li>
+            <li><a class="scrollto" href="#info"><i class="bi bi-list-columns-reverse buttons_size"></i></a></li>
+            <li><a href=""><i class="bi bi-file-earmark-person"></i></a></li><!--bouton pour acceder au formulaire de connexion-->
+        </ol>
+    </div>
+</nav>
