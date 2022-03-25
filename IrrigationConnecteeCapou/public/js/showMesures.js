@@ -1,16 +1,21 @@
 //temperature °C
 temperatureMax=70
 temperatureMin=-30
+temperature=0;
 //humidity %
 humidityMin=0
 humidityMax=100
+humidity=0
 
 const TemperatureElem = document.getElementById("TemperatureValue")
 const HumidityElem = document.getElementById("HumidityValue")
+function SetMeasures(setTemperature, setHumidity){
+    temperature=setTemperature
+    humidity=setHumidity
+}
 
-function MeasurementsRefresh() {
-    temperature=Math.random()*(temperatureMax-temperatureMin)+temperatureMin //temperature
-    humidity=Math.random()*(humidityMax-humidityMin)+humidityMin //humidity
+function ShowMeasurements() {
+    SetMeasures(Math.random()*(temperatureMax-temperatureMin)+temperatureMin, Math.random()*(humidityMax-humidityMin)+humidityMin)//mesures setter
     //thermometer
     new RGraph.Thermometer({
         id:    'Temperature',
@@ -29,4 +34,4 @@ function MeasurementsRefresh() {
     HumidityElem.innerText = humidity;
 }
 
-setInterval(MeasurementsRefresh, 1000)
+setInterval(ShowMeasurements, 1000)

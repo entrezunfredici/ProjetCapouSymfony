@@ -64,8 +64,9 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         // For example:
         if('admin@test.fr' === $request->request->get('email', '')){
             return new RedirectResponse($this->urlGenerator->generate('app_admin'));
-        }
-        else{
+        }elseif('ROLE_TECHNICIAN'===$request->request->get('roles', '')){ //à faire fonctionner
+            return new RedirectResponse($this->urlGenerator->generate('app_technician'));
+        }else{
             return new RedirectResponse($this->urlGenerator->generate('app_home'));
         }
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
@@ -117,3 +118,4 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         return $user->getEmail();
     }
 }
+?>

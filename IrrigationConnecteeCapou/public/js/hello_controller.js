@@ -15,5 +15,4 @@ export default class extends Controller {
     }
 }
 document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.background = "#383e42";
 });

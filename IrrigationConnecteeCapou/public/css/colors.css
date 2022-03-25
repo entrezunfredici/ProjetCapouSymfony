@@ -44,3 +44,9 @@ backgroundColor="#383e42";//couleur de fond
 .irrigationOff{
     color:#b80718;
 }
+.Interface{
+    background-color: white;
+}
+.DarkInterface{
+    background-color: #383e42;
+}

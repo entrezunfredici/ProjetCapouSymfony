@@ -27,7 +27,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:DarkTheme('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
+                        <a class="nav-link" href="javascript:DarkThemeForDashboard('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
                             <i id="DTBTN" class="bi bi-sun"></i>
                         </a>
                     </li>
@@ -60,21 +60,28 @@
                 <div id="lsb" class="col-2 left-side-bar DashBar Hidden">
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
-                                <i class="bi bi-graph-up"></i> statistiques
-                            </a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
                             <a class="nav-link" href="javascript:Change('StatsBoard', 'MapBoard')">
                                 <i class="bi bi-cursor"></i> carte
                             </a>
                         </li>
                     </ul>
+                    <ul>
+                        <li>
+                            <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
+                                <i class="bi bi-graph-up"></i> statistiques
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-10">
-                    <div id="StatsBoard" class="StatsBoard Show container">
+                    <div id="MapBoard" class="MapBoard Show container tech-color-txt">
+                        <div class="row">
+                            <section id="MAP" class="MAP">
+                                <div id="mapTech" class="map"></div> 
+                            </section> 
+                        </div>
+                    </div>
+                    <div id="StatsBoard" class="StatsBoard Hidden container">
                         <div class="row">
                             <div class="col title"><h1>Statistiques</h1></div>
                         </div>
@@ -105,13 +112,6 @@
                             </div>
                         </div>
                     </div>
-                    <div id="MapBoard" class="MapBoard Hidden container tech-color-txt">
-                        <div class="row">
-                            <section id="MAP" class="MAP">
-                                <div id="mapTech" class="map"></div> 
-                            </section> 
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -120,7 +120,5 @@
     <footer>
     </footer>
 
-	<script src="{{ asset('js/technician.js')}}"></script>
 	<script src="{{ asset('js/showMesures.js')}}"></script>
-
 {% endblock %}

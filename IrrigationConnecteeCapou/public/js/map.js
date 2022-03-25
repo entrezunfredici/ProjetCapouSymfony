@@ -25,10 +25,7 @@ var mapMenu = new ol.Map({
         source: new ol.source.OSM(),
       })
     ],
-    view: new ol.View({
-      center: ol.proj.fromLonLat([1.3075260,44.0317357]),
-      zoom: 15,
-    })
+    view: view
 });
 var mapTech = new ol.Map({
   target: 'mapTech',
@@ -37,8 +34,5 @@ var mapTech = new ol.Map({
       source: new ol.source.OSM(),
     })
   ],
-  view: new ol.View({
-    center: ol.proj.fromLonLat([1.3075260,44.0317357]),
-    zoom: 15,
-  })
+  view: view
 });
