@@ -1,35 +1,24 @@
-function ChangeMenuWhithButton(idButton, buttonClass1, buttonClass2, idBalise){
-    ChangeBaliseClass(idBalise, 'Hidden', 'Show')
-    ChangeBaliseClass(idButton, buttonClass1, buttonClass2)
+function DDShowMenuWhithButton(idButton, buttonClass1, buttonClass2, idBalise){
+    DDChangeBaliseClass(idBalise, 'Hidden', 'Show')
+    DDChangeBaliseClass(idButton, buttonClass1, buttonClass2)
 }
 
-function Irrigation(idButton, buttonColor1, buttonColor2){
-    if(ConfirmChangement("êtes ou sur(e) de vouloir modifier l'état de la vanne?")){
-        mode=ChangeBaliseClass(idButton, buttonColor1, buttonColor2);
-        if(mode==1){
-            //irrigation off
-        }else if(mode==2){
-            //irrigation on
-        }
-    }
+function DDDarkThemeClassic(idButton, idInterface){
+    DDChangeBaliseClass(idInterface, 'Interface', 'DarkInterface')
+    DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
 }
 
-function DarkThemeClassic(idButton, idInterface){
-    ChangeBaliseClass(idInterface, 'Interface', 'DarkInterface')
-    ChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
-}
-
-function DarkThemeForDashboard(idButton, idTopBar, idSidesBar, idDachboard){
-    ChangeBaliseClass(idSidesBar, 'DashBar', 'DarkDashBar')
-    ChangeBaliseClass(idTopBar, 'DashBar', 'DarkDashBar')
-    ChangeBaliseClass(idDachboard, 'DashBoard', 'DarkDashBoard')
-    ChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
+function DDDarkThemeForDashboard(idButton, idTopBar, idSidesBar, idDachboard){
+    DDChangeBaliseClass(idSidesBar, 'DashBar', 'DarkDashBar')
+    DDChangeBaliseClass(idTopBar, 'DashBar', 'DarkDashBar')
+    DDChangeBaliseClass(idDachboard, 'DashBoard', 'DarkDashBoard')
+    DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
 }
 
 //this function hide one Object and Show one other object
-function Change(idBaliseHidden, idBaliseShown){
-    Hide(idBaliseHidden);
-    Show(idBaliseShown);
+function DDChangeBaliseShowed(idBaliseHidden, idBaliseShown){
+    DDHideBalise(idBaliseHidden);
+    DDShowBalise(idBaliseShown);
 }
 
 function ConfirmChangement(message) {
@@ -40,7 +29,7 @@ function ConfirmChangement(message) {
     return 0;
 }
 
-function ChangeBaliseClass(idBalise, class1, class2){
+function DDChangeBaliseClass(idBalise, class1, class2){
     baliseID=document.getElementById(idBalise);
     if(baliseID.classList.contains(class1)){
         baliseID.classList.remove(class1);
@@ -54,14 +43,14 @@ function ChangeBaliseClass(idBalise, class1, class2){
     return 0;
 }
 
-function Show(idBalise){
+function DDShowBalise(idBalise){
     baliseID=document.getElementById(idBalise);
     if(baliseID.classList.contains('Hidden')){
         baliseID.classList.remove('Hidden');
     }
     baliseID.classList.add('Show');
 }
-function Hide(idBalise){
+function DDHideBalise(idBalise){
     baliseID=document.getElementById(idBalise);
     if(baliseID.classList.contains('Show')){
         baliseID.classList.remove('Show');

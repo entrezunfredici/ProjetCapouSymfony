@@ -18,7 +18,7 @@
                 </div>
                 <ul class="col-2">
                     <li>
-                        <a class="nav-link" href="javascript:ChangeMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
+                        <a class="nav-link" href="javascript:DDShowMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
                             <i id="LsbButton" class="bi bi-list"></i>
                         </a>
                     </li>
@@ -27,7 +27,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:DarkThemeForDashboard('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
+                        <a class="nav-link" href="javascript:DDDarkThemeForDashboard('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
                             <i id="DTBTN" class="bi bi-sun"></i>
                         </a>
                     </li>
@@ -47,7 +47,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:Irrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
+                        <a class="nav-link" href="javascript:TCIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
                             <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
                         </a>
                     </li>
@@ -60,14 +60,14 @@
                 <div id="lsb" class="col-2 left-side-bar DashBar Hidden">
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:Change('StatsBoard', 'MapBoard')">
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('StatsBoard', 'MapBoard')">
                                 <i class="bi bi-cursor"></i> carte
                             </a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard', 'StatsBoard')">
                                 <i class="bi bi-graph-up"></i> statistiques
                             </a>
                         </li>
@@ -120,5 +120,5 @@
     <footer>
     </footer>
 
-	<script src="{{ asset('js/showMesures.js')}}"></script>
+	<script src="{{ asset('js/TechnicianDataController.js')}}"></script>
 {% endblock %}
