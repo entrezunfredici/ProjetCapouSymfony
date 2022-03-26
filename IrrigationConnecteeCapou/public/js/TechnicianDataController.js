@@ -17,6 +17,8 @@ function TCSetMeasures(setTemperature, setHumidity){
 
 function TCShowMeasurements() {
     TCSetMeasures(Math.random()*(temperatureMax-temperatureMin)+temperatureMin, Math.random()*(humidityMax-humidityMin)+humidityMin)//mesures setter
+    //temperature=document.getElementById("TemperatureValue").value
+    //humidity=document.getElementById("HumidityValue").value
     //thermometer
     new RGraph.Thermometer({
         id:    'Temperature',
