@@ -15,8 +15,8 @@ class TechnicianController extends AbstractController
     }
 }
 
-$temperature=25;//il faudra recuperer la rai valeur sur la BDD
-$humidity=50;//il faudra recuperer la rai valeur sur la BDD
+$temperature=rand(-30, 70);//il faudra recuperer la rai valeur sur la BDD
+$humidity=rand(0, 100);//il faudra recuperer la rai valeur sur la BDD
 ?>
 <script>
     var Temperature=<?php echo $temperature; ?>;

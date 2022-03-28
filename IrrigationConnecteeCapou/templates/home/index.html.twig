@@ -33,11 +33,18 @@
         <section id="MAP" class="MAP">
             <div class="container">
                 <div class="row content">
-                    
+                    <select id="layer-select">
+                        <option value="Aerial">Aerial</option>
+                        <option value="AerialWithLabelsOnDemand" selected>Aerial with labels</option>
+                        <option value="RoadOnDemand">Road</option>
+                        <option value="CanvasDark">Road dark</option>
+                        <option value="OrdnanceSurvey">Ordnance Survey</option>
+                    </select>   
                 </div>
                 <div class="row content">
                     <!--Map is here-->
                     <div id="mapMenu" class="map"></div> 
+                    
                     <!---->
                 </div>
             </div>

@@ -20,19 +20,13 @@ var mapAdmin = new ol.Map({
 
 var mapMenu = new ol.Map({
     target: 'mapMenu',
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM(),
-      })
-    ],
+    controls: [screen, scale],
+    layers: [layer],
     view: view
 });
 var mapTech = new ol.Map({
   target: 'mapTech',
-  layers: [
-    new ol.layer.Tile({
-      source: new ol.source.OSM(),
-    })
-  ],
+  controls: [screen, scale],
+  layers: [layer],
   view: view
 });

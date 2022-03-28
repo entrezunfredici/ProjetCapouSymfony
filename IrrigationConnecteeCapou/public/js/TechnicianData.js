@@ -8,7 +8,6 @@ humidityMax=100
 humidity=0
 
 function TDShowMeasurements() {
-    //TCSetMeasures(Math.random()*(temperatureMax-temperatureMin)+temperatureMin, Math.random()*(humidityMax-humidityMin)+humidityMin)//mesures setter
     temperature=document.getElementById("TemperatureValue").innerHTML;
     humidity=document.getElementById("HumidityValue").innerHTML;
     //thermometer

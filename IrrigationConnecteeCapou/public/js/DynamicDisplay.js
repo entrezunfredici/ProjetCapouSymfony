@@ -8,11 +8,10 @@ function DDDarkThemeClassic(idButton, idInterface){
     DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
 }
 
-function DDDarkThemeForDashboard(idButton, idTopBar, idSidesBar, idDachboard){
-    DDChangeBaliseClass(idSidesBar, 'DashBar', 'DarkDashBar')
-    DDChangeBaliseClass(idTopBar, 'DashBar', 'DarkDashBar')
-    DDChangeBaliseClass(idDachboard, 'DashBoard', 'DarkDashBoard')
+function DDDarkThemeClassicWithOtherButton(idButton, idButton2, idInterface){
+    DDChangeBaliseClass(idInterface, 'Interface', 'DarkInterface')
     DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
+    DDChangeBaliseClass(idButton2, 'bi-sun', 'bi-moon-stars')
 }
 
 //this function hide one Object and Show one other object
