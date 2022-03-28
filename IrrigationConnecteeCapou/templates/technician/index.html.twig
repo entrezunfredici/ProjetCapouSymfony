@@ -34,7 +34,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:ChangeMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
+                        <a class="nav-link" href="javascript:DDShowMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
                             <i id="DropDown" class="bi bi-arrow-bar-down"></i>
                         </a>
                         <div id="DDI" class="DropDownItems Hidden">
@@ -47,7 +47,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:TCIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
+                        <a class="nav-link" href="javascript:TDIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
                             <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
                         </a>
                     </li>
@@ -120,5 +120,5 @@
     <footer>
     </footer>
 
-	<script src="{{ asset('js/TechnicianDataController.js')}}"></script>
+	<script src="{{ asset('js/TechnicianData.js')}}"></script>
 {% endblock %}
