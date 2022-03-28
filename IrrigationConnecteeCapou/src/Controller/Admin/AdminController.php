@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Card;
 use App\Entity\Plot;
 use App\Entity\Valve;
 
@@ -30,6 +31,12 @@ class AdminController extends AbstractDashboardController
         $users = $this->doctrine->getRepository(User::class)->count([]);
         $plots = $this->doctrine->getRepository(Plot::class)->count([]);
         $openValve = $this->doctrine->getRepository(Valve::class)->count(['state' => 1]);
+        if(($this->doctrine->getRepository(Card::class)->count([]))!=0){
+            $cards = $this->doctrine->getRepository(Card::class)->count([]);
+        }
+        else{
+            $cards = 0;
+        }
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -45,7 +52,7 @@ class AdminController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        return $this->render('admin/admin.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve]);
+        return $this->render('admin/admin.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards]);
     }
 
     public function configureDashboard(): Dashboard
@@ -56,7 +63,7 @@ class AdminController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToRoute('Accueil', 'fas fa-home', 'app_admin');
+        yield MenuItem::linkToUrl('Accueil', 'fas fa-home', $this->generateUrl('app_admin'));
         
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::subMenu('Actions', 'fas fa-list')->setSubItems([
@@ -75,5 +82,7 @@ class AdminController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter vanne', 'fas fa-plus', Valve::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Liste vannes', 'fas fa-eye', Valve::class)
         ]);
+        //yield MenuItem::section()->setCssClass('footer','dividermenu');
+        yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-sign-out');
     }
 }

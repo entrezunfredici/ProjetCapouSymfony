@@ -6,6 +6,7 @@
 {% block javascript %}
 	
 {% endblock %}
+
 {% block main %}
 
 	<!-- ********************************************** Style  files ************************************************** -->
@@ -51,8 +52,8 @@
                         <div class="card shadow-none m-0 border-start">
                             <div class="card-body text-center">
                                 <i class="dripicons-graph-line text-muted" style="font-size: 24px;"></i>
-                                <h3><span>93%</span> <i class="mdi mdi-arrow-up text-success"></i></h3>
-                                <p class="text-muted font-15 mb-0">Productivity</p>
+                                <h3><span>{{ cards }}</span></h3>
+                                <p class="text-muted font-15 mb-0">Cartes</p>
                             </div>
                         </div>
                     </div>
@@ -62,11 +63,24 @@
         </div> <!-- end card-box-->
     </div> <!-- end col-->
 
-    <div id="mapAdmin" class="map mt-2"></div>  
+    <div id="mapAdmin" class="map mt-2"></div> 
     
+    <div class="col-12">
+    	<div class="row">
+        	<div class="col-sm-12 col-lg-6">
+        		<canvas id="myChart"></canvas>
+        	</div>
+        	<div class="col-sm-12 col-lg-6">
+        		<canvas id="myChart2"></canvas>
+            </div>
+    	</div>
+	</div>
+   
     <!-- ********************************************** Script files ************************************************** -->
-    <script src="{{ asset('js/openlayer.js')}}"></script>
-    <script src="{{ asset('js/map.js')}}"></script>
+    <script src="{{ asset('js/libraries/chart.js')}}"></script>
+    <script src="{{ asset('js/chart.js')}}"></script>
+    <script src="{{ asset('js/openlayer.js') }}"></script>
+    <script src="{{ asset('js/map.js') }}"></script>
 	<!-- ************************************************************************************************************** -->
 
 {% endblock %}

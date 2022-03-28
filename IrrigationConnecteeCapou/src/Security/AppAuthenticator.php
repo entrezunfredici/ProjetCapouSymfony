@@ -61,12 +61,12 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $userEmail = $this->getUserEmail($token);
         $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient de se connecter avec l'email '{$userEmail}'");
         
-        // For example:
-        if('admin@test.fr' === $request->request->get('email', '')){
+        $roles = array('ROLE_ADMIN', 'ROLE_TECHNICIAN');
+        if($token->getUser()->getRoles() === $roles){
             return new RedirectResponse($this->urlGenerator->generate('app_admin'));
         }
         else{
-            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+            return new RedirectResponse($this->urlGenerator->generate('app_technician'));
         }
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
