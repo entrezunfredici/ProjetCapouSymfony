@@ -78,6 +78,14 @@
                         <div class="row">
                             <div class="col title"><h1>Carte</h1></div>
                         </div>
+                        <div class="row content">
+                            <select id="layer-select">
+                                <option value="">Carte Classique</option>
+                                <option value="AerialWithLabelsOnDemand" selected>Carte Aérienne</option>
+                                <option value="RoadOnDemand">Carte Routes</option>
+                                <option value="CanvasDark">Carte Routes Sombre</option>
+                            </select>   
+                        </div>
                         <div class="row">
                             <section id="MAP" class="MAP">
                                 <div id="mapTech" class="map"></div> 
@@ -109,8 +117,5 @@
         </section>
     </main>
     <!---->
-    <footer>
-    </footer>
-
 	<script src="{{ asset('js/TechnicianData.js')}}"></script>
 {% endblock %}
