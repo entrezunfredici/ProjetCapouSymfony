@@ -54,8 +54,9 @@ var mapAdmin = new ol.Map({
 	view: view
 });
 var mapMenu = new ol.Map({
-  layers: layers,
   target: 'mapMenu',
+  controls: [screen, scale],
+  layers: layers,
   view: view
 });
 var mapTech = new ol.Map({
