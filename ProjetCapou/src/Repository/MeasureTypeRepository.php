@@ -18,33 +18,33 @@ class MeasureTypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MeasureType::class);
     }
-
+    
     // /**
     //  * @return MeasureType[] Returns an array of MeasureType objects
     //  */
     /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
+     public function findByExampleField($value)
+     {
+     return $this->createQueryBuilder('m')
+     ->andWhere('m.exampleField = :val')
+     ->setParameter('val', $value)
+     ->orderBy('m.id', 'ASC')
+     ->setMaxResults(10)
+     ->getQuery()
+     ->getResult()
+     ;
+     }
+     */
+    
     /*
-    public function findOneBySomeField($value): ?MeasureType
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+     public function findOneBySomeField($value): ?MeasureType
+     {
+     return $this->createQueryBuilder('m')
+     ->andWhere('m.exampleField = :val')
+     ->setParameter('val', $value)
+     ->getQuery()
+     ->getOneOrNullResult()
+     ;
+     }
+     */
 }

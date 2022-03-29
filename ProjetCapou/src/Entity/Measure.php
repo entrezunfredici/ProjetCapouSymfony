@@ -12,28 +12,28 @@ class Measure
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $date;
-
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $time;
-
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $gps;
-
+    
     #[ORM\Column(type: 'integer')]
     private $value;
-
+    
     #[ORM\ManyToOne(targetEntity: MeasureType::class, inversedBy: 'measures')]
     #[ORM\JoinColumn(nullable: false)]
     private $measureType;
-
+    
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
     public function getDate(): ?string
     {
         return $this->date;
@@ -57,40 +57,40 @@ class Measure
         
         return $this;
     }
-
+    
     public function getGps(): ?string
     {
         return $this->gps;
     }
-
+    
     public function setGps(string $gps): self
     {
         $this->gps = $gps;
-
+        
         return $this;
     }
-
+    
     public function getValue(): ?int
     {
         return $this->value;
     }
-
+    
     public function setValue(int $value): self
     {
         $this->value = $value;
-
+        
         return $this;
     }
-
+    
     public function getMeasureType(): ?MeasureType
     {
         return $this->measureType;
     }
-
+    
     public function setMeasureType(?MeasureType $measureType): self
     {
         $this->measureType = $measureType;
-
+        
         return $this;
     }
     
@@ -98,23 +98,23 @@ class Measure
     //     {
     //         return $this->date;
     //     }
-        
+    
     //     public function setDate(\DateTimeInterface $date): self
     //     {
     //         $this->date = $date;
-        
+    
     //         return $this;
     //     }
-        
+    
     //     public function getTime(): ?\DateTimeInterface
     //     {
     //         return $this->time;
     //     }
-        
+    
     //     public function setTime(\DateTimeInterface $time): self
     //     {
     //         $this->time = $time;
-        
+    
     //         return $this;
     //     }
 }

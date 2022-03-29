@@ -14,35 +14,35 @@ class MeasureType
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $type;
-
+    
     #[ORM\OneToMany(mappedBy: 'measureType', targetEntity: Measure::class)]
     private $measures;
-
+    
     public function __construct()
     {
         $this->measures = new ArrayCollection();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
     public function getType(): ?string
     {
         return $this->type;
     }
-
+    
     public function setType(string $type): self
     {
         $this->type = $type;
-
+        
         return $this;
     }
-
+    
     /**
      * @return Collection<int, Measure>
      */
@@ -50,17 +50,17 @@ class MeasureType
     {
         return $this->measures;
     }
-
+    
     public function addMeasure(Measure $measure): self
     {
         if (!$this->measures->contains($measure)) {
             $this->measures[] = $measure;
             $measure->setMeasureType($this);
         }
-
+        
         return $this;
     }
-
+    
     public function removeMeasure(Measure $measure): self
     {
         if ($this->measures->removeElement($measure)) {
@@ -69,7 +69,7 @@ class MeasureType
                 $measure->setMeasureType(null);
             }
         }
-
+        
         return $this;
     }
 }

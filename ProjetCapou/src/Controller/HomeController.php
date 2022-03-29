@@ -2,44 +2,36 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
-use Psr\Log\LoggerInterface;
 
 class HomeController extends AbstractController
-{
+{ 
     private LoggerInterface $logger;
     private RequestStack $requestStack;
-    private Security $security;
     
-    public function __construct(LoggerInterface $logger, RequestStack $requestStack, Security $security)
+    public function __construct(LoggerInterface $logger, RequestStack $requestStack)
     {
         $this->logger = $logger;
         $this->requestStack = $requestStack;
-        $this->security = $security;
     }
     
-    #[Route('/', name: 'home')]
-    public function index(LoggerInterface $logger)
+    #[Route('/', name: 'app_home')]
+    public function index(): Response
     {
         [
-            'user_IP' => $userIP,
-            'route_name' => $routeName
+        'user_IP' => $userIP,
+        'route_name' => $routeName
         ] = $this->getRouteNameAndUserIP();
         
-        //$userEmail = $this->security->getUser()->getEmail();
-        
         if(!$this->getUser()){
-            $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient d'accèder à la page: '{$routeName}' ");
+            $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient d'accÃ¨der Ã  la page: '{$routeName}' ");
         }
-
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        
+        return $this->render('home/index.html.twig');
     }
     
     private function getRouteNameAndUserIP(): array
@@ -51,5 +43,4 @@ class HomeController extends AbstractController
             'route_name' => $request->attributes->get('_route')
         ];
     }
-    
 }

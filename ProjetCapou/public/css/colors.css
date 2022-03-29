@@ -1,0 +1,46 @@
+/*
+//listes des couleurs
+specBlue="#0090d4";//bleu de la charte graphique
+specOrange="#eb6e1d";//ORange de la charte graphique
+specRed="#b80718";//rouge de la charte graphique
+specBrown="#622a27";//marron de la charte graphique
+specGreen="#b1c903";//vert de la charte graphique
+backgroundColor="#383e42";//couleur de fond
+*/
+#footer{
+    background: #622a27;
+}
+.home-color-txt{
+    color:#0090d4;
+}
+.admin-color-bkgnd{
+    background: #0090d4;
+}
+.admin-color-txt{
+    color:#0090d4;
+}
+.tech-color-bkgnd{
+    background: #b1c903;
+}
+.tech-color-txt{
+    color:#b1c903
+}
+.DashBoard{
+    background-color: white;
+    color:#383e42;
+}
+.DashBar{
+    background-color: #383e42;
+    color: white;
+}
+.DarkDashBoard{
+    background-color:#383e42;
+    color: white;
+}
+.DarkDashBar{
+    background-color:black;
+    color: white;
+}
+.irrigationOff{
+    color:#b80718;
+}

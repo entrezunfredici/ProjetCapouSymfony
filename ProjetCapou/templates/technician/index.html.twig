@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Technicien{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/technician.css')}}">
+{% endblock %}
+
+{% block body %}
+    <main id>
+        <!--Dashboard Section-->
+        <section id="DashBoard" class="DashBoard">
+            <div id="DashBar" class="top-side-bar row DashBar">
+                <div class="col-1" class="DashLogo">
+                    <a href="#">
+                        <img class="logo" src="{{ asset('pictures/logo.svg')}}"/>
+                    </a>
+                </div>
+                <ul class="col-2">
+                    <li>
+                        <a class="nav-link" href="javascript:ChangeMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
+                            <i id="LsbButton" class="bi bi-list"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="col-4">
+                </ul>
+                <ul class="col-1">
+                    <li>
+                        <a class="nav-link" href="javascript:DarkTheme('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
+                            <i id="DTBTN" class="bi bi-sun"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="col-1">
+                    <li>
+                        <a class="nav-link" href="javascript:ChangeMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
+                            <i id="DropDown" class="bi bi-arrow-bar-down"></i>
+                        </a>
+                        <div id="DDI" class="DropDownItems Hidden">
+                            <ul>
+                                <li><a class="nav-link" href="#">général</a></li>
+                                <li><a class="nav-link" href="#">parselle 1</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="col-1">
+                    <li>
+                        <a class="nav-link" href="javascript:Irrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
+                            <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="col-2">
+                    <li><a class="nav-link" href="{{ path('app_logout') }}"><span id="UserName"><!--name of the technician is here-->Technicien </span><i class="bi bi-person-x"></i></a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <div id="lsb" class="col-2 left-side-bar DashBar Hidden">
+                    <ul>
+                        <li>
+                            <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
+                                <i class="bi bi-graph-up"></i> statistiques
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a class="nav-link" href="javascript:Change('StatsBoard', 'MapBoard')">
+                                <i class="bi bi-cursor"></i> carte
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-10">
+                    <div id="StatsBoard" class="StatsBoard Show container">
+                        <div class="row">
+                            <div class="col title"><h1>Statistiques</h1></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <h2>données actuelles</h2>
+                                    <div class="col">
+                                        <h3>Humiditée <span id="HumidityValue"></span>%</h3>
+                                        <canvas id="Humidity" width="300px" height="300px"></canvas>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Température <span id="TemperatureValue"></span>°C</h3>
+                                        <canvas id="Temperature" width="100px" height="400px"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h2>réçamment</h2>
+                                    <div class="col">
+                                        <h3>Humiditée</h3>
+                                        <canvas id="HumidityGraph" width="300px" height="200px"></canvas>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Température</h3>
+                                        <canvas id="TemperatureGraph" width="300px" height="200px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="MapBoard" class="MapBoard Hidden container tech-color-txt">
+                        <div class="row">
+                            <section id="MAP" class="MAP">
+                                <div id="mapTech" class="map"></div> 
+                            </section> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!---->
+    <footer>
+    </footer>
+
+	<script src="{{ asset('js/technician.js')}}"></script>
+	<script src="{{ asset('js/showMesures.js')}}"></script>
+
+{% endblock %}

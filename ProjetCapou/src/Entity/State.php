@@ -14,35 +14,35 @@ class State
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $description;
-
+    
     #[ORM\OneToMany(mappedBy: 'state', targetEntity: Card::class)]
     private $cards;
-
+    
     public function __construct()
     {
         $this->cards = new ArrayCollection();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
     public function getDescription(): ?string
     {
         return $this->description;
     }
-
+    
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
+        
         return $this;
     }
-
+    
     /**
      * @return Collection<int, Card>
      */
@@ -50,17 +50,17 @@ class State
     {
         return $this->cards;
     }
-
+    
     public function addCard(Card $card): self
     {
         if (!$this->cards->contains($card)) {
             $this->cards[] = $card;
             $card->setState($this);
         }
-
+        
         return $this;
     }
-
+    
     public function removeCard(Card $card): self
     {
         if ($this->cards->removeElement($card)) {
@@ -69,7 +69,7 @@ class State
                 $card->setState(null);
             }
         }
-
+        
         return $this;
     }
 }
