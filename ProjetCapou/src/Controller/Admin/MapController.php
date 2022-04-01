@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Measure;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 class MapController extends AbstractController
@@ -18,41 +19,24 @@ class MapController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
-//     #[Route('/admin/map', name: 'mapLastData')]
-//     public function sendLocation(): Response
-//     {
-//         $doctrine = $this->doctrine->getManager();
-//         $measureObjects = $doctrine->getRepository(Measure::class)->findAll();
-//         $plotCoordinate = array();
-        
-//         foreach($measureObjects as $measureObject){
-//             $dataArray = $measureObject->getId();
-//             $dataObject = $dataArray->last();
-//             $coordinate = $this->DSMToDD($dataObject->getGps());
-//             array_push($plotCoordinate, array( "idMeasure" => $measureObject->getId(),
-//                 "latitude" => $coordinate["latitude"],
-//                 "longitude" => $coordinate["longitude"]));
-//         }
-//         return new JsonResponse($plotCoordinate);
-
-//     }
-    
     #[Route('/admin/map', name: 'mapLastData')]
-    public function sendLocation(): Response
+    public function sendLocation(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
     {
-        if(!isset($_GET["idMeasure"])) return new Response(Response::HTTP_NOT_FOUND);
         
-        $doctrine = $this->getDoctrine()->getManager();
-        $measureObjectId = $doctrine->getRepository(Measure::class)->findOneById($_GET["idMeasure"]);
+        $this->doctrine = $doctrine;
+        
+        //         $repository = $entityManager->getRepository(Measure::class);
+        //         $measures = $repository->findAll();
+        //         dd($measures);
+        
+        $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
         $measureCoordinate = array();
         
-        foreach($measureObjectId->getIdData() as $dataObject) {
-            $coordinate = $this->DSMToDD($dataObject->getNmea());
-            array_push($measureCoordinate, array( "idMeasure" => $measureObjectId->getId(),
+        foreach($measureObjects as $measureObject){
+            $coordinate = $this->DSMToDD($measureObject->getGps());
+            array_push($measureCoordinate, array("idMeasure" => $measureObject->getId(),
                 "latitude" => $coordinate["latitude"],
                 "longitude" => $coordinate["longitude"]
-                
             ));
         }
         return new JsonResponse($measureCoordinate);
@@ -64,25 +48,8 @@ class MapController extends AbstractController
     {
         $nmeaFrame = explode(",", $frameArray);
         
-        $frameLatitude = floatval($nmeaFrame[1]);
-        $frameLongitude = floatval($nmeaFrame[2]);
-        
-//         $degreeLatitude = ($frameLatitude / 100) % 100;
-//         $minuteLatitude = ($frameLatitude % 100);
-//         $secondLatitude = ($frameLatitude - ($frameLatitude % 10000));
-//         $latitude = ($degreeLatitude + ($minuteLatitude / 60) + ($secondLatitude * 60 / 3600));
-        
-//         $degreeLongitude = (($frameLongitude / 100) % 1000);
-//         $minuteLongitude = ($frameLongitude % 100);
-//         $secondLongitude = ($frameLongitude - ($frameLongitude % 10000));
-//         $longitude = ($degreeLongitude + ($minuteLongitude / 60) + ($secondLongitude * 60 / 3600));
-        
-//         if($nmeaFrame[3] == 'S'){
-//             $latitude = -$latitude;
-//         };
-//         if($nmeaFrame[5] == 'O'){
-//             $longitude = -$longitude;
-//         };
+        $frameLatitude = floatval($nmeaFrame[0]);
+        $frameLongitude = floatval($nmeaFrame[1]);
         
         return array("longitude" => $frameLongitude, "latitude" => $frameLatitude);
     }

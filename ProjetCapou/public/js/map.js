@@ -6,21 +6,21 @@ var mapAdmin = new ol.Map({
 	  controls: [screen, scale],	
       layers: [
         new ol.layer.Tile({
-          source: new ol.source.OSM()
+          source: new ol.source.XYZ({
+        
+        url:
+          'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key=' + 'QUh8gnCRN3cFAfJBOytg#1.3219280948873624/0/0',})
         })
       ],
       view: new ol.View({
         center: ol.proj.fromLonLat([1.307, 44.035]),
-        zoom: 4
+        zoom: 15
       })
 });
 
 var layer = new ol.layer.Vector({
   source: new ol.source.Vector({
     features: [
-      new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([1.307, 44.035]))
-      }),
     ]
   }),
   style: new ol.style.Style({
@@ -60,7 +60,7 @@ var mapTech = new ol.Map({
 });
 
 //AjaxCall();
-var idInter = setInterval(AjaxCall, 60000); //Set Interval 3s Between Each Call
+var idInter = setInterval(AjaxCall, 5000); //Set Interval 3s Between Each Call
 
 //function AjaxCall(){
 //	AddMap();
@@ -79,14 +79,14 @@ function AddMap(data){
 	}
 	//------------------------------------------------------------------//
 	
-	data.forEach((dataObject) => {
+	data.forEach((measureObject) => {
 		var layer = new ol.layer.Vector({
 			
 			//------------------------- Marker Location ------------------------//
 			source: new ol.source.Vector({
 				features: [
 					new ol.Feature({
-		  				geometry: new ol.geom.Point(ol.proj.fromLonLat([dataObject["longitude"], dataObject["latitude"]]))
+		  				geometry: new ol.geom.Point(ol.proj.fromLonLat([measureObject["longitude"], measureObject["latitude"]]))
 					}),
 				]
 			}),
