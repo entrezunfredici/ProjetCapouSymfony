@@ -1,31 +1,47 @@
 //temperature °C
 temperatureMax=70
 temperatureMin=-30
-temperature=0
+airTemperature=0
+floorTemperature=0
 //humidity %
 humidityMin=0
 humidityMax=100
-humidity=0
+airHumidity=0
+floorHumidity=0
 
 function TDShowMeasurements() {
-    temperature=document.getElementById("TemperatureValue").innerHTML;
-    humidity=document.getElementById("HumidityValue").innerHTML;
-    //thermometer
+    document.getElementById("AirHumidityValue").innerHTML=airHumidity;
+    document.getElementById("FloorHumidityValue").innerHTML=floorHumidity
+    document.getElementById("AirTemperatureValue").innerHTML=airTemperature;
+    document.getElementById("FloorTemperatureValue").innerHTML=floorTemperature;
+    //thermometers
     new RGraph.Thermometer({
-        id:    'Temperature',
+        id:    'AirTemperature',
         min:   temperatureMin,
         max:   temperatureMax,
-        value: temperature
+        value: airTemperature
+    }).draw();
+    new RGraph.Thermometer({
+        id:    'FloorTemperature',
+        min:   temperatureMin,
+        max:   temperatureMax,
+        value: floorTemperature
     }).draw();
     //manometer
     new RGraph.Gauge({
-        id:    'Humidity',
+        id:    'AirHumidity',
         min:   humidityMin,
         max:   humidityMax,
-        value: humidity 
+        value: airHumidity 
+    }).draw();
+    new RGraph.Gauge({
+        id:    'FloorHumidity',
+        min:   humidityMin,
+        max:   humidityMax,
+        value: floorHumidity 
     }).draw();
 }
-setInterval(TDShowMeasurements, 1000)
+setInterval(TDShowMeasurements, 250)
 
 //vannes
 function TDIrrigation(idButton, buttonColor1, buttonColor2){
@@ -37,4 +53,26 @@ function TDIrrigation(idButton, buttonColor1, buttonColor2){
             //irrigation on
         }
     }
+}
+
+AjaxCall();
+var idInter = setInterval(AjaxCall, 10000);//Set Interval 3s Between Each Call
+
+function UpdateChart(data){
+	i=0;
+	data.forEach(function(){
+		console.log(data[i].valMeasure);
+            airHumidity=data[i].valMeasure;
+		}
+	)
+};
+
+function AjaxCall(){
+	//chart = myChart;
+	$.get(
+		'/technician/charts',	//url
+		data,		            //data
+		UpdateChart,	        //success
+		'json',		            //dataType
+	)
 }
