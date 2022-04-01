@@ -19,6 +19,7 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use Faker\Factory;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserCrudController extends AbstractCrudController

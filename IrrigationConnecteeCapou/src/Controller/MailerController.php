@@ -16,7 +16,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class MailerController extends AbstractController
 {
-    
     private $mailer;
     
     public function __construct(MailerInterface $mailer)

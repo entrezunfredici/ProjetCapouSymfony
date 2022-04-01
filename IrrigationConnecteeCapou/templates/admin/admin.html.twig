@@ -10,8 +10,8 @@
 {% block main %}
 
 	<!-- ********************************************** Style  files ************************************************** -->
+    <link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
     <link rel="stylesheet" href="{{ asset('css/map.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/openlayer.css')}}">
 	<!-- ************************************************************************************************************** -->
 	
     <div class="col-12">
@@ -43,7 +43,7 @@
                             <div class="card-body text-center">
                                 <i class="dripicons-user-group text-muted" style="font-size: 24px;"></i>
                                 <h3><span>{{ openValve }}</span></h3>
-                                <p class="text-muted font-15 mb-0">Vannes ouvertes</p>
+                                <p class="text-muted font-15 mb-0" id="vannes">Vannes ouvertes</p>
                             </div>
                         </div>
                     </div>
@@ -63,20 +63,27 @@
         </div> <!-- end card-box-->
     </div> <!-- end col-->
 
-    <div id="mapAdmin" class="map mt-2"></div> 
+	<div class="col-12">
+    	<div class="row"
+        	<div class="col-sm-12 col-lg-6">
+            	<div id="mapAdmin" class="map mt-2"></div>
+        	</div>
+        </div>
+    </div> 
     
     <div class="col-12">
     	<div class="row">
         	<div class="col-sm-12 col-lg-6">
-        		<canvas id="myChart"></canvas>
+        		<canvas id="waterConsumptionChart"></canvas>
         	</div>
         	<div class="col-sm-12 col-lg-6">
-        		<canvas id="myChart2"></canvas>
+        		<canvas id="humidityLevelChart"></canvas>
             </div>
     	</div>
 	</div>
    
     <!-- ********************************************** Script files ************************************************** -->
+    <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
     <script src="{{ asset('js/libraries/chart.js')}}"></script>
     <script src="{{ asset('js/chart.js')}}"></script>
     <script src="{{ asset('js/openlayer.js') }}"></script>
