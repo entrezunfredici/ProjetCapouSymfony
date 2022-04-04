@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Technician;
 
 use App\Entity\Measure;
 use Doctrine\Persistence\ManagerRegistry;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin')]
+#[Route('/technician')]
 class ChartsController extends AbstractController
 {
     private $doctrine;
@@ -18,10 +18,10 @@ class ChartsController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    #[Route('/charts', name: 'app_admin_charts')]
-    public function sendWaterConsumption (): Response
+    #[Route('/charts', name: 'app_technician_charts')]
+    public function sendMesures(): Response
     {
-        $measureObjects = $this->doctrine->getRepository(Measure::class)->findBy(array('measureType' => '2'));
+        $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
         $measureCoordinate = array();
         
         foreach($measureObjects as $measureObject){
@@ -30,5 +30,5 @@ class ChartsController extends AbstractController
             ));
         }
         return new JsonResponse($measureCoordinate);
-    }   
+    }
 }

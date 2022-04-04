@@ -1,9 +1,14 @@
+{#============================================================================
+   Name        : index.html.twig
+   Path	       : templates/roles/administrator
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Administrator's home creation
+   Date 	   : 2022
+============================================================================#}
+
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block stylesheets %}
-	
-{% endblock %}
-{% block javascript %}
 	
 {% endblock %}
 
@@ -84,10 +89,12 @@
    
     <!-- ********************************************** Script files ************************************************** -->
     <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
+    
     <script src="{{ asset('js/libraries/chart.js')}}"></script>
     <script src="{{ asset('js/chart.js')}}"></script>
+    
     <script src="{{ asset('js/openlayer.js') }}"></script>
-    <script src="{{ asset('js/map.js') }}"></script>
+    <script src="{{ asset('js/roles/administrator/map.js') }}"></script>
 	<!-- ************************************************************************************************************** -->
 
 {% endblock %}

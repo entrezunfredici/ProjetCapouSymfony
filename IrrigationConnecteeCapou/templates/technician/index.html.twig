@@ -1,9 +1,22 @@
+{#============================================================================
+   Name        : index.html.twig
+   Path	       : templates/roles/technician
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Technician's home creation
+   Date 	   : 2022
+============================================================================#}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello Technicien{% endblock %}
 
 {% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/technician.css')}}">
+{% endblock %}
+
+{% block main %}
+
 {% endblock %}
 
 {% block body %}
@@ -18,7 +31,7 @@
                 </div>
                 <ul class="col-2">
                     <li>
-                        <a class="nav-link" href="javascript:ChangeMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
+                        <a class="nav-link" href="javascript:DDShowMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
                             <i id="LsbButton" class="bi bi-list"></i>
                         </a>
                     </li>
@@ -27,14 +40,14 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:DarkTheme('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
+                        <a class="nav-link" href="javascript:DDDarkThemForDashboard('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
                             <i id="DTBTN" class="bi bi-sun"></i>
                         </a>
                     </li>
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:ChangeMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
+                        <a class="nav-link" href="javascript:DDShowMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
                             <i id="DropDown" class="bi bi-arrow-bar-down"></i>
                         </a>
                         <div id="DDI" class="DropDownItems Hidden">
@@ -47,7 +60,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:Irrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
+                        <a class="nav-link" href="javascript:TDIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
                             <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
                         </a>
                     </li>
@@ -60,67 +73,82 @@
                 <div id="lsb" class="col-2 left-side-bar DashBar Hidden">
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:Change('MapBoard', 'StatsBoard')">
-                                <i class="bi bi-graph-up"></i> statistiques
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('StatsBoard', 'MapBoard')">
+                                <i class="bi bi-cursor"></i> carte
                             </a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:Change('StatsBoard', 'MapBoard')">
-                                <i class="bi bi-cursor"></i> carte
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard', 'StatsBoard')">
+                                <i class="bi bi-graph-up"></i> statistiques
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-10">
-                    <div id="StatsBoard" class="StatsBoard Show container">
+                    <div id="MapBoard" class="MapBoard Show container">
                         <div class="row">
-                            <div class="col title"><h1>Statistiques</h1></div>
+                            <div class="col title"><h1>Carte</h1></div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <h2>données actuelles</h2>
-                                    <div class="col">
-                                        <h3>Humiditée <span id="HumidityValue"></span>%</h3>
-                                        <canvas id="Humidity" width="300px" height="300px"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <h3>Température <span id="TemperatureValue"></span>°C</h3>
-                                        <canvas id="Temperature" width="100px" height="400px"></canvas>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <h2>réçamment</h2>
-                                    <div class="col">
-                                        <h3>Humiditée</h3>
-                                        <canvas id="HumidityGraph" width="300px" height="200px"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <h3>Température</h3>
-                                        <canvas id="TemperatureGraph" width="300px" height="200px"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row content">
+                            <select id="layer-select">
+                                <option value="">Carte Classique</option>
+                                <option value="AerialWithLabelsOnDemand" selected>Carte Aérienne</option>
+                                <option value="RoadOnDemand">Carte Routes</option>
+                                <option value="CanvasDark">Carte Routes Sombre</option>
+                            </select>   
                         </div>
-                    </div>
-                    <div id="MapBoard" class="MapBoard Hidden container tech-color-txt">
                         <div class="row">
                             <section id="MAP" class="MAP">
                                 <div id="mapTech" class="map"></div> 
                             </section> 
                         </div>
                     </div>
+                    <div id="StatsBoard" class="StatsBoard Hidden container">
+                        <div class="row">
+                            <div class="col title"><h1>Statistiques</h1></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <h2>Humiditée</h2>
+                                    <div class="col">
+                                        <h3>Air <span id="AirHumidityValue"></span>%</h3>
+                                        <canvas id="AirHumidity" width="300px" height="300px"></canvas>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Sol <span id="FloorHumidityValue"></span>%</h3>
+                                        <canvas id="FloorHumidity" width="300px" height="300px"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h2>Temperature</h2>
+                                    <div class="col">
+                                        <h3>Air <span id="AirTemperatureValue"></span>°C</h3>
+                                        <canvas id="AirTemperature" width="100px" height="400px"></canvas>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Sol <span id="FloorTemperatureValue"></span>°C</h3>
+                                        <canvas id="FloorTemperature" width="100px" height="400px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
-    <!---->
-    <footer>
-    </footer>
-
-	<script src="{{ asset('js/technician.js')}}"></script>
-	<script src="{{ asset('js/showMesures.js')}}"></script>
-
+    
+    <!-- ********************************************** Script files ************************************************** -->
+    <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
+    
+    <script src="{{ asset('js/libraries/chart.js')}}"></script>
+    <script src="{{ asset('js/TechnicianData.js')}}"></script>
+    
+    <script src="{{ asset('js/openlayer.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/map.js')}}"></script>
+	<!-- ************************************************************************************************************** -->
+    
 {% endblock %}

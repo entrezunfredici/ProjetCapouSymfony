@@ -1,37 +1,45 @@
-const styles = [
-  'Classic',
-  'AerialWithLabelsOnDemand',
-  'RoadOnDemand',
-  'CanvasDark',
-];
-const layers = [];
-let i, ii;
-for (i = 0, ii = styles.length; i < ii; ++i) {
-  layers.push(
-    new ol.layer.Tile({
-      visible: false,
-      preload: Infinity,
-      source: new ol.source.BingMaps({
-        key: 'AoUQ6i6QMtKu0GWUoPFfMjWfOPCVSLEIg8B5nv5EGkwo1T0yzi7AVXG2rOpZ4T6R',
-        imagerySet: styles[i],
-        // use maxZoom 19 to see stretched tiles instead of the BingMaps
-        // "no photos at this zoom level" tiles
-        // maxZoom: 19
-      }),
+/*============================================================================
+   Name        : map.js
+   Path	       : public/js/roles/administrator
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Administrator's map creation
+   Date 	   : 2022
+============================================================================*/
+
+var screen = new ol.control.FullScreen();
+var scale = new ol.control.ScaleLine();
+
+var mapAdmin = new ol.Map({
+	target: 'mapAdmin',
+	controls: [screen, scale],
+	layers: [
+		new ol.layer.Tile({
+        	source: new ol.source.XYZ({
+        		url:'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key='+'QUh8gnCRN3cFAfJBOytg#1.3219280948873624/0/0',
+        	})
+        })
+	],
+	view: new ol.View({
+        center: ol.proj.fromLonLat([1.3075260,44.0317357]),
+        zoom: 15
+	})
+});
+
+var layer = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    features: [
+    ]
+  }),
+  style: new ol.style.Style({
+    image: new ol.style.Circle({
+   				radius: 5,
+   				fill: new ol.style.Fill({color: '#46729c'}), // Marker's Fill Color(nightblue)
+   				stroke: new ol.style.Stroke({color: '#FFFFFF'}) // Marker's Stroke Color(white)
     })
-  );
-}
+  })
+});      
 
-
-const select = document.getElementById('layer-select');
-function onChange() {
-  const style = select.value;
-  for (let i = 0, ii = layers.length; i < ii; ++i) {
-    layers[i].setVisible(styles[i] === style);
-  }
-}
-select.addEventListener('change', onChange);
-onChange();
+mapAdmin.addLayer(layer);
 
 //AjaxCall();
 var idInter = setInterval(AjaxCall, 5000); //Set Interval 3s Between Each Call
@@ -40,15 +48,15 @@ var idInter = setInterval(AjaxCall, 5000); //Set Interval 3s Between Each Call
 //	AddMap();
 //}
 
-function AddMap(data){	
+function UpdateMap(data){	
 //	$(document).ready(function(){
 //		$("p").hide();
 //	});
 	
 	//---------------------- Remove Marker's Layer ---------------------//
-	if(mapTech.getLayers().getLength() >= 1){
-		for(let i = 1; i < mapTech.getLayers().getLength(); i++){
-			mapTech.removeLayer(mapTech.getLayers().item(i));
+	if(mapAdmin.getLayers().getLength() >= 1){
+		for(let i = 1; i < mapAdmin.getLayers().getLength(); i++){
+			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
 		}
 	}
 	//------------------------------------------------------------------//
@@ -76,15 +84,15 @@ function AddMap(data){
 			})
 			//------------------------------------------------------------------//
 		});
-		mapTech.addLayer(layer);
+		mapAdmin.addLayer(layer);
 	})
 }
 
 function AjaxCall(){
 	$.get(
-		'/technician/map',	//Get URL
+		'/admin/map',	//Get URL
 		'false', 		//
-	  AddMap, 		//Call Function
+	    UpdateMap, 		//Call Function
 		'json'			//Type of File
 	)
 }

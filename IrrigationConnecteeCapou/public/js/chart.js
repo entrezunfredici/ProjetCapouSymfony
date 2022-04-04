@@ -42,7 +42,7 @@ function UpdateChart(data){
 function AjaxCall(){
 	$.get(
 		'/admin/charts',	//url
-		data,		//data
+		'false',		//data
 		UpdateChart,	//success
 		'json',		//dataType
 	)
