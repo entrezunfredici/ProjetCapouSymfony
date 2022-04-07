@@ -21,7 +21,6 @@ const layers = [];
 let i, ii;
 for (i = 0, ii = styles.length; i < ii; ++i) {
 	if(i===0){
-		alert(i);
 		layers.push(
 			new ol.layer.Tile({
 				visible: false,
@@ -30,7 +29,6 @@ for (i = 0, ii = styles.length; i < ii; ++i) {
 			})
 		);
 	}else{
-		alert("test");
 		layers.push(
     		new ol.layer.Tile({
     			visible: false,
@@ -127,9 +125,10 @@ function AddMap(data){
 		mapTech.addLayer(layer);
 	})
 }
+var $j = jQuery.noConflict();
 
 function AjaxCall(){
-	$.get(
+	$j.get(
 		'/technician/map',	//Get URL
 		'false', 			//
 	  AddMap, 				//Call Function

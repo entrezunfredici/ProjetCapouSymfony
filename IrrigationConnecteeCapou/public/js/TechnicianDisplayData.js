@@ -55,8 +55,8 @@ function TDIrrigation(idButton, buttonColor1, buttonColor2){
     }
 }
 
-AjaxCall();
-var idInter = setInterval(AjaxCall, 10000);//Set Interval 3s Between Each Call
+AjaxCallFunction();
+var idInter = setInterval(AjaxCallFunction, 10000);//Set Interval 3s Between Each Call
 
 function UpdateChart(data){
 	i=0;
@@ -65,14 +65,21 @@ function UpdateChart(data){
             airHumidity=data[i].valMeasure;
 		}
 	)
+
+    data.forEach(function(){
+		console.log(data[i].valMeasure);
+            airTemperature=data[i].valMeasure;
+		}
+	)
 };
 
-function AjaxCall(){
-	chart = myChart;
-	$j.get(
-		'/admin/charts',	//url
-		data,		//data
-		UpdateChart,	//success
-		'json',		//dataType
+var $j = jQuery.noConflict();
+
+function AjaxCallFunction(){
+	$.get(
+		'/technician/charts',	//url
+		airHumidity,		    //data
+		UpdateChart,	        //success
+		'json',		            //dataType
 	)
 }

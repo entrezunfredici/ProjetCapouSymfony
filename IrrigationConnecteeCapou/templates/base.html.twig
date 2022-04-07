@@ -9,15 +9,15 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        <link rel="stylesheet" href="{{ asset('css/librairies/bootstrap.min.css')}}">
-		<link rel="stylesheet" href="{{ asset('css/librairies/bootstrap-icons.css')}}">
-		<link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
-    	<link rel="stylesheet" href="{{ asset('css/animations.css')}}">
-    	<link rel="stylesheet" href="{{ asset('css/app.css')}}">
-    	<link rel="stylesheet" href="{{ asset('css/colors.css')}}">
-    	<link rel="stylesheet" href="{{ asset('css/navbar.css')}}">
-    	<link rel="stylesheet" href="{{ asset('css/fonts/fonts.css')}}">
-    	<link rel="stylesheet" href="{{ asset('css/map.css')}}">
+        <link rel="stylesheet" href="{{asset('css/librairies/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{asset('css/librairies/bootstrap-icons.css')}}">
+		<link rel="stylesheet" href="{{asset('css/librairies/openlayer.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/animations.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/app.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/colors.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/navbar.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/fonts/fonts.css')}}">
+    	<link rel="stylesheet" href="{{asset('css/map.css')}}">
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
@@ -31,7 +31,8 @@
         <script src="{{ asset('js/RGraph/RGraph.thermometer.js')}}"></script>
         <script src="{{ asset('js/RGraph/RGraph.line.js')}}"></script>
         <script src="{{ asset('js/openlayer.js')}}"></script>
-        <script src="{{ asset('js/openlayerMaps.js')}}"></script>
         <script src="{{ asset('js/DynamicsDisplay.js')}}"></script>
+        <script src="{{ asset('js/OpenLayerMaps.js')}}"></script>
+        {% block scripts %}{% endblock %}
     </body>
 </html>
