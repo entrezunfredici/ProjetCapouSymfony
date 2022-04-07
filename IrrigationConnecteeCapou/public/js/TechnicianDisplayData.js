@@ -76,7 +76,7 @@ function UpdateChart(data){
 var $j = jQuery.noConflict();
 
 function AjaxCallFunction(){
-	$.get(
+	$j.get(
 		'/technician/charts',	//url
 		airHumidity,		    //data
 		UpdateChart,	        //success
