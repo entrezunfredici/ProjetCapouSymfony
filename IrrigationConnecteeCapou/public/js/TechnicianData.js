@@ -68,11 +68,11 @@ function UpdateChart(data){
 };
 
 function AjaxCall(){
-	//chart = myChart;
-	$.get(
-		'/technician/charts',	//url
-		data,		            //data
-		UpdateChart,	        //success
-		'json',		            //dataType
+	chart = myChart;
+	$j.get(
+		'/admin/charts',	//url
+		data,		//data
+		UpdateChart,	//success
+		'json',		//dataType
 	)
 }

@@ -20,32 +20,46 @@ const styles = [
 const layers = [];
 let i, ii;
 for (i = 0, ii = styles.length; i < ii; ++i) {
-  layers.push(
-    new ol.layer.Tile({
-      visible: false,
-      preload: Infinity,
-      source: new ol.source.BingMaps({
-        key: 'AoUQ6i6QMtKu0GWUoPFfMjWfOPCVSLEIg8B5nv5EGkwo1T0yzi7AVXG2rOpZ4T6R',
-        imagerySet: styles[i],
-        // use maxZoom 19 to see stretched tiles instead of the BingMaps
-        // "no photos at this zoom level" tiles
-        // maxZoom: 19
-      }),
-    })
-  );
+	if(i===0){
+		alert(i);
+		layers.push(
+			new ol.layer.Tile({
+				visible: false,
+				preload: Infinity,
+				source: new ol.source.OSM(),
+			})
+		);
+	}else{
+		alert("test");
+		layers.push(
+    		new ol.layer.Tile({
+    			visible: false,
+    			preload: Infinity,
+				source: new ol.source.BingMaps({
+        			key: 'AoUQ6i6QMtKu0GWUoPFfMjWfOPCVSLEIg8B5nv5EGkwo1T0yzi7AVXG2rOpZ4T6R',
+        			imagerySet: styles[i],
+					maxZoom: 19,
+					minZoom: 5
+      			}),
+    		})
+  		);
+	}
+  	
 }
-
 
 const select = document.getElementById('layer-select');
 function onChange() {
   const style = select.value;
   for (let i = 0, ii = layers.length; i < ii; ++i) {
-    layers[i].setVisible(styles[i] === style);
+	if(i===0){
+		layers[i].setVisible(new ol.source.OSM())
+	}else{
+		layers[i].setVisible(styles[i] === style);
+	}
   }
 }
 select.addEventListener('change', onChange);
 onChange();
-
 
 var mapAdmin = new ol.Map({
 	target: 'mapAdmin',
@@ -117,9 +131,9 @@ function AddMap(data){
 function AjaxCall(){
 	$.get(
 		'/technician/map',	//Get URL
-		'false', 		//
-	    AddMap, 		//Call Function
-		'json'			//Type of File
+		'false', 			//
+	  AddMap, 				//Call Function
+		'json'				//Type of File
 	)
 }
 
