@@ -28,6 +28,10 @@ class Measure
     #[ORM\ManyToOne(targetEntity: MeasureType::class, inversedBy: 'measures')]
     #[ORM\JoinColumn(nullable: false)]
     private $measureType;
+
+    #[ORM\ManyToOne(targetEntity: Plot::class, inversedBy: 'measure')]
+    #[ORM\JoinColumn(nullable: true)]
+    private $plot;
     
     public function getId(): ?int
     {
@@ -117,4 +121,16 @@ class Measure
     
     //         return $this;
     //     }
+
+    public function getPlot(): ?Plot
+    {
+        return $this->plot;
+    }
+
+    public function setPlot(?Plot $plot): self
+    {
+        $this->plot = $plot;
+
+        return $this;
+    }
 }

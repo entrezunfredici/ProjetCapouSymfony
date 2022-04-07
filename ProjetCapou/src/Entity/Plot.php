@@ -29,10 +29,14 @@ class Plot
     
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'plots')]
     private $user;
+
+    #[ORM\OneToMany(mappedBy: 'plot', targetEntity: Measure::class)]
+    private $measure;
     
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->measure = new ArrayCollection();
     }
     
     public function getId(): ?int
@@ -109,6 +113,36 @@ class Plot
     {
         $this->user->removeElement($user);
         
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Measure>
+     */
+    public function getMeasure(): Collection
+    {
+        return $this->measure;
+    }
+
+    public function addMeasure(Measure $measure): self
+    {
+        if (!$this->measure->contains($measure)) {
+            $this->measure[] = $measure;
+            $measure->setPlot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeasure(Measure $measure): self
+    {
+        if ($this->measure->removeElement($measure)) {
+            // set the owning side to null (unless already changed)
+            if ($measure->getPlot() === $this) {
+                $measure->setPlot(null);
+            }
+        }
+
         return $this;
     }
 }
