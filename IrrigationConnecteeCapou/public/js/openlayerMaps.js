@@ -125,13 +125,13 @@ function AddMap(data){
 		mapTech.addLayer(layer);
 	})
 }
-var $j = jQuery.noConflict();
+//var $j = jQuery.noConflict();
 
 function AjaxCall(){
-	$j.get(
+	$.get(
 		'/technician/map',	//Get URL
 		'false', 			//
-	  AddMap, 				//Call Function
+	  	AddMap, 			//Call Function
 		'json'				//Type of File
 	)
 }
