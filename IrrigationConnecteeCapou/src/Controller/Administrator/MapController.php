@@ -2,23 +2,23 @@
 
 /*============================================================================
     Name        : MapController.php
-    Path	    : src/Controller/Technician
+    Path	    : src/Controller/Administrator
     Author      : BTS SNIR, Lycée Antoine Bourdelle
-    Description : Technician's map control
+    Description : Administrator's map control
     Date 	    : 2022
  ============================================================================*/
 
-namespace App\Controller\Technician;
+namespace App\Controller\Administrator;
 
 use App\Entity\Measure;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManagerInterface;
 
-#[Route('/technician')]
+#[Route('/admin')]
 class MapController extends AbstractController
 {
     private $doctrine;
@@ -27,9 +27,9 @@ class MapController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    #[Route('/map', name: 'app_technician_map')]
+    #[Route('/map', name: 'app_admin_map')]
     public function sendLocation(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
-    {
+    {  
         $this->doctrine = $doctrine;
         
         $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();

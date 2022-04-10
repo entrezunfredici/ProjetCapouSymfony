@@ -20,39 +20,15 @@ var mapAdmin = new ol.Map({
         })
 	],
 	view: new ol.View({
-        center: ol.proj.fromLonLat([1.3075260,44.0317357]),
+        center: ol.proj.fromLonLat([1.3092730301117868, 44.03460973142589]),
         zoom: 15
 	})
 });
 
-var layer = new ol.layer.Vector({
-  source: new ol.source.Vector({
-    features: [
-    ]
-  }),
-  style: new ol.style.Style({
-    image: new ol.style.Circle({
-   				radius: 5,
-   				fill: new ol.style.Fill({color: '#46729c'}), // Marker's Fill Color(nightblue)
-   				stroke: new ol.style.Stroke({color: '#FFFFFF'}) // Marker's Stroke Color(white)
-    })
-  })
-});      
-
-mapAdmin.addLayer(layer);
-
-//AjaxCall();
+AjaxCall();
 var idInter = setInterval(AjaxCall, 5000); //Set Interval 3s Between Each Call
 
-//function AjaxCall(){
-//	AddMap();
-//}
-
 function UpdateMap(data){	
-//	$(document).ready(function(){
-//		$("p").hide();
-//	});
-	
 	//---------------------- Remove Marker's Layer ---------------------//
 	if(mapAdmin.getLayers().getLength() >= 1){
 		for(let i = 1; i < mapAdmin.getLayers().getLength(); i++){
@@ -98,7 +74,6 @@ function AjaxCall(){
 }
 
 /* ********************************************* Get item Layer ************************************************* */
-
 function GetLayerEvent(feature){
 	var layerMap = mapAdmin.getLayers();
 	for(let i=1 ; i < layerMap.getLength(); i++){
@@ -107,5 +82,4 @@ function GetLayerEvent(feature){
 	}
 	return null;
 }
-
 /* ************************************************************************************************************** */

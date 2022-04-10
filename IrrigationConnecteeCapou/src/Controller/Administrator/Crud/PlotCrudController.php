@@ -1,20 +1,22 @@
 <?php
 
-namespace App\Controller\Admin;
+/*============================================================================
+    Name        : PlotCrudController.php
+    Path	    : src/Controller/Administrator/Crud
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Plot's actions control
+    Date 	    : 2022
+ ============================================================================*/
+
+namespace App\Controller\Administrator\Crud;
 
 use App\Entity\Plot;
-use App\Entity\User;
-use Doctrine\Persistence\ManagerRegistry;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PlotCrudController extends AbstractCrudController
 {
@@ -41,7 +43,7 @@ class PlotCrudController extends AbstractCrudController
             TextField::new('name', 'Nom'),
             AssociationField::new('user', 'Technicien en charge')
                 ->setRequired(true)
-                ->setTemplatePath('admin/_elements/_plotForm.html.twig')
+                ->setTemplatePath('admin/roles/_elements/_plotForm.html.twig')
                 ->setHelp('Technicien(s) en charge de la parcelle')
                 ->formatValue(function ($value, $entity) {
                     $str = $entity->getUser()[0];

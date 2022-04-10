@@ -20,7 +20,7 @@ var mapVisitor = new ol.Map({
 		})
     ],
     view: new ol.View({
-		center: ol.proj.fromLonLat([1.3075260,44.0317357]),
+		center: ol.proj.fromLonLat([1.3092730301117868, 44.03460973142589]),
 		zoom: 15
     })
 });

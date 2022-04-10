@@ -1,5 +1,13 @@
 <?php
 
+/*============================================================================
+    Name        : ChartsController.php
+    Path	    : src/Controller/Technician
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Technician's charts control
+    Date 	    : 2022
+ ============================================================================*/
+
 namespace App\Controller\Technician;
 
 use App\Entity\Measure;

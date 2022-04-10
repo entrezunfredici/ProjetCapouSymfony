@@ -2,7 +2,7 @@
    Name        : index.html.twig
    Path	       : templates/home
    Author      : BTS SNIR, Lycée Antoine Bourdelle
-   Description : Home page creation
+   Description : Home's interface creation
    Date 	   : 2022
 ============================================================================#}
 
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="{{ asset('css/animations.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/app.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/colors.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/navbar.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/home/_elements/_navbar.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/fonts/fonts.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/map.css')}}">
 {% endblock %}
@@ -26,7 +26,7 @@
 {% block body %}
 	<!--Header-->
 	<header  id="header" class="fixed-top ">
-		{% include "_elements/_navbar.html.twig" %}
+		{% include "home/_elements/_navbar.html.twig" %}
     </header>
     <!---->
     <!--Hero-->
@@ -89,9 +89,9 @@
     </main>
     <!---->
     <!--Footer-->
-    {% include "_elements/_footer.html.twig" %}
+    {% include "home/_elements/_footer.html.twig" %}
     <!---->
     <script src="{{ asset('js/move.js')}}"></script>
-    <script src="{{ asset('js/openlayer.js')}}"></script>
+    <script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
     <script src="{{ asset('js/roles/visitor/map.js')}}"></script>
 {% endblock %}

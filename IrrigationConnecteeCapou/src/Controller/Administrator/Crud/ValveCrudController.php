@@ -1,6 +1,14 @@
 <?php
 
-namespace App\Controller\Admin;
+/*============================================================================
+    Name        : ValveCrudController.php
+    Path	    : src/Controller/Administrator/Crud
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Valve's actions control
+    Date 	    : 2022
+ ============================================================================*/
+
+namespace App\Controller\Administrator\Crud;
 
 use App\Entity\Valve;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;

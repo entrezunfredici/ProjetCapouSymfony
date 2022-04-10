@@ -1,6 +1,14 @@
 <?php
 
-namespace App\Controller\Admin;
+/*============================================================================
+    Name        : UserCrudController.php
+    Path	    : src/Controller/Administrator/Crud
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : User's actions control
+    Date 	    : 2022
+ ============================================================================*/
+
+namespace App\Controller\Administrator\Crud;
 
 use App\Controller\MailerController;
 use App\Entity\User;

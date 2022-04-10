@@ -2,7 +2,7 @@
    Name        : index.html.twig
    Path	       : templates/roles/technician
    Author      : BTS SNIR, Lycée Antoine Bourdelle
-   Description : Technician's home creation
+   Description : Technician's interface creation
    Date 	   : 2022
 ============================================================================#}
 
@@ -11,15 +11,17 @@
 {% block title %}Hello Technicien{% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/technician.css')}}">
-{% endblock %}
-
-{% block main %}
-
+	
 {% endblock %}
 
 {% block body %}
+
+	<!-- ********************************************** Style  files ************************************************** -->
+    <link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/map.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/technician.css')}}">
+	<!-- ************************************************************************************************************** -->
+
     <main id>
         <!--Dashboard Section-->
         <section id="DashBoard" class="DashBoard">
@@ -143,11 +145,12 @@
     
     <!-- ********************************************** Script files ************************************************** -->
     <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
-    
-    <script src="{{ asset('js/libraries/chart.js')}}"></script>
-    <script src="{{ asset('js/TechnicianData.js')}}"></script>
-    
-    <script src="{{ asset('js/openlayer.js')}}"></script>
+
+	<script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/charts.js')}}"></script>
+
+	<script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
     <script src="{{ asset('js/roles/technician/map.js')}}"></script>
 	<!-- ************************************************************************************************************** -->
     

@@ -1,6 +1,14 @@
 <?php
 
-namespace App\Controller\Admin;
+/*============================================================================
+    Name        : ChartsController.php
+    Path	    : src/Controller/Administrator
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Administrator's charts control
+    Date 	    : 2022
+ ============================================================================*/
+
+namespace App\Controller\Administrator;
 
 use App\Entity\Measure;
 use Doctrine\Persistence\ManagerRegistry;
