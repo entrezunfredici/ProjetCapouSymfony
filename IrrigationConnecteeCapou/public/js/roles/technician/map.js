@@ -73,18 +73,19 @@ var mapTech = new ol.Map({
 
 
 AjaxCall();
-var idInter = setInterval(AjaxCall, 5000); //Set Interval 3s Between Each Call
+var idInter = setInterval(AjaxCall, 5000); //Set Interval 5s Between Each Call
 
 function UpdateMap(data){	
 	//---------------------- Remove Marker's Layer ---------------------//
-	if(mapTech.getLayers().getLength() >= 1){
-		for(let i = 1; i < mapTech.getLayers().getLength(); i++){
+	if(mapTech.getLayers().getLength() >=ii){
+		for(let i = ii; i < mapTech.getLayers().getLength(); i++){
 			mapTech.removeLayer(mapTech.getLayers().item(i));
 		}
 	}
 	//------------------------------------------------------------------//
 	
 	data.forEach((measureObject) => {
+		if(styles)
 		var layer = new ol.layer.Vector({
 			
 			//------------------------- Marker Location ------------------------//
