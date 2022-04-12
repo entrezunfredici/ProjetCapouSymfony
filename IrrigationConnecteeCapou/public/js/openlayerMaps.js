@@ -125,10 +125,10 @@ function AddMap(data){
 		mapTech.addLayer(layer);
 	})
 }
-//var $j = jQuery.noConflict();
+var $j = jQuery.noConflict();
 
 function AjaxCall(){
-	$.get(
+	$j.get(
 		'/technician/map',	//Get URL
 		'false', 			//
 	  	AddMap, 			//Call Function
@@ -142,7 +142,9 @@ function GetLayerEvent(feature){
 	var layerMap = mapAdmin.getLayers();
 	for(let i=1 ; i < layerMap.getLength(); i++){
 		var featureLayer = layerMap.item(i).getSource().getFeatures()[0];
-		if(feature === featureLayer){return layerMap.item(i)}
+		if(feature === featureLayer){
+			return layerMap.item(i)
+		}
 	}
 	return null;
 }

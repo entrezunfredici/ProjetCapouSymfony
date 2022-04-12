@@ -1,51 +1,57 @@
+{#============================================================================
+   Name        : login.html.twig
+   Path	       : templates/security
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Login's interface creation
+   Date 	   : 2022
+============================================================================#}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
 
-	<section class="container my-3">
-		<div class="row">
-			<div class="col">
-				<form method="post">
-                    {% if error %}
-                    	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-                
-                    {% if app.user %}
-                        <div class="mb-3">
-                            Vous êtes connecté(e) comme {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
-                        </div>
-                    {% endif %}
-                
-                    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-                    <label for="inputEmail">Adresse e-mail</label>
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                    <label for="inputPassword">Mot de passe</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                    <div class="mb-3">
-                        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
-                    </div>
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
-                    
-                    {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-                    
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
-                        </label>
-                    </div>
-                    #}
-                
-                    <button class="btn btn-lg btn-primary mt-3" type="submit">
-                        Me connecter
-                    </button>
-                </form>
+    <link rel="stylesheet" href="{{ asset('css/login.css')}}">
+
+	<div class="limiter" src="{{ asset('pictures/etablissement.jpg')}}">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+ 					<img class="image" src="{{ asset('pictures/logo.svg')}}" alt="">				
+ 				</div>
+ 				
+				<form class="login100-form validate-form formulaire" method="post">
+					<span class="login100-form-title">Connexion</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100 form-control" type="email" name="email" placeholder="Email" id="inputEmail" autocomplete="email"  required autofocus>						 
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100 form-control" type="password" name="password" placeholder="Password" id="inputPassword" autocomplete="current-password" required>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">connexion</button>
+					</div>
+
+					<div class="text-center p-t-12">
+						<a class="txt2" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+					</div>
+				</form>
+				
 			</div>
 		</div>
-	</section>
+	</div>
+
 {% endblock %}

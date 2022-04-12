@@ -1,38 +1,37 @@
+{#============================================================================
+   Name        : base.html.twig
+   Path	       : templates
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Twig base implementation
+   Date 	   : 2022
+============================================================================#}
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="pictures/logo.svg">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        <link rel="stylesheet" href="{{asset('css/librairies/bootstrap.min.css')}}">
-		<link rel="stylesheet" href="{{asset('css/librairies/bootstrap-icons.css')}}">
-		<link rel="stylesheet" href="{{asset('css/librairies/openlayer.css')}}">
-    	<link rel="stylesheet" href="{{asset('css/animations.css')}}">
-    	<link rel="stylesheet" href="{{asset('css/app.css')}}">
-    	<link rel="stylesheet" href="{{asset('css/colors.css')}}">
-    	<link rel="stylesheet" href="{{asset('css/navbar.css')}}">
-    	<link rel="stylesheet" href="{{asset('css/fonts/fonts.css')}}">
-    	<link rel="stylesheet" href="{{asset('css/map.css')}}">
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        <script src="{{ asset('js/jquery.min.js')}}"></script>
-        <script src="{{ asset('js/RGraph/RGraph.common.core.js')}}"></script>
-        <script src="{{ asset('js/RGraph/RGraph.gauge.js')}}"></script>
-        <script src="{{ asset('js/RGraph/RGraph.thermometer.js')}}"></script>
-        <script src="{{ asset('js/RGraph/RGraph.line.js')}}"></script>
-        <script src="{{ asset('js/openlayer.js')}}"></script>
-        <script src="{{ asset('js/DynamicsDisplay.js')}}"></script>
-        <script src="{{ asset('js/OpenLayerMaps.js')}}"></script>
-        {% block scripts %}{% endblock %}
-    </body>
-</html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>{% block title %}Welcome!{% endblock %}</title>
+            <link rel="icon" href="pictures/logo.svg">
+            {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+            {% block stylesheets %}
+                {{ encore_entry_link_tags('app') }}
+            {% endblock %}
+    
+            <link rel="stylesheet" href="{{ asset('css/librairies/bootstrap.min.css')}}">
+    		<link rel="stylesheet" href="{{ asset('css/librairies/bootstrap-icons.css')}}">
+        	<link rel="stylesheet" href="{{ asset('css/animations.css')}}">
+        	<link rel="stylesheet" href="{{ asset('css/app.css')}}">
+        	<link rel="stylesheet" href="{{ asset('css/colors.css')}}">
+        	<link rel="stylesheet" href="{{ asset('css/home/_elements/_navbar.css')}}">
+        	<link rel="stylesheet" href="{{ asset('css/fonts/fonts.css')}}">
+    
+            {% block javascripts %}
+                {{ encore_entry_script_tags('app') }}
+            {% endblock %}
+        </head>
+        <body>
+            {% block body %}{% endblock %}
+            <script src="{{ asset('js/libraries/charts/rGraph/rGraph.common.core.js')}}"></script>
+            <script src="{{ asset('js/DynamicsDisplay.js') }}"></script>
+        </body>
+    </html>

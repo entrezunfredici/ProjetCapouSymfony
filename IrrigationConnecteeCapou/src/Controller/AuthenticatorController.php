@@ -1,5 +1,13 @@
 <?php
 
+/*============================================================================
+    Name        : AuthenticatorController.php
+    Path	    : src/Controller
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Authenticator's interface control
+    Date 	    : 2022
+ ============================================================================*/
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

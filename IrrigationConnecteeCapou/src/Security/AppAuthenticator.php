@@ -64,7 +64,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $roles = array('ROLE_ADMIN', 'ROLE_TECHNICIAN');
         if($token->getUser()->getRoles() === $roles){
             return new RedirectResponse($this->urlGenerator->generate('app_admin'));
-        }else{
+        }
+        else{
             return new RedirectResponse($this->urlGenerator->generate('app_technician'));
         }
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
@@ -116,4 +117,3 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         return $user->getEmail();
     }
 }
-?>

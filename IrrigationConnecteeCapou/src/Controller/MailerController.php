@@ -1,5 +1,13 @@
 <?php
 
+/*============================================================================
+    Name        : MailerController.php
+    Path	    : src/Controller
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Mailer's interface control
+    Date 	    : 2022
+ ============================================================================*/
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -16,7 +24,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class MailerController extends AbstractController
 {
-    
     private $mailer;
     
     public function __construct(MailerInterface $mailer)
@@ -34,7 +41,7 @@ class MailerController extends AbstractController
     public function emailRegistration(User $user): RawMessage
     {       
         $email = (new TemplatedEmail())
-            ->from(new Address('admin@test.com', 'Admin Reset Password'))
+            ->from(new Address('admin@test.fr', 'Admin Reset Password'))
             ->to($user->getEmail())
             ->subject('Inscription Irrigation Connectée')
             ->htmlTemplate('registration/email.html.twig')
@@ -49,7 +56,7 @@ class MailerController extends AbstractController
     public function emailResetPassword(User $user, ResetPasswordToken $resetToken, string $url): RawMessage
     {
         $email = (new TemplatedEmail())
-            ->from(new Address('admin@test.com', 'Admin Reset Password'))
+            ->from(new Address('admin@test.fr', 'Admin Reset Password'))
             ->to($user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')

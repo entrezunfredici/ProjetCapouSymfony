@@ -1,6 +1,15 @@
 <?php
 
+/*============================================================================
+    Name        : MapController.php
+    Path	    : src/Controller/Technician
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Technician's map control
+    Date 	    : 2022
+ ============================================================================*/
+
 namespace App\Controller\Technician;
+
 use App\Entity\Measure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -9,23 +18,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 
+#[Route('/technician')]
 class MapController extends AbstractController
 {
     private $doctrine;
-    
     public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
     }
-    #[Route('/technician/map', name: 'mapLastData')]
+    
+    #[Route('/map', name: 'app_technician_map')]
     public function sendLocation(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
     {
-        
         $this->doctrine = $doctrine;
-        
-        //         $repository = $entityManager->getRepository(Measure::class);
-        //         $measures = $repository->findAll();
-        //         dd($measures);
         
         $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
         $measureCoordinate = array();
@@ -33,15 +38,14 @@ class MapController extends AbstractController
         foreach($measureObjects as $measureObject){
             $coordinate = $this->DSMToDD($measureObject->getGps());
             array_push($measureCoordinate, array("idMeasure" => $measureObject->getId(),
-                "latitude" => $coordinate["latitude"],
-                "longitude" => $coordinate["longitude"]
+                                                 "latitude" => $coordinate["latitude"],
+                                                 "longitude" => $coordinate["longitude"]
             ));
         }
         return new JsonResponse($measureCoordinate);
     }
     
     /* *********************************************** Get Coordinate **************************************************** */
-    
     private function DSMToDD($frameArray): array
     {
         $nmeaFrame = explode(",", $frameArray);
