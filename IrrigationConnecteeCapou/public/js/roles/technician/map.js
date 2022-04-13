@@ -131,3 +131,5 @@ function GetLayerEvent(feature){
 	return null;
 }
 /* ************************************************************************************************************** */
+//lien trés trés trés trés trés trés trés trés trés trés trés utile https://openlayers.org/en/latest/examples/vector-labels.html
+//octogone direct frero https://openlayers.org/en/latest/examples/polygon-styles.html
