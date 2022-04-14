@@ -8,7 +8,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Technicien{% endblock %}
+{% block title %}Bienvennue Technicien{% endblock %}
 
 {% block stylesheets %}
 	
@@ -68,7 +68,7 @@
                     </li>
                 </ul>
                 <ul class="col-2">
-                    <li><a class="nav-link" href="{{ path('app_logout') }}"><span id="UserName"><!--name of the technician is here-->Technicien </span><i class="bi bi-person-x"></i></a></li>
+                    <li><a class="nav-link" href="{{ path('app_logout') }}"><span id="user-name">{{ firstName }} {{ lastName }}</span><i class="bi bi-person-x"></i></a></li>
                 </ul>
             </div>
             <div class="row">
