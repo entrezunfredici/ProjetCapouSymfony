@@ -8,6 +8,17 @@
 
 var screen = new ol.control.FullScreen();
 var scale = new ol.control.ScaleLine();
+var select = new ol.interaction.Select({
+	style: new ol.style.Style({
+		    stroke: new ol.style.Stroke({
+		      color: '#FFFFFF',
+		      width: 2,
+		    }),
+  		}),
+});
+const translate = new ol.interaction.Translate({
+	features: select.getFeatures(),
+});
 
 var mapAdmin = new ol.Map({
 	target: 'mapAdmin',
@@ -26,17 +37,33 @@ var mapAdmin = new ol.Map({
 });
 
 AjaxCall();
-var idInter = setInterval(AjaxCall, 5000); //Set Interval 3s Between Each Call
+var idInter = setInterval(AjaxCall, 50000);
 
 function UpdateMap(data){	
+	
+	const vector = new ol.layer.Vector({
+		source: new ol.source.Vector({
+			url: 'upload/plots/us-states.json',
+			format: new ol.format.GeoJSON(),
+		}),
+		style: new ol.style.Style({
+		    stroke: new ol.style.Stroke({
+		      color: '#b1c903',
+		      width: 2,
+		    }),
+		    fill: new ol.style.Fill({
+				color: 'rgba(0,0,0,0)',
+			})
+  		}),
+	});
+		
 	//---------------------- Remove Marker's Layer ---------------------//
 	if(mapAdmin.getLayers().getLength() >= 1){
-		for(let i = 1; i < mapAdmin.getLayers().getLength(); i++){
+		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i <= ii; ++i){
 			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
 		}
 	}
 	//------------------------------------------------------------------//
-	
 	data.forEach((measureObject) => {
 		var layer = new ol.layer.Vector({
 			
@@ -49,19 +76,23 @@ function UpdateMap(data){
 				]
 			}),
 			//------------------------------------------------------------------//
-			
 			//-------------------------- Marker Style --------------------------//
 			style: new ol.style.Style({
 				image: new ol.style.Circle({
 					radius: 5,
-					fill: new ol.style.Fill({color: '#46729c'}), // Marker's Fill Color(nightblue)
-					stroke: new ol.style.Stroke({color: '#FFFFFF'}) // Marker's Stroke Color(white)
+					stroke: new ol.style.Stroke({
+						color: '#b1c903',
+						width: 2,
+					}) // Marker's Stroke Color(white)
 				})
 			})
 			//------------------------------------------------------------------//
 		});
 		mapAdmin.addLayer(layer);
 	})
+	mapAdmin.addInteraction(select);
+	mapAdmin.addLayer(vector);
+
 }
 
 function AjaxCall(){
@@ -72,14 +103,3 @@ function AjaxCall(){
 		'json'			//Type of File
 	)
 }
-
-/* ********************************************* Get item Layer ************************************************* */
-function GetLayerEvent(feature){
-	var layerMap = mapAdmin.getLayers();
-	for(let i=1 ; i < layerMap.getLength(); i++){
-		var featureLayer = layerMap.item(i).getSource().getFeatures()[0];
-		if(feature === featureLayer){return layerMap.item(i)}
-	}
-	return null;
-}
-/* ************************************************************************************************************** */

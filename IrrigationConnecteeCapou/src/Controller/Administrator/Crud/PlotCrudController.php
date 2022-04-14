@@ -43,7 +43,7 @@ class PlotCrudController extends AbstractCrudController
             TextField::new('name', 'Nom'),
             AssociationField::new('user', 'Technicien en charge')
                 ->setRequired(true)
-                ->setTemplatePath('admin/roles/_elements/_plotForm.html.twig')
+                ->setTemplatePath('roles/administrator/_elements/_plotForm.html.twig')
                 ->setHelp('Technicien(s) en charge de la parcelle')
                 ->formatValue(function ($value, $entity) {
                     $str = $entity->getUser()[0];

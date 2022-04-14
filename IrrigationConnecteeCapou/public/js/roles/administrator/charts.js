@@ -12,7 +12,7 @@ const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
 const dataWaterConsumption = {
     labels: labels,
     datasets: [{
-      label: 'Consommation hydrique',
+      label: 'Consommation hydrique (m³)',
       color: 'rgb(0,144,212)',
       backgroundColor: 'rgb(0,144,212)',
       borderColor: 'rgb(0,144,212)',
