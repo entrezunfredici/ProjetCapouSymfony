@@ -16,7 +16,7 @@
 
 	<!-- ********************************************** Style  files ************************************************** -->
     <link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/map.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/roles/administrator/map.css')}}">
 	<!-- ************************************************************************************************************** -->
 	
     <div class="col-12">
@@ -72,6 +72,10 @@
     	<div class="row"
         	<div class="col-sm-12 col-lg-6">
             	<div id="mapAdmin" class="map mt-2"></div>
+            	<div id="popup" class="ol-popup">
+                	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                	<div id="popup-content"></div>
+           		</div>
         	</div>
         </div>
     </div> 

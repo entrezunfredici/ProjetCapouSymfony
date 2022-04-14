@@ -10,14 +10,11 @@ var screen = new ol.control.FullScreen();
 var scale = new ol.control.ScaleLine();
 var select = new ol.interaction.Select({
 	style: new ol.style.Style({
-		    stroke: new ol.style.Stroke({
-		      color: '#FFFFFF',
-		      width: 2,
-		    }),
-  		}),
-});
-const translate = new ol.interaction.Translate({
-	features: select.getFeatures(),
+	    stroke: new ol.style.Stroke({
+	      color: '#FFFFFF',
+	      width: 2,
+	    }),
+	}),
 });
 
 var mapAdmin = new ol.Map({
@@ -56,7 +53,6 @@ function UpdateMap(data){
 			})
   		}),
 	});
-		
 	//---------------------- Remove Marker's Layer ---------------------//
 	if(mapAdmin.getLayers().getLength() >= 1){
 		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i <= ii; ++i){
@@ -83,17 +79,47 @@ function UpdateMap(data){
 					stroke: new ol.style.Stroke({
 						color: '#b1c903',
 						width: 2,
-					}) // Marker's Stroke Color(white)
+					}), // Marker's Stroke Color(white)
+					fill: new ol.style.Fill({
+						color: 'rgba(0,0,0,0)',
+					})
 				})
 			})
 			//------------------------------------------------------------------//
 		});
 		mapAdmin.addLayer(layer);
 	})
-	mapAdmin.addInteraction(select);
 	mapAdmin.addLayer(vector);
-
+	mapAdmin.addInteraction(select);
 }
+
+//----------------- Elements that make up the popup ----------------//
+const container = document.getElementById('popup');
+const content = document.getElementById('popup-content');
+const closer = document.getElementById('popup-closer');
+//------------------------------------------------------------------//
+//------------------- Overlay to anchor the popup ------------------//
+const overlay = new ol.Overlay({
+	element: container
+});
+//------------------------------------------------------------------//
+//------------------- Click handler to hide popup ------------------//
+closer.onclick = function () {
+	overlay.setPosition(undefined);
+  	closer.blur();
+  	return false;
+};
+//------------------------------------------------------------------//
+//------------------ Click handler to render popup -----------------//
+mapAdmin.on('singleclick', function (evt) {
+  	const coordinate = evt.coordinate;
+  	const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+
+  	content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+  	overlay.setPosition(coordinate);
+});
+//------------------------------------------------------------------//
+mapAdmin.addOverlay(overlay);
 
 function AjaxCall(){
 	$.get(

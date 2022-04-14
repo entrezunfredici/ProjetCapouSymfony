@@ -8,6 +8,7 @@
 
 const data={};
 const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
+console.log(labels.length);
 
 const dataWaterConsumption = {
     labels: labels,
@@ -37,13 +38,14 @@ AjaxCall();
 var idInter = setInterval(AjaxCall, 10000);//Set Interval 3s Between Each Call
 
 function UpdateChart(data){
-	i=0;
-	data.forEach(function(){
-		chartWaterConsumption.data.datasets[0].data[i] = data[i].valMeasure;
-		i++;
+	i=data.length-labels.length;
+	console.log(i);
+	j=0;
+	for(i=data.length-labels.length;i<data.length;i++){
+		chartWaterConsumption.data.datasets[0].data[j] = data[i].valMeasure;
+		j++;
 		chartWaterConsumption.update();
-		}
-	)
+	};
 };
 
 function AjaxCall(){
