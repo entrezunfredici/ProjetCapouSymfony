@@ -8,7 +8,6 @@
 
 const data={};
 const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
-console.log(labels.length);
 
 const dataWaterConsumption = {
     labels: labels,
