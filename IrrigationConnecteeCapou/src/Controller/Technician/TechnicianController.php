@@ -19,7 +19,9 @@ class TechnicianController extends AbstractController
     #[Route('/technician', name: 'app_technician')]
     public function index(): Response
     {
-        return $this->render('roles/technician/index.html.twig');
+        $firstName=$this->getUser()->getFirstName();
+        $lastName=$this->getUser()->getLastName();
+        return $this->render('roles/technician/index.html.twig', ['firstName'=>$firstName, 'lastName'=>$lastName]);
     }
 }
 ?>
