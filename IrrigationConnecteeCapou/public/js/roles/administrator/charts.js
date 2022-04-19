@@ -9,41 +9,76 @@
 const data={};
 const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
 
-const dataWaterConsumption = {
+const dataTemperature = {
     labels: labels,
     datasets: [{
-      label: 'Consommation hydrique (m³)',
+      label: 'Air',
       color: 'rgb(0,144,212)',
       backgroundColor: 'rgb(0,144,212)',
       borderColor: 'rgb(0,144,212)',
+    },{
+	  label: 'Sol',
+      color: 'rgb(160,225,255)',
+      backgroundColor: 'rgb(160,225,255)',
+      borderColor: 'rgb(160,225,255)',
     }]
 };
-const dataHumidityLevel = {
+const dataHumidity = {
     labels: labels,
     datasets: [{
-      label: 'Taux d\'humidité',
-      backgroundColor: 'rgb(0,144,212)',
-      borderColor: 'rgb(0,144,212)',
+      label: 'Air',
+      backgroundColor: 'rgb(235,110,29)',
+      borderColor: 'rgb(235,110,29)',
+    },{
+	  label: 'Sol',
+      color: 'rgb(255,176,126)',
+      backgroundColor: 'rgb(255,176,126)',
+      borderColor: 'rgb(255,176,126)',
     }]
 };
 
-const configWaterConsumption = {type: 'line', data: dataWaterConsumption, options: {}};
-const configHumidityLevel = {type: 'line', data: dataHumidityLevel, options: {}};
+const configTemperature = {type: 'line', data: dataTemperature, options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Humidité aérienne et souterraine'
+            },
+            legend: {
+				display: true,
+				position: 'bottom'
+			}
+        }
+    }};
+const configHumidity = {type: 'line', data: dataHumidity, options: {
+		plugins: {
+            title: {
+                display: true,
+                text: 'Température aérienne et souterraine'
+            },
+	        legend: {
+				display: true,
+				position: 'bottom'
+			}
+		}
+	}};
 
-const chartWaterConsumption = new Chart(document.getElementById('waterConsumptionChart'), configWaterConsumption);
-const chartHumidityLevel = new Chart(document.getElementById('humidityLevelChart'), configHumidityLevel);
+const chartTemperatureReading = new Chart(document.getElementById('groundReading'), configTemperature);
+const chartHumidityReading = new Chart(document.getElementById('airReading'), configHumidity);
 
 AjaxCall();
 var idInter = setInterval(AjaxCall, 10000);//Set Interval 3s Between Each Call
 
 function UpdateChart(data){
 	i=data.length-labels.length;
-	console.log(i);
 	j=0;
 	for(i=data.length-labels.length;i<data.length;i++){
-		chartWaterConsumption.data.datasets[0].data[j] = data[i].valMeasure;
+		chartTemperatureReading.data.datasets[0].data[j] = data[i].valMeasure;
+		chartTemperatureReading.data.datasets[1].data[j] = 4;
+		chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
+		chartHumidityReading.data.datasets[1].data[j] = 4;
 		j++;
-		chartWaterConsumption.update();
+		chartTemperatureReading.update();
+		chartHumidityReading.update();
 	};
 };
 
