@@ -70,7 +70,7 @@ function UpdateMap(data){
 	
 	const vector = new ol.layer.Vector({
 		source: new ol.source.Vector({
-			url: 'upload/plots/us-states.json',
+			url: 'documents/plots/parcelleA.json',
 			format: new ol.format.GeoJSON(),
 		}),
 		style: new ol.style.Style({
