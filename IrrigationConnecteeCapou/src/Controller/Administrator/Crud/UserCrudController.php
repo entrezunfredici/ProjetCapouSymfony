@@ -88,7 +88,7 @@ class UserCrudController extends AbstractCrudController
         $entityInstance->setPassword($password);
 
         $email = $this->mailerController->emailRegistration($entityInstance);
-        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnectee\templates');
+        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnecteeCapou\templates');
         $twig = new Environment($loader);
                 
         $renderer = new BodyRenderer($twig);

@@ -69,9 +69,8 @@ AjaxCall();
 var idInter = setInterval(AjaxCall, 10000);//Set Interval 3s Between Each Call
 
 function UpdateChart(data){
-	i=data.length-labels.length;
 	j=0;
-	for(i=data.length-labels.length;i<data.length;i++){
+	for(i=0;i>=0;i++){
 		chartTemperatureReading.data.datasets[0].data[j] = data[i].valMeasure;
 		chartTemperatureReading.data.datasets[1].data[j] = 4;
 		chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
