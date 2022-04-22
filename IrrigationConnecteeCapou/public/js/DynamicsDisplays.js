@@ -26,7 +26,6 @@ function DDChangeBaliseShowed(idBaliseHidden1, idBaliseHidden2, idBaliseShown){
     DDHideBalise(idBaliseHidden1);
     DDHideBalise(idBaliseHidden2);
     DDShowBalise(idBaliseShown);
-    alert("test");
 }
 
 function ConfirmChangement(message) {

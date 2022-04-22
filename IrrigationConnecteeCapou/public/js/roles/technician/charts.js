@@ -61,6 +61,7 @@ function UpdateChart(data){
 	data.forEach(function(){
 		console.log(data[i].valMeasure);
             airHumidity=data[i].valMeasure;
+            i++;
 		}
 	)
 };

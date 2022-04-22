@@ -72,7 +72,7 @@
                 </ul>
             </div>
             <div class="row">
-                <div id="lsb" class="col-2) left-side-bar DashBar Hidden">
+                <div id="lsb" class="col-2 left-side-bar DashBar Hidden">
                     <ul>
                         <li>
                             <a class="nav-link" href="#">
@@ -128,7 +128,7 @@
                             </section> 
                         </div>
                     </div>
-                    <div id="InstantStatsBoard" class="InstantStatsBoard Hidden container">
+                    <div id="InstantStatsBoard" class="StatsBoard Hidden container">
                         <div class="row">
                             <div class="col title"><h1>Statistiques: Instantannées</h1></div>
                         </div>
@@ -159,22 +159,21 @@
                             </div>
                         </div>
                     </div>
-                    <div id="HistoricStatsBoard" class="HistoricStatsBoard Hidden container">
+                    <div id="HistoricStatsBoard" class="StatsBoard Hidden container">
                         <div class="row">
                             <div class="col title"><h1>Statistiques: Historique des données</h1></div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                
-                                </div>
-                            </div>
+
+                        </div>
+                        <div class="row">
+                        
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="row">
-                                    <a class="nav-link">
-                                        <i class="bi bi-download"></i> Télécharger les données au format XML
+                                    <a href="javascript:DCDownloadODSDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format ODS
                                     </a>
                                 </div>
                             </div>
@@ -190,7 +189,7 @@
 
 	<script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/charts.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/Charts.js')}}"></script>
 
 	<script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
     <script src="{{ asset('js/roles/technician/map.js')}}"></script>
