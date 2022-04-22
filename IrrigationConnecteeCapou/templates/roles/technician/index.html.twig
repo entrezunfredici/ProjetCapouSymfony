@@ -72,23 +72,44 @@
                 </ul>
             </div>
             <div class="row">
-                <div id="lsb" class="col-2 left-side-bar DashBar Hidden">
+                <div id="lsb" class="col-2) left-side-bar DashBar Hidden">
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('StatsBoard', 'MapBoard')">
+                            <a class="nav-link" href="#">
+                                Vue
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('InstantStatsBoard','HistoricStatsBoard','MapBoard')">
                                 <i class="bi bi-cursor"></i> carte
                             </a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard', 'StatsBoard')">
-                                <i class="bi bi-graph-up"></i> statistiques
+                            <a class="nav-link" href="#">
+                                Statistiques
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard','HistoricStatsBoard','InstantStatsBoard')">
+                                <i class="bi bi-speedometer"></i> instantanné
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard','InstantStatsBoard','HistoricStatsBoard')">
+                                <i class="bi bi-graph-up"></i> Historique
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-10">
+                <div="col-10">
                     <div id="MapBoard" class="MapBoard Show container">
                         <div class="row">
                             <div class="col title"><h1>Carte</h1></div>
@@ -107,9 +128,9 @@
                             </section> 
                         </div>
                     </div>
-                    <div id="StatsBoard" class="StatsBoard Hidden container">
+                    <div id="InstantStatsBoard" class="InstantStatsBoard Hidden container">
                         <div class="row">
-                            <div class="col title"><h1>Statistiques</h1></div>
+                            <div class="col title"><h1>Statistiques: Instantannées</h1></div>
                         </div>
                         <div class="row">
                             <div class="col">
@@ -134,6 +155,27 @@
                                         <h3>Sol <span id="FloorTemperatureValue"></span>°C</h3>
                                         <canvas id="FloorTemperature" width="100px" height="400px"></canvas>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="HistoricStatsBoard" class="HistoricStatsBoard Hidden container">
+                        <div class="row">
+                            <div class="col title"><h1>Statistiques: Historique des données</h1></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <a class="nav-link">
+                                        <i class="bi bi-download"></i> Télécharger les données au format XML
+                                    </a>
                                 </div>
                             </div>
                         </div>
