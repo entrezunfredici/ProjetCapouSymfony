@@ -20,6 +20,30 @@ when@dev:
                 channels: 
                     - "!event"
                     - "!security"
+                    - "!doctrine"
+                    - "!request"
+                    - "!deprecation"
+            doctrine:
+                level: debug
+                type: rotating_file
+                max_files: 10
+                path: '%kernel.logs_dir%/doctrine.%kernel.environment%.log'
+                channels:
+                    - "doctrine"
+            request:
+                level: debug
+                type: rotating_file
+                max_files: 10
+                path: '%kernel.logs_dir%/request.%kernel.environment%.log'
+                channels:
+                    - "request"
+            deprecation:
+                level: debug
+                type: rotating_file
+                max_files: 10
+                path: '%kernel.logs_dir%/deprecation.%kernel.environment%.log'
+                channels:
+                    - "deprecation"
             # uncomment to get logging in your browser
             # you may have to allow bigger header sizes in your Web server configuration
             #firephp:
