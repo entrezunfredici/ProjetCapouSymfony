@@ -1,12 +1,21 @@
+{#============================================================================
+   Name        : index.html.twig
+   Path	       : templates/home
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Home's interface creation
+   Date 	   : 2022
+============================================================================#}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Irrigation Connectée{% endblock %}
 
 {% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/animations.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/app.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/colors.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/navbar.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/home/_elements/_navbar.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/fonts/fonts.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/map.css')}}">
 {% endblock %}
@@ -17,24 +26,32 @@
 {% block body %}
 	<!--Header-->
 	<header  id="header" class="fixed-top ">
-		{% include "_elements/_navbar.html.twig" %}
+		{% include "home/_elements/_navbar.html.twig" %}
     </header>
     <!---->
     <!--Hero-->
     <section id="hero">
         <div class="hero-container">
-            <h1 id="Title">Campus Terre et vie</h1>
+            <h1 id="Title">Campus</h1>
         </div>
     </section>
     <!---->
     <!--Main-->
-    <main id="home-color-txt">
+    <main id="main" class="home-color-txt Interface">
         <!--Map Section-->
         <section id="MAP" class="MAP">
             <div class="container">
                 <div class="row content">
+                    <select id="layer-select">
+                        <option value="">Carte Classique</option>
+                        <option value="AerialWithLabelsOnDemand" selected>Carte Aérienne</option>
+                        <option value="RoadOnDemand">Carte Routes</option>
+                        <option value="CanvasDark">Carte Routes Sombre</option>
+                    </select>   
+                </div>
+                <div class="row content">
                     <!--Map is here-->
-                    <div id="mapMenu" class="map"></div> 
+                    <div id="mapVisitor" class="map"></div> 
                     <!---->
                 </div>
             </div>
@@ -44,12 +61,12 @@
         <section id="info" class="info page-holder">
             <div class="container ">
                 <div class="section-title">
-                    <h2>informations</h2>
+                    <h2>Informations</h2>
                 </div>
                 <div class="row content">
                     <div class="col-lg-6">
                         <h3>
-                            Etablissement:
+                            Établissement:
                         </h3>
                         <h4>
                             nom: Capou <br/>
@@ -59,8 +76,7 @@
                             Site Web:
                         </h3>
                         <h4>
-                            Ce site web est un site web qui permet  permettant de contrôler le système d'irrigation 
-                            des champs agricoles du lycée capou à distance.
+                            Ce site web permet de contrôler le système d'irrigation des champs agricoles du lycée Capou à distance.
                         </h4>
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0">
@@ -73,7 +89,9 @@
     </main>
     <!---->
     <!--Footer-->
-    {% include "_elements/_footer.html.twig" %}
+    {% include "home/_elements/_footer.html.twig" %}
     <!---->
     <script src="{{ asset('js/move.js')}}"></script>
+    <script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
+    <script src="{{ asset('js/roles/visitor/map.js')}}"></script>
 {% endblock %}

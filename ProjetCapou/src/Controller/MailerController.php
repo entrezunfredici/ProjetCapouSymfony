@@ -1,5 +1,13 @@
 <?php
 
+/*============================================================================
+    Name        : MailerController.php
+    Path	    : src/Controller
+    Author      : BTS SNIR, Lycée Antoine Bourdelle
+    Description : Mailer's interface control
+    Date 	    : 2022
+ ============================================================================*/
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -16,7 +24,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class MailerController extends AbstractController
 {
-    
     private $mailer;
     
     public function __construct(MailerInterface $mailer)
