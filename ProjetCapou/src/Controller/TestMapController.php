@@ -19,9 +19,8 @@ class TestMapController extends AbstractController
         $this->doctrine = $doctrine;
     }
     #[Route('/test/map', name: 'app_test_map')]
-    public function index(Request $request): Response
-    {   
-        
+    public function index(): Response
+    {
         
         return $this->render('test_map/index.html.twig');
         

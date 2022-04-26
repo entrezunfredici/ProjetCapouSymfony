@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Translate Features</title>
+    <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+    <!-- The lines below are only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <style>
+    </style>
+  </head>
+  <body>
+     <form method="get" href="{{ asset('src/Controller/TestMapController.php')}}">
+         <div class="container">
+ 			<div class="row">
+                <div class="col col-4"></div>
+                <div class="col"><h1>Contrôle des leds</h1></div>
+                <div class="col col-4"></div>
+ 			</div>
+			<div class="row">
+                <div class="col"><h5>Led 1</h5></div>
+            </div>
+            <div class="col">
+                 <input type="submit" class="btn btn-success" value="ON" name="on">
+                 <input type="submit" class="btn btn-danger" value="OFF" name="off">
+            </div>
+			<div class="row">
+                <div class="col"><h1> </h1></div>
+            </div>
+            <div class="row">
+                <div class="col"><h5>Led 2</h5></div>
+            </div>
+            <div class="col">
+                 <input type="submit" class="btn btn-success" value="ON" name="onLed">
+                 <input type="submit" class="btn btn-danger" value="OFF" name="offLed">
+            </div>
+		</div>
+     </form>
+  </body>
+</html>
