@@ -9,12 +9,12 @@ function DCDownloadODSDataFile(){
     let timeSeconds = new Date().getSeconds();
     let name="donnees du_"+dateDay+"_"+dateMounth+"_"+dateYear+"_a_"+timeHours+"h"+timeMinutes+"_"+timeSeconds;
     i=0;
-    let Results="données:\n"
+    let Results="Données:\n"
     while(DCDonee[i]!=null){
         Results=Results+"-Donnée "+i+": "+DCDonee[i]+";\n";
         i++;
     }
-    DCdownloadFiles(Results, name, "txt")
+    DCdownloadFiles(Results, name, "xml")
 }
 
 function DCdownloadFiles(data, file_name, file_type) {
