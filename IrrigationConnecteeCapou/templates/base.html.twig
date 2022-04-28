@@ -24,15 +24,17 @@
         	<link rel="stylesheet" href="{{ asset('css/colors.css')}}">
         	<link rel="stylesheet" href="{{ asset('css/home/_elements/_navbar.css')}}">
         	<link rel="stylesheet" href="{{ asset('css/fonts/fonts.css')}}">
-    
+
             {% block javascripts %}
                 {{ encore_entry_script_tags('app') }}
             {% endblock %}
         </head>
         <body>
             {% block body %}{% endblock %}
-            <script src="{{ asset('js/DocumentsCreatorDH.js') }}"></script>
+            <script src="{{ asset('js/DataFileMakerDFM1.js') }}"></script>
             <script src="{{ asset('js/libraries/charts/rGraph/rGraph.common.core.js')}}"></script>
             <script src="{{ asset('js/DynamicsDisplays.js') }}"></script>
+            <script lang="javascript" src="js/libraries/FileSaver.min.js"></script>
+            <script lang="javascript" src="js/libraries/xlsx.full.min.js"></script>
         </body>
     </html>

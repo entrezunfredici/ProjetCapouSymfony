@@ -174,8 +174,11 @@
                         <div class="row">
                             <div class="col">
                                 <div class="row">
-                                    <a href="javascript:DCDownloadODSDataFile()">
-                                        <i class="bi bi-download"></i> Télécharger les données au format ODS
+                                    <a href="javascript:DFMDownloadTxtDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format texte
+                                    </a>
+                                    <a href="javascript:DFMDownloadXlsxDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format Xlsx
                                     </a>
                                 </div>
                             </div>
@@ -195,7 +198,7 @@
     <script src="{{ asset('js/roles/technician/charts.js')}}"></script>
 
 	<script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/map.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/Map.js')}}"></script>
 	<!-- ************************************************************************************************************** -->
     
 {% endblock %}
