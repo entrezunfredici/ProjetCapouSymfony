@@ -29,15 +29,21 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use Faker\Factory;
 use Symfony\Component\Routing\Annotation\Route;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserCrudController extends AbstractCrudController
 {
     private $encoder, $mailerController;
+    private LoggerInterface $logger;
+    private RequestStack $requestStack;
     
-    public function __construct(UserPasswordHasherInterface $encoder, MailerController $mailerController)
+    public function __construct(UserPasswordHasherInterface $encoder, MailerController $mailerController, LoggerInterface $logger, RequestStack $requestStack)
     {
         $this->encoder = $encoder;
         $this->mailerController  = $mailerController;
+        $this->logger = $logger;
+        $this->requestStack = $requestStack;
     }
     
     public static function getEntityFqcn(): string
@@ -79,23 +85,46 @@ class UserCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if(!$entityInstance instanceof User) return;
-                
+        
         $faker = Factory::create('fr_FR');
         
         $entityInstance->setPassword($faker->password(8,8));
         $entityInstance->setPlainPassword($entityInstance->getPassword());
         $password = $this->encoder->hashPassword($entityInstance, $entityInstance->getPassword());
         $entityInstance->setPassword($password);
-
+        
         $email = $this->mailerController->emailRegistration($entityInstance);
-        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnectee\templates');
+        $loader = new FilesystemLoader('C:\Users\Melissa\git\ProjetCapou\ProjetCapou\templates');
         $twig = new Environment($loader);
-                
+        
         $renderer = new BodyRenderer($twig);
         $renderer->render($email);
         $this->mailerController->emailSend($email);
         
         $entityManager->persist($entityInstance);
         $entityManager->flush();
+        
+        $this->logger->info("Un administrateur vient d'ajouter un nouvel utilisateur ");
+        
     }    
+    
+//     public function createEntity(string $entityFqcn):void
+//     {
+//         $this->logger->info("Un administrateur vient d'ajouter un nouvel utilisateur ");
+//     }
+
+    public function updateEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de modifier un utilisateur ");
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+    }
+    
+    public function deleteEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de supprimmer un utilisateur ");
+        $entityManager->remove($entityInstance);
+        $entityManager->flush();
+    }
+    
 }

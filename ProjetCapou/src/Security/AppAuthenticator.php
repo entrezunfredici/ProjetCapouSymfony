@@ -85,7 +85,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         'route_name' => $routeName
         ] = $this->getRouteNameAndUserIP();
         
-        $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' a tentÃ© d'accÃ¨der Ã  la page: '{$routeName}'");
+        $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' a tenté d'accéder à la page: '{$routeName}'");
         
         return new RedirectResponse($url);
     }

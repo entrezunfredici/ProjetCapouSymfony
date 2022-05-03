@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e44ae0dd95e6067f03822d27f674385",
+    "content-hash": "6a5b85274296c3feb5f6bc9a63889ffe",
     "packages": [
         {
             "name": "bluerhinos/phpmqtt",
@@ -1405,16 +1405,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.0.9",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "a582d4590499eab9832cb684c5da61882c92aa73"
+                "reference": "428c1fa868562a70b684e7df5e41d9d7365c5cb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/a582d4590499eab9832cb684c5da61882c92aa73",
-                "reference": "a582d4590499eab9832cb684c5da61882c92aa73",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/428c1fa868562a70b684e7df5e41d9d7365c5cb9",
+                "reference": "428c1fa868562a70b684e7df5e41d9d7365c5cb9",
                 "shasum": ""
             },
             "require": {
@@ -1481,7 +1481,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.0.9"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.1.2"
             },
             "funding": [
                 {
@@ -1489,7 +1489,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-09T19:03:17+00:00"
+            "time": "2022-04-23T15:40:27+00:00"
         },
         {
             "name": "egulias/email-validator",

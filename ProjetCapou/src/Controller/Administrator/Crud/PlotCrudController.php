@@ -11,17 +11,54 @@
 namespace App\Controller\Administrator\Crud;
 
 use App\Entity\Plot;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class PlotCrudController extends AbstractCrudController
 {
     
     public const PLOT_UPLOAD_DIR = 'public/upload/plots';
+    
+    private $doctrine;
+    private $logger;
+    private $requestStack;
+    
+    public function __construct(ManagerRegistry $doctrine, LoggerInterface $logger, RequestStack $requestStack)
+    {
+        $this->doctrine = $doctrine;
+        $this->logger = $logger;
+        $this->requestStack = $requestStack;
+    }
+    
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+        
+        $this->logger->info("Un administrateur vient d'ajouter une nouvelle parcelle ");
+    }
+    
+    public function updateEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de modifier une parcelle ");
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+    }
+    
+    public function deleteEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de supprimmer une parcelle ");
+        $entityManager->remove($entityInstance);
+        $entityManager->flush();
+    }
     
     public static function getEntityFqcn(): string
     {
