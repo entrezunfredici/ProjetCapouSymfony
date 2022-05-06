@@ -18,9 +18,6 @@ class Plot
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
     
-//     #[ORM\Column(type: 'string', length: 255)]
-//     private $filePath;
-    
     #[ORM\Column(type: 'float')]
     private $area;
     
@@ -54,18 +51,6 @@ class Plot
         
         return $this;
     }
-    
-//     public function getFilePath(): ?string
-//     {
-//         return $this->filePath;
-//     }
-    
-//     public function setFilePath(string $filePath): self
-//     {
-//         $this->filePath = $filePath;
-        
-//         return $this;
-//     }
     
     public function getArea(): ?float
     {
@@ -114,16 +99,16 @@ class Plot
         
         return $this;
     }
-
+    
     public function getFilepath(): ?string
     {
         return $this->filepath;
     }
-
-    public function setFilepath(?string $filepath): self
+    
+    public function setFilepath(string $filepath): self
     {
         $this->filepath = $filepath;
-
+        
         return $this;
     }
 }

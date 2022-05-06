@@ -63,29 +63,17 @@ mapAdmin.on('singleclick', function (evt) {
 });
 //------------------------------------------------------------------//
 
-AjaxCall();
-var idInter = setInterval(AjaxCall, 50000);
+AjaxStacketCall();
+setInterval(AjaxStacketCall, 10000);
 
-function UpdateMap(data){	
+AjaxPlotCall();
+setInterval(AjaxPlotCall, 15000);
+
+function UpdateStacket(data){	
 	
-	const vector = new ol.layer.Vector({
-		source: new ol.source.Vector({
-			url: 'documents/plots/parcelleA.json',
-			format: new ol.format.GeoJSON(),
-		}),
-		style: new ol.style.Style({
-		    stroke: new ol.style.Stroke({
-		      color: '#b1c903',
-		      width: 2,
-		    }),
-		    fill: new ol.style.Fill({
-				color: 'rgba(0,0,0,0)',
-			})
-  		}),
-	});
 	//---------------------- Remove Marker's Layer ---------------------//
 	if(mapAdmin.getLayers().getLength() >= 1){
-		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i <= ii; i++){
+		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i < ii; i++){
 			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
 		}
 	}
@@ -119,14 +107,53 @@ function UpdateMap(data){
 		});
 		mapAdmin.addLayer(layer);
 	})
-	mapAdmin.addLayer(vector);
 }
 
-function AjaxCall(){
+function UpdatePlot(data){
+	
+	//---------------------- Remove Marker's Layer ---------------------//
+//	if(mapAdmin.getLayers().getLength() >= 1){
+//		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i < ii; i++){
+//			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
+//		}
+//	}
+	//------------------------------------------------------------------// 
+	
+	data.forEach((plotObject) => {
+		var vector = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				url: plotObject["filepath"],
+				format: new ol.format.GeoJSON(),
+			}),
+			style: new ol.style.Style({
+		    	stroke: new ol.style.Stroke({
+		     		color: '#b1c903',
+		      		width: 2,
+		    	}),
+		    	fill: new ol.style.Fill({
+					color: 'rgba(0,0,0,0)',
+				})
+  			}),
+		});
+		mapAdmin.addLayer(vector);
+	});
+}
+
+function AjaxStacketCall(){
 	$.get(
-		'/admin/map',	//Get URL
-		'false', 		//
-	    UpdateMap, 		//Call Function
-		'json'			//Type of File
+		'/admin/map/stacket',	//Get URL
+		'false',
+	    UpdateStacket,			//Call Function
+		'json'					//Type of File
+	)
+}
+
+//var $j = jQuery.noConflict();
+function AjaxPlotCall(){
+	$.get(
+		'/admin/map/plot',	//Get URL
+		'false',
+	    UpdatePlot,			//Call Function
+		'json'				//Type of File
 	)
 }

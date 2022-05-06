@@ -12,12 +12,16 @@ namespace App\Controller\Administrator\Crud;
 
 use App\Entity\Plot;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\DBAL\Types\TextType;
 
 class PlotCrudController extends AbstractCrudController
 {
@@ -34,9 +38,16 @@ class PlotCrudController extends AbstractCrudController
                     ->setEntityLabelInSingular('Parcelle')
                     ->setPageTitle('index', 'Liste des %entity_label_plural%')
                     ->setPageTitle('edit', fn (Plot $plot) => sprintf('Éditer "%s"', $plot->getName()))
-                    ->setPageTitle('new', 'Ajouter une %entity_label_singular%');
+                    ->setPageTitle('new', 'Ajouter une %entity_label_singular%')
+                    ->setPageTitle('detail', fn (Plot $plot) => sprintf('Détails %s', $plot->getName()))
+                    ->showEntityActionsInlined();
     }
-        
+    
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
+  
     public function configureFields(string $pageName): iterable
     {
             yield TextField::new('name', 'Nom')
@@ -53,34 +64,11 @@ class PlotCrudController extends AbstractCrudController
                     return $str;
                 });
 //             FormField::addPanel('User Details'),
-            yield ImageField::new('filepath')
+            yield ImageField::new('filepath', 'Chemin fichier')
                 ->setUploadDir(self::PLOT_UPLOAD_DIR)
-                ->setFormTypeOption('mapped', false)
                 ->onlyOnForms()
-                ->setUploadedFileNamePattern('[day]-[month]-[year].json');
-            yield NumberField::new('area', 'Surface');         
-    }
-    
-    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
-    {
-        if(!$entityInstance instanceof Plot) return;
-
-//         $entityInstance->setFilepath('documents/plots/'.$entityInstance->getName().'.json');
-//         dump($entityInstance->getFilepath());
-//         die();
-//         $entityInstance->setPlainPassword($entityInstance->getPassword());
-//         $password = $this->encoder->hashPassword($entityInstance, $entityInstance->getPassword());
-//         $entityInstance->setPassword($password);
-        
-//         $email = $this->mailerController->emailRegistration($entityInstance);
-//         $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnecteeCapou\templates');
-//         $twig = new Environment($loader);
-        
-//         $renderer = new BodyRenderer($twig);
-//         $renderer->render($email);
-//         $this->mailerController->emailSend($email);
-        
-//         $entityManager->persist($entityInstance);
-//         $entityManager->flush();
-    }    
+                //->setUploadedFileNamePattern(fn (UploadedFile $file): string => sprintf('%s',$file->getClientOriginalName()));
+                ->setUploadedFileNamePattern('documents/plots/[name].json');
+            yield NumberField::new('area', 'Surface');
+    }  
 }
