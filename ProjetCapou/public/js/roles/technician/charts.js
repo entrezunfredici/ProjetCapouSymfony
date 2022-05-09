@@ -1,5 +1,5 @@
 const data={};
-//temperature Â°C
+//temperature °C
 temperatureMax=70
 temperatureMin=-30
 airTemperature=0
@@ -46,7 +46,7 @@ setInterval(TDShowMeasurements, 250)
 
 //vannes
 function TDIrrigation(idButton, buttonColor1, buttonColor2){
-    if(ConfirmChangement("Ãªtes ou sur(e) de vouloir modifier l'Ã©tat de la vanne?")){
+    if(ConfirmChangement("êtes ou sur(e) de vouloir modifier l'état de la vanne?")){
         mode=DDChangeBaliseClass(idButton, buttonColor1, buttonColor2);
         if(mode==1){
             //irrigation off
@@ -61,6 +61,7 @@ function UpdateChart(data){
 	data.forEach(function(){
 		console.log(data[i].valMeasure);
             airHumidity=data[i].valMeasure;
+            i++;
 		}
 	)
 };
