@@ -11,6 +11,7 @@ use App\Entity\Plot;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Psr\Log\LoggerInterface;
+use App\Entity\User;
 
 class TestMapController extends AbstractController
 {
@@ -22,7 +23,11 @@ class TestMapController extends AbstractController
     #[Route('/test/map', name: 'app_test_map')]
     public function index(LoggerInterface $logger): Response
     {
-        $logger->info('******** logger test ********');
+        
+//         $user = $this->doctrine->getRepository(User::class)->find(103);
+        
+//         dump($user);
+        
         return $this->render('test_map/index.html.twig');
         
     }
