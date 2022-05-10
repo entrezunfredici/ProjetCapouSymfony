@@ -58,9 +58,21 @@ function TDIrrigation(idButton, buttonColor1, buttonColor2){
 
 function UpdateChart(data){
 	i=0;
-	data.forEach(function(){
-		console.log(data[i].valMeasure);
-            airHumidity=data[i].valMeasure;
+	data.forEach(
+        function(){
+            floorTemperature=data[i].valMeasure;
+            if(data[i].measureType=="temperature_sol"){
+                airHumidity=data[i].valMeasure;
+            }
+            if(data[i].measureType=="temperature_air"){
+                airTemperature=data[i].valMeasure;
+            }
+            if(data[i].measureType=="taux_humidite_sol"){
+                floorHumidity=data[i].valMeasure;
+            }
+            if(data[i].measureType=="taux_humidite_air"){
+                floorTemperature=data[i].valMeasure;
+            }
             i++;
 		}
 	)
@@ -78,4 +90,4 @@ function AjaxCallFunction(){
 }
 
 AjaxCallFunction();
-var idInter = setInterval(AjaxCallFunction, 10000);//Set Interval 3s Between Each Call
+var idInter = setInterval(AjaxCallFunction, 10000);
