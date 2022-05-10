@@ -8,7 +8,7 @@
     Date 	    : 2022
  ============================================================================*/
 
-namespace App\Controller\Technician;
+namespace App\Controller\Technician\_Elements;
 
 use App\Entity\Measure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/technician')]
-class MapController extends AbstractController
+class _MapController extends AbstractController
 {
     private $doctrine;
     public function __construct(ManagerRegistry $doctrine)

@@ -8,7 +8,7 @@
     Date 	    : 2022
  ============================================================================*/
 
-namespace App\Controller\Technician;
+namespace App\Controller\Technician\_Elements;
 
 use App\Entity\Measure;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/technician')]
-class ChartsController extends AbstractController
+class _ChartsController extends AbstractController
 {
     private $doctrine;
     public function __construct(ManagerRegistry $doctrine)

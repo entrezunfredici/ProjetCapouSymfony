@@ -64,22 +64,32 @@ mapAdmin.on('singleclick', function (evt) {
 //------------------------------------------------------------------//
 
 AjaxStacketCall();
-setInterval(AjaxStacketCall, 10000);
-
 AjaxPlotCall();
-setInterval(AjaxPlotCall, 15000);
+setInterval(AjaxCall, 10000);
 
-function UpdateStacket(data){	
-	
+function AjaxCall(){
+	RemoveLayers();
+	AjaxStacketCall();
+	AjaxPlotCall();
+}
+
+function RemoveLayers(){
 	//---------------------- Remove Marker's Layer ---------------------//
 	if(mapAdmin.getLayers().getLength() >= 1){
-		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i < ii; i++){
-			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
-		}
+		mapAdmin.getAllLayers().forEach(function(layer){
+			if(layer instanceof ol.layer.Tile){;}
+			else{
+				mapAdmin.removeLayer(layer);	
+			};
+		});
 	}
 	//------------------------------------------------------------------//
+}
+
+function UpdateStacket(data){
+
 	data.forEach((measureObject) => {
-		var layer = new ol.layer.Vector({
+		var vector = new ol.layer.Vector({
 			
 			//------------------------- Marker Location ------------------------//
 			source: new ol.source.Vector({
@@ -89,35 +99,27 @@ function UpdateStacket(data){
 					}),
 				]
 			}),
-			//------------------------------------------------------------------//
-			//-------------------------- Marker Style --------------------------//
-			style: new ol.style.Style({
-				image: new ol.style.Circle({
-					radius: 5,
-					stroke: new ol.style.Stroke({
-						color: '#b1c903',
-						width: 2,
-					}), // Marker's Stroke Color(white)
-					fill: new ol.style.Fill({
-						color: 'rgba(0,0,0,0)',
-					})
-				})
-			})
-			//------------------------------------------------------------------//
+//			//------------------------------------------------------------------//
+//			//-------------------------- Marker Style --------------------------//
+//			style: new ol.style.Style({
+//				image: new ol.style.Circle({
+//					radius: 5,
+//					stroke: new ol.style.Stroke({
+//						color: '#b1c903',
+//						width: 2,
+//					}), // Marker's Stroke Color(white)
+//					fill: new ol.style.Fill({
+//						color: 'rgba(0,0,0,0)',
+//					})
+//				})
+//			})
+//			//------------------------------------------------------------------//
 		});
-		mapAdmin.addLayer(layer);
+		mapAdmin.addLayer(vector);
 	})
 }
 
 function UpdatePlot(data){
-	
-	//---------------------- Remove Marker's Layer ---------------------//
-//	if(mapAdmin.getLayers().getLength() >= 1){
-//		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i < ii; i++){
-//			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
-//		}
-//	}
-	//------------------------------------------------------------------// 
 	
 	data.forEach((plotObject) => {
 		var vector = new ol.layer.Vector({
