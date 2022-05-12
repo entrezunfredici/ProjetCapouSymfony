@@ -62,7 +62,7 @@
                 </ul>
                 <ul class="col-1">
                     <li>
-                        <a class="nav-link" href="javascript:TDIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
+                        <a class="nav-link" href="javascript:ChartsIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
                             <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
                         </a>
                     </li>
@@ -166,10 +166,28 @@
                             </div>
                         </div>
                         <div class="row">
-
+                            <div class="col-5">
+                                <h3>Humiditée</h3>
+                                <canvas id="HumidityHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
+                            </div>
+                            <div class="col-5">
+                                <h3>Temperature</h3>
+                                <canvas id="TemperatureHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
+                            </div>
                         </div>
                         <div class="row">
-                        
+                            <div class="col-5">
+                                Dataset:<br />
+                                <input id="dataset" type="text" /><br /><br />
+                            </div>
+                            <div class="col-5">
+                                Point:<br />
+                                <input id="point" type="text" />
+                            </div>
+                            <h3>nb Air humiditée <span id="nbAirHumidityValue"></span></h3>
+                            <h3>nb Sol humiditée <span id="nbFloorHumidityValue"></span></h3>
+                            <h3>nb Air temperature <span id="nbAirTemperatureValue"></span></h3>
+                            <h3>nb Sol temperature <span id="nbFloorTemperatureValue"></span></h3>
                         </div>
                         <div class="row">
                             <div class="col">
@@ -195,8 +213,9 @@
 
 	<script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/Charts4.js')}}"></script>
-
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.line.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/Charts6.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/DataFileMakerDFM2.js') }}"></script>
 	<script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
     <script src="{{ asset('js/roles/technician/Map.js')}}"></script>
 	<!-- ************************************************************************************************************** -->

@@ -1,10 +1,7 @@
 const allData={};
 const allDonee={};
-function DFMGetDate(){
-    return new Date().getFullYear()+"_"+new Date().getMonth()+"_"+new Date().getDay()+"_"+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds();
-}
 function DFMDownloadTxtDataFile(){
-    let name="donnees du_"+DFMGetDate();
+    let name="donnees du_"+TGGetDateWithHours();
     i=0;
     let Results="Données:\n"
     while(allDonee[i]!=null){
@@ -14,7 +11,7 @@ function DFMDownloadTxtDataFile(){
     DFMCreateTextFile(Results, name, "txt")
 }
 function DFMDownloadXlsxDataFile(){
-    let name="donnees du_"+DFMGetDate();
+    let name="donnees du_"+TGGetDateWithHours();
     DFMCreateXlsxFile(allData, name)
 }
 
