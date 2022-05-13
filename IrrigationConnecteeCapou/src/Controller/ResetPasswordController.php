@@ -177,7 +177,7 @@ class ResetPasswordController extends AbstractController
         
         $email = $this->mailerController->emailResetPassword($user, $resetToken, $url);
 
-        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnecteeCapou\templates');
+        $loader = new FilesystemLoader('../templates');
         $twig = new Environment($loader);
                     
         $twig->addExtension(new TranslationExtension());

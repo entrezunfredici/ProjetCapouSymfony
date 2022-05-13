@@ -25,7 +25,6 @@ class _ChartsController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
     #[Route('/charts', name: 'app_technician_charts')]
     public function sendMesures(): Response
     {
@@ -33,8 +32,10 @@ class _ChartsController extends AbstractController
         $measureCoordinate = array();
         
         foreach($measureObjects as $measureObject){
-            array_push($measureCoordinate, array("idMeasure" => $measureObject->getId(),
-                                                 "valMeasure" => $measureObject->getValue()
+            array_push($measureCoordinate, array(
+                                                "idMeasure" => $measureObject->getId(),
+                                                "valMeasure" => $measureObject->getValue(),
+                                                "measureType" => $measureObject->getMeasureType()->getType()
             ));
         }
         return new JsonResponse($measureCoordinate);

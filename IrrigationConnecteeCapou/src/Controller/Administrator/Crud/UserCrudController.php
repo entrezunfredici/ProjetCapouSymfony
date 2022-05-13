@@ -19,9 +19,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\BodyRenderer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -34,10 +36,15 @@ class UserCrudController extends AbstractCrudController
 {
     private $encoder, $mailerController;
     
-    public function __construct(UserPasswordHasherInterface $encoder, MailerController $mailerController)
+    private LoggerInterface $logger;
+    private RequestStack $requestStack;
+    
+    public function __construct(UserPasswordHasherInterface $encoder, MailerController $mailerController, LoggerInterface $logger, RequestStack $requestStack)
     {
         $this->encoder = $encoder;
         $this->mailerController  = $mailerController;
+        $this->logger = $logger;
+        $this->requestStack = $requestStack;
     }
     
     public static function getEntityFqcn(): string
@@ -97,5 +104,21 @@ class UserCrudController extends AbstractCrudController
         
         $entityManager->persist($entityInstance);
         $entityManager->flush();
-    }    
+        
+        $this->logger->info("Un administrateur vient d'ajouter un nouvel utilisateur ");
+    }
+    
+    public function updateEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de modifier un utilisateur ");
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+    }
+    
+    public function deleteEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de supprimmer un utilisateur ");
+        $entityManager->remove($entityInstance);
+        $entityManager->flush();
+    }
 }

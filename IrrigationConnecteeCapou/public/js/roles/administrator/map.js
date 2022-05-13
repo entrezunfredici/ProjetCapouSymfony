@@ -8,29 +8,32 @@
 
 var screen = new ol.control.FullScreen();
 var scale = new ol.control.ScaleLine();
-var select = 
-	new ol.interaction.Select({style: new ol.style.Style({
-	    stroke: new ol.style.Stroke({
-	      color: '#FFFFFF',
-	      width: 2,
-	    }),
-	}),
+var select = new ol.interaction.Select({
+	style: new ol.style.Style({
+		fill: new ol.style.Fill({
+			color: 'rgba(255, 255, 255, 0.4)',
+		}),
+		stroke: new ol.style.Stroke({
+			color: 'rgba(255, 255, 255, 0.7)',
+	    	width: 2,
+		}),
+	})
 });
 
-//----------------- Elements that make up the popup ----------------//
-const container = document.getElementById('popup');
-const content = document.getElementById('popup-content');
-const closer = document.getElementById('popup-closer');
-//------------------------------------------------------------------//
-//------------------- Overlay to anchor the popup ------------------//
-const overlay = new ol.Overlay({
-	element: container
-});
-//------------------------------------------------------------------//
+////----------------- Elements that make up the popup ----------------//
+//const container = document.getElementById('popup');
+//const content = document.getElementById('popup-content');
+//const closer = document.getElementById('popup-closer');
+////------------------------------------------------------------------//
+////------------------- Overlay to anchor the popup ------------------//
+//const overlay = new ol.Overlay({
+//	element: container
+//});
+////------------------------------------------------------------------//
 
 var mapAdmin = new ol.Map({
 	interactions: ol.interaction.defaults().extend([select]),
-	overlays: [overlay],
+	//overlays: [overlay],
 	target: 'mapAdmin',
 	controls: [screen, scale],
 	layers: [
@@ -42,39 +45,46 @@ var mapAdmin = new ol.Map({
 	],
 	view: new ol.View({
         center: ol.proj.fromLonLat([1.3092730301117868, 44.03460973142589]),
-        zoom: 15
+        zoom: 17
 	})
 });
 
-//------------------- Click handler to hide popup ------------------//
-closer.onclick = function () {
-	overlay.setPosition(undefined);
-  	closer.blur();
-  	return false;
-};
-//------------------------------------------------------------------//
-//------------------ Click handler to render popup -----------------//
-mapAdmin.on('singleclick', function (evt) {
-  	const coordinate = evt.coordinate;
-  	const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+////------------------- Click handler to hide popup ------------------//
+//closer.onclick = function () {
+//	overlay.setPosition(undefined);
+//  	closer.blur();
+//  	return false;
+//};
+////------------------------------------------------------------------//
+////------------------ Click handler to render popup -----------------//
+//mapAdmin.on('singleclick', function (evt) {
+//  	const coordinate = evt.coordinate;
+//  	const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+//
+//  	content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+//  	overlay.setPosition(coordinate);
+//});
+////------------------------------------------------------------------//
 
-  	content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
-  	overlay.setPosition(coordinate);
+
+select.getFeatures().on(['add'], function () {
+  alert('test');
 });
-//------------------------------------------------------------------//
 
 AjaxStacketCall();
 AjaxPlotCall();
-setInterval(AjaxCall, 10000);
 
-function AjaxCall(){
-	RemoveLayers();
-	AjaxStacketCall();
-	AjaxPlotCall();
-}
+//setInterval(RemoveLayers, 10000);
+setInterval(AjaxStacketCall, 10000);
+setInterval(AjaxPlotCall, 10000);
+//
+//function AjaxCall(){
+//	RemoveLayers();
+//	AjaxStacketCall();
+//	//AjaxPlotCall();
+//}
 
 function RemoveLayers(){
-	//---------------------- Remove Marker's Layer ---------------------//
 	if(mapAdmin.getLayers().getLength() >= 1){
 		mapAdmin.getAllLayers().forEach(function(layer){
 			if(layer instanceof ol.layer.Tile){;}
@@ -82,11 +92,11 @@ function RemoveLayers(){
 				mapAdmin.removeLayer(layer);	
 			};
 		});
-	}
-	//------------------------------------------------------------------//
+	}	
 }
 
 function UpdateStacket(data){
+	RemoveLayers();
 
 	data.forEach((measureObject) => {
 		var vector = new ol.layer.Vector({
@@ -99,43 +109,49 @@ function UpdateStacket(data){
 					}),
 				]
 			}),
-//			//------------------------------------------------------------------//
-//			//-------------------------- Marker Style --------------------------//
-//			style: new ol.style.Style({
-//				image: new ol.style.Circle({
-//					radius: 5,
-//					stroke: new ol.style.Stroke({
-//						color: '#b1c903',
-//						width: 2,
-//					}), // Marker's Stroke Color(white)
-//					fill: new ol.style.Fill({
-//						color: 'rgba(0,0,0,0)',
-//					})
-//				})
-//			})
-//			//------------------------------------------------------------------//
+			//------------------------------------------------------------------//
+			//-------------------------- Marker Style --------------------------//
+			style: new ol.style.Style({
+				image: new ol.style.Circle({
+					radius: 3,
+					stroke: new ol.style.Stroke({
+						color: '#b1c903',
+						width: 2,
+					}), // Marker's Stroke Color(white)
+					fill: new ol.style.Fill({
+						color: 'rgba(255,0,0,0)',
+					})
+				})
+			})
+			//------------------------------------------------------------------//
 		});
 		mapAdmin.addLayer(vector);
-	})
+	});
 }
 
-function UpdatePlot(data){
+function UpdatePlot(data){	
 	
-	data.forEach((plotObject) => {
+	data.forEach((plotObject) => {		
 		var vector = new ol.layer.Vector({
 			source: new ol.source.Vector({
 				url: plotObject["filepath"],
 				format: new ol.format.GeoJSON(),
 			}),
 			style: new ol.style.Style({
+				text: new ol.style.Text({
+					text: new String(plotObject["idPlot"]),
+					fill: new ol.style.Fill({
+						color: 'rgba(255,255,255,1)',
+					})
+				}),
 		    	stroke: new ol.style.Stroke({
-		     		color: '#b1c903',
+		     		color: 'rgba(0,0,0,1)',
 		      		width: 2,
 		    	}),
 		    	fill: new ol.style.Fill({
 					color: 'rgba(0,0,0,0)',
 				})
-  			}),
+  			})
 		});
 		mapAdmin.addLayer(vector);
 	});
@@ -150,7 +166,6 @@ function AjaxStacketCall(){
 	)
 }
 
-//var $j = jQuery.noConflict();
 function AjaxPlotCall(){
 	$.get(
 		'/admin/map/plot',	//Get URL

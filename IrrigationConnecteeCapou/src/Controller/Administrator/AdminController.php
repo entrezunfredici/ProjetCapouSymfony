@@ -38,6 +38,7 @@ class AdminController extends AbstractDashboardController
     {
         $users = $this->doctrine->getRepository(User::class)->count([]);
         $plots = $this->doctrine->getRepository(Plot::class)->count([]);
+        $idPlots = $this->doctrine->getRepository(Plot::class)->findAll();
         $openValve = $this->doctrine->getRepository(Valve::class)->count(['state' => 1]);
         if(($this->doctrine->getRepository(Card::class)->count([]))!=0){
             $cards = $this->doctrine->getRepository(Card::class)->count([]);
@@ -60,7 +61,7 @@ class AdminController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards]);
+        return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards, 'idPlots'=>$idPlots]);
     }
 
     public function configureDashboard(): Dashboard

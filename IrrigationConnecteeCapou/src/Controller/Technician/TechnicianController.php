@@ -24,7 +24,7 @@ class TechnicianController extends AbstractController
     {
         $firstName=$this->getUser()->getFirstName();
         $lastName=$this->getUser()->getLastName();
-        return $this->render('roles/technician/index.html.twig', ['firstName'=>$firstName, 'lastName'=>$lastName]);
+        return $this->render('roles/technician/index.html.twig', ['firstname'=>$firstName, 'lastname'=>$lastName]);
     }
 }
 ?>

@@ -92,7 +92,7 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ path('app_technician_data_historical') }}">Telechargement</a>
+                        <a class="collapse-item" href="{{ path('app_technician_data_historical') }}">Graphiques</a>
                     </div>
                 </div>
             </li>
@@ -104,36 +104,56 @@
 
         </ul>
         <!-- End of Sidebar -->
-        <div id="HistoricStatsBoard" calss="StatsBoard Hidden container">
-            <div class="row">
-                <div class="col title">
-                    <h4>Historique des mesures</h4>
-                </div>
-            </div>
-            <div class="row">
         
-            </div>
-            <div class="row">
-            
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <a href="javascript:DFMDownloadTxtDataFile()">
-                            <i class="bi bi-download"></i>Telecharger les donnees au format texte
-                        </a>
-                        <a href="javascript:DFMDownloadXlsxDataFile()">
-                            <i class="bi bi-download"></i>Telecharger les donnees au format Xlsx
-                        </a>
+        		<div id="HistoricStatsBoard" calss="StatsBoard Hidden container">
+                        <div class="row">
+                            <div class="col title">
+                                <h2>Historique des mesures</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <h3>Humiditée</h3>
+                                <canvas id="HumidityHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
+                            </div>
+                            <div class="col-4">
+                                <h3>Température</h3>
+                                <canvas id="TemperatureHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                Dataset:<br />
+                                <input id="dataset" type="text" /><br /><br />
+                            </div>
+                            <div class="col-5">
+                                Point:<br />
+                                <input id="point" type="text" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <a href="javascript:DFMDownloadTxtDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format texte
+                                    </a>
+                                    <a href="javascript:DFMDownloadXlsxDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format Xlsx
+                                    </a>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
 	<!-- ********************************************** Script files ************************************************** -->
     <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
     <script src="{{ asset('js/libraries/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ asset('js/dataFileMaker.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.line.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/chartsInstant.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/dataFileMaker.js') }}"></script>
 	<!-- ************************************************************************************************************** -->
     
 {% endblock %}
