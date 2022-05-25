@@ -51,7 +51,8 @@ class UserCrudController extends AbstractCrudController
                     ->setEntityLabelInSingular('Utilisateur')
                     ->setPageTitle('index', 'Liste des %entity_label_plural%')
                     ->setPageTitle('edit', fn (User $user) => sprintf('Éditer "%s %s"', $user->getFirstName(), $user->getLastName()))
-                    ->setPageTitle('new', 'Ajouter un %entity_label_singular%');
+                    ->setPageTitle('new', 'Ajouter un %entity_label_singular%')
+                    ->showEntityActionsInlined();
     }
 
     public function configureFields(string $pageName): iterable
@@ -63,7 +64,6 @@ class UserCrudController extends AbstractCrudController
         ];
 
         return [
-            IdField::new('id', 'Identifiants')->hideOnForm(),
             TextField::new('firstName', 'Prénom')->setRequired(1),
             TextField::new('lastName', 'Nom')->setRequired(1),
             EmailField::new('email', 'Adresse e-mail')->setFormType(EmailType::class)->setHelp('ex: jean-dupont@gmail.com'),
@@ -88,7 +88,7 @@ class UserCrudController extends AbstractCrudController
         $entityInstance->setPassword($password);
 
         $email = $this->mailerController->emailRegistration($entityInstance);
-        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnectee\templates');
+        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnecteeCapou\templates');
         $twig = new Environment($loader);
                 
         $renderer = new BodyRenderer($twig);

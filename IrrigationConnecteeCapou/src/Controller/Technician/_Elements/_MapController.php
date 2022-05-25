@@ -2,25 +2,24 @@
 
 /*============================================================================
     Name        : MapController.php
-    Path	    : src/Controller/Administrator
+    Path	    : src/Controller/Technician
     Author      : BTS SNIR, Lycée Antoine Bourdelle
-    Description : Administrator's map control
+    Description : Technician's map control
     Date 	    : 2022
  ============================================================================*/
 
-namespace App\Controller\Administrator;
+namespace App\Controller\Technician\_Elements;
 
 use App\Entity\Measure;
-use App\Entity\Plot;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
-#[Route('/admin/map')]
-class MapController extends AbstractController
+#[Route('/technician')]
+class _MapController extends AbstractController
 {
     private $doctrine;
     public function __construct(ManagerRegistry $doctrine)
@@ -28,9 +27,9 @@ class MapController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    #[Route('/stacket', name: 'app_admin_map_stacket')]
-    public function sendStacketLocation(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
-    {  
+    #[Route('/map', name: 'app_technician_map')]
+    public function sendLocation(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
+    {
         $this->doctrine = $doctrine;
         
         $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
@@ -44,22 +43,6 @@ class MapController extends AbstractController
             ));
         }
         return new JsonResponse($measureCoordinate);
-    }
-    
-    #[Route('/plot', name: 'app_admin_map_plot')]
-    public function sendPlotCoordinates(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
-    {
-        $this->doctrine = $doctrine;
-        
-        $plotObjects = $this->doctrine->getRepository(Plot::class)->findAll();
-        $plotCoordinate = array();
-        
-        foreach($plotObjects as $plotObject){
-            array_push($plotCoordinate, array("idPlot" => $plotObject->getId(),
-                                              "filepath" => $plotObject->getFilepath()
-            ));
-        }
-        return new JsonResponse($plotCoordinate);
     }
     
     /* *********************************************** Get Coordinate **************************************************** */

@@ -6,6 +6,14 @@
    Date 	   : 2022
 ============================================================================*/
 
+/*============================================================================
+   Name        : map.js
+   Path	       : public/js/roles/technician
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Technician's map creation
+   Date 	   : 2022
+============================================================================*/
+
 var screen = new ol.control.FullScreen();
 var scale = new ol.control.ScaleLine();
 

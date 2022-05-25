@@ -16,12 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TechnicianController extends AbstractController
 {
+    
+    #[IsGranted('ROLE_TECHNICIAN')]
+    
     #[Route('/technician', name: 'app_technician')]
     public function index(): Response
     {
-        $firstName=$this->getUser()->getFirstName();
-        $lastName=$this->getUser()->getLastName();
-        return $this->render('roles/technician/index.html.twig', ['firstName'=>$firstName, 'lastName'=>$lastName]);
+        $firstname=$this->getUser()->getFirstName();
+        $lastname=$this->getUser()->getLastName();
+        $color=$this->getUser()->getColor();
+        return $this->render('roles/technician/index.html.twig', ['firstname'=>$firstname, 'lastname'=>$lastname, 'color'=>$color]);
     }
 }
 ?>

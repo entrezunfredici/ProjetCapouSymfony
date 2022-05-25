@@ -2,7 +2,7 @@
     * This CSS is for the map 
 */
 #MAP{
-    min-height:100vh;
+	min-height: 100vh;
 }
 .map {
     height: 400px;

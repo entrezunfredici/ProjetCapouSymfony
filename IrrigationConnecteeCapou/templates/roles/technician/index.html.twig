@@ -8,7 +8,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvennue Technicien{% endblock %}
+{% block title %}Irrigation Connectee{% endblock %}
 
 {% block stylesheets %}
 	
@@ -17,207 +17,250 @@
 {% block body %}
 
 	<!-- ********************************************** Style  files ************************************************** -->
-    <link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/roles/technician/sb-admin-2.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/roles/technician/technician.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/librairies/openlayer.css')}}">
     <link rel="stylesheet" href="{{ asset('css/map.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/technician.css')}}">
 	<!-- ************************************************************************************************************** -->
 
-    <main id>
-        <!--Dashboard Section-->
-        <section id="DashBoard" class="DashBoard">
-            <div id="DashBar" class="top-side-bar row DashBar">
-                <div class="col-1" class="DashLogo">
-                    <a href="#">
-                        <img class="logo" src="{{ asset('pictures/logo.svg')}}"/>
-                    </a>
-                </div>
-                <ul class="col-2">
-                    <li>
-                        <a class="nav-link" href="javascript:DDShowMenuWhithButton('LsbButton', 'bi-list', 'bi-x-lg', 'lsb')">
-                            <i id="LsbButton" class="bi bi-list"></i>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="col-4">
-                </ul>
-                <ul class="col-1">
-                    <li>
-                        <a class="nav-link" href="javascript:DDDarkThemForDashboard('DTBTN', 'DashBar', 'lsb', 'DashBoard')">
-                            <i id="DTBTN" class="bi bi-sun"></i>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="col-1">
-                    <li>
-                        <a class="nav-link" href="javascript:DDShowMenuWhithButton('DropDown', 'bi-arrow-bar-down', 'bi-arrow-bar-up', 'DDI')">
-                            <i id="DropDown" class="bi bi-arrow-bar-down"></i>
-                        </a>
-                        <div id="DDI" class="DropDownItems Hidden">
-                            <ul>
-                                <li><a class="nav-link" href="#">général</a></li>
-                                <li><a class="nav-link" href="#">parselle 1</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="col-1">
-                    <li>
-                        <a class="nav-link" href="javascript:ChartsIrrigation('IBTN', 'tech-color-txt', 'irrigationOff')">
-                            <i id="IBTN" class="bi bi-cloud-rain-heavy-fill irrigationOff"></i>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="col-2">
-                    <li><a class="nav-link" href="{{ path('app_logout') }}"><span id="user-name">{{ firstName }} {{ lastName }}</span><i class="bi bi-person-x"></i></a></li>
-                </ul>
-            </div>
-            <div class="row">
-                <div id="lsb" class ="col-2 left-side-bar DashBar Hidden">
-                    <ul>
-                        <li>
-                            <a class="nav-link" href="#">
-                                Vue
-                            </a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('InstantStatsBoard','HistoricStatsBoard','MapBoard')">
-                                <i class="bi bi-cursor"></i> carte
-                            </a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a class="nav-link" href="#">
-                                Statistiques
-                            </a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard','HistoricStatsBoard','InstantStatsBoard')">
-                                <i class="bi bi-speedometer"></i> instantanné
-                            </a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a class="nav-link" href="javascript:DDChangeBaliseShowed('MapBoard','InstantStatsBoard','HistoricStatsBoard')">
-                                <i class="bi bi-graph-up"></i> Historique
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-10">
-                    <div id="MapBoard" calss="MapBoard Show container">
-                        <div class="row">
-                            <div class="col title"><h1>Carte</h1></div>
-                        </div>
-                        <div class="row content">
-                            <select id="layer-select">
-                                <option value="">Carte Classique</option>
-                                <option value="AerialWithLabelsOnDemand" selected>Carte Aérienne</option>
-                                <option value="RoadOnDemand">Carte Routes</option>
-                                <option value="CanvasDark">Carte Routes Sombre</option>
-                            </select>   
-                        </div>
-                        <div class="row">
-                            <section id="MAP" class="MAP">
-                                <div id="mapTech" class="map"></div> 
-                            </section> 
-                        </div>
-                    </div>
-                    <div id="InstantStatsBoard" calss="StatsBoard Hidden container">
-                        <div class="row">
-                            <div class="col title"><h1>Mesures instantannées</h1></div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <h2>Humiditée</h2>
-                                    <div class="col">
-                                        <h3>Air <span id="AirHumidityValue"></span>%</h3>
-                                        <canvas id="AirHumidity" width="300px" height="300px"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <h3>Sol <span id="FloorHumidityValue"></span>%</h3>
-                                        <canvas id="FloorHumidity" width="300px" height="300px"></canvas>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <h2>Temperature</h2>
-                                    <div class="col">
-                                        <h3>Air <span id="AirTemperatureValue"></span>°C</h3>
-                                        <canvas id="AirTemperature" width="100px" height="400px"></canvas>
-                                    </div>
-                                    <div class="col">
-                                        <h3>Sol <span id="FloorTemperatureValue"></span>°C</h3>
-                                        <canvas id="FloorTemperature" width="100px" height="400px"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="HistoricStatsBoard" calss="StatsBoard Hidden container">
-                        <div class="row">
-                            <div class="col title">
-                                <h1>Historique des mesures</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-5">
-                                <h3>Humiditée</h3>
-                                <canvas id="HumidityHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
-                            </div>
-                            <div class="col-5">
-                                <h3>Temperature</h3>
-                                <canvas id="TemperatureHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-5">
-                                Dataset:<br />
-                                <input id="dataset" type="text" /><br /><br />
-                            </div>
-                            <div class="col-5">
-                                Point:<br />
-                                <input id="point" type="text" />
-                            </div>
-                            <h3>nb Air humiditée <span id="nbAirHumidityValue"></span></h3>
-                            <h3>nb Sol humiditée <span id="nbFloorHumidityValue"></span></h3>
-                            <h3>nb Air temperature <span id="nbAirTemperatureValue"></span></h3>
-                            <h3>nb Sol temperature <span id="nbFloorTemperatureValue"></span></h3>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <a href="javascript:DFMDownloadTxtDataFile()">
-                                        <i class="bi bi-download"></i> Télécharger les données au format texte
-                                    </a>
-                                    <a href="javascript:DFMDownloadXlsxDataFile()">
-                                        <i class="bi bi-download"></i> Télécharger les données au format Xlsx
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-text mx-2">Irrigation Connectee</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('app_technician') }}">
+                    <i class="bi bi-house-door-fill"></i>
+                    <span>Accueil</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Parcelles</div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="bi bi-list-task"></i>
+                    <span>Actions</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ path('app_led') }}">Donnees Parcelles</a>
+                        <a class="collapse-item" href="{{ path('app_led') }}">Liste Parcelles</a>
+                    </div>
+                </div>
+            </li>
+
+			<!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Vannes</div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="bi bi-list-task"></i>
+                    <span>Actions</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ path('app_led') }}">Controler Vannes</a>
+                        <a class="collapse-item" href="{{ path('app_led') }}">Liste Vannes</a>
+                    </div>
+                </div>
+            </li>
+            
+			<!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Historique des donnees</div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="bi bi-list-task"></i>
+                    <span>Actions</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ path('app_technician_data_historical') }}">Historique</a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i><span>Se deconnecter</span></a>
+            </li>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color:{{color}}">
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li>
+                        <a class="nav-link" href="javascript:javascript:DDChangeTheme('DashboardPageContent','TechnicianLightInterface','DarkInterface','TechnicianLightElementsInterface','DarkElementsInterface','bi-sun','bi-moon-stars')">
+                        <i id="BtnDarkmodeTechnician" class="bi bi-sun"></i></a></li>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown ">
+						<a><span class="mr-4 d-lg-inline bi bi-person-circle"> {{firstname}} {{lastname}}</span></a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div id="DashboardPageContent" class="container-fluid TechnicianLightInterface">
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="shadow h-100 py-2 TechnicianLightElementsInterface">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold  text-uppercase mb-1">
+                                        Parcelles</div>
+                                    <div class="h5 mb-0 font-weight-bold">12</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="shadow h-100 py-2 TechnicianLightElementsInterface">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold  text-uppercase mb-1">
+                                        Vannes fermees</div>
+                                    <div class="h5 mb-0 font-weight-bold">1</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="shadow h-100 py-2 TechnicianLightElementsInterface">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold  text-uppercase mb-1">
+                                        Vannes ouvertes</div>
+                                    <div class="h5 mb-0 font-weight-bold">2</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="shadow h-100 py-2 TechnicianLightElementsInterface">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold  text-uppercase mb-1">
+                                        Cartes</div>
+                                    <div class="h5 mb-0 font-weight-bold">9</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <!-- Card Header - Dropdown -->
+                            <div class="elemHeader TechnicianLightElementsInterface">
+                                <h5 class="m-0 font-weight-bold TechnicianLightElementsInterface">Visualisation des parcelles</h5>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="row content TechnicianLightElementsInterface">
+                                    <select id="layer-select" class="TechnicianLightElementsInterface">
+                                        <option value="">Carte Classique</option>
+                                        <option value="AerialWithLabelsOnDemand" selected>Carte Aerienne</option>
+                                        <option value="RoadOnDemand">Carte Routes</option>
+                                        <option value="CanvasDark">Carte Routes Sombre</option>
+                                    </select>   
+                                </div>
+                                <div class="row">
+                                    <section id="MAP" class="map">
+                                        <div id="mapTech" class="map"></div> 
+                                    </section> 
+                                </div>
+                                <div class="col-12">
+                                    <div class="elemHeader TechnicianLightElementsInterface">
+                                    	<h5 class="font-weight-bold TechnicianLightElementsInterface">Visualisation des donnees instantannées</h5>
+                                	</div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <h3>Humiditée</h3>
+                                                <div class="col">
+                                                    <h3>Air <span id="AirHumidityValue"></span>%</h3>
+                                                    <canvas id="AirHumidity" width="300px" height="300px"></canvas>
+                                                </div>
+                                                <div class="col">
+                                                    <h3>Sol <span id="FloorHumidityValue"></span>%</h3>
+                                                    <canvas id="FloorHumidity" width="300px" height="300px"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <h3>Température</h3>
+                                                <div class="col">
+                                                    <h3>Air <span id="AirTemperatureValue"></span>°C</h3>
+                                                    <canvas id="AirTemperature" width="100px" height="400px"></canvas>
+                                                </div>
+                                                <div class="col">
+                                                    <h3>Sol <span id="FloorTemperatureValue"></span>°C</h3>
+                                                    <canvas id="FloorTemperature" width="100px" height="400px"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            	</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
             </div>
-        </section>
-    </main>
-    
-    <!-- ********************************************** Script files ************************************************** -->
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+  	<!-- ********************************************** Script files ************************************************** -->
     <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
-
 	<script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
-    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.line.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/Charts6.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/DataFileMakerDFM2.js') }}"></script>
+    <script src="{{ asset('js/roles/technician/charts1.js')}}"></script>
+    <script src="{{ asset('js/libraries/bootstrap.bundle.min.js')}}"></script>
 	<script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/Map.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/map.js')}}"></script>
 	<!-- ************************************************************************************************************** -->
     
 {% endblock %}
