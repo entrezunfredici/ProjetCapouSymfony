@@ -131,14 +131,35 @@
                     <input id="point" type="text" />
                 </div>
             </div>
-            <h3>Sélectionnez votre intervalle temporel</h3>
-            <div id="Elements" class="row content">
-                <select id="time-scale-select" class="ElementsInterface">
-                    <option value="Day">Jounralier</option>
-                    <option value="Week" selected>semaines</option>
-                    <option value="Mounth">Mensuel</option>
-                    <option value="Year">Annuel</option>
-                </select>   
+            <div class="row">
+                <div class="col">
+                    <ul>
+                        <li>
+                            <a class="nav-link" onclick=""><i class="bi bi-caret-left"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>du <span id="MinimumDate"></span> au <span id="MaximumDate"></span></h3>
+                </div>
+                <div class="col">
+                    <ul>
+                        <li>
+                            <a class="nav-link" onclick=""><i class="bi bi-caret-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <h3>Sélectionnez votre intervalle temporel</h3>
+                <div id="Elements" class="row content">
+                    <select id="time-scale-select" class="ElementsInterface">
+                        <option value="Day" selected>Journalier</option>
+                        <option value="Week">semaines</option>
+                        <option value="Mounth">Mensuel</option>
+                        <option value="Year">Annuel</option>
+                    </select>   
+                </div>
             </div>
             <div class="row">
                 <div class="col">
@@ -161,8 +182,8 @@
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.line.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/DataFileMaker3.js') }}"></script>
-    <script src="{{ asset('js/roles/technician/chartsHistoric2.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/DataFileMaker5.js') }}"></script>
+    <script src="{{ asset('js/roles/technician/chartsHistoric4.js')}}"></script>
 	<!-- ************************************************************************************************************** -->
     
 {% endblock %}

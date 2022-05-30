@@ -63,10 +63,6 @@ function ChartsUpdateChart(data){
     iAt=6;
     iFh=6;
     iAh=6;
-    nbAirHumidity=0;
-    nbAirTemperature=0;
-    nbFloorHumidity=0;
-    ndFloorTemperature=0;
 	data.forEach(
         function(){
             if(data[i].measureType=="temperature_sol"){
@@ -104,8 +100,3 @@ function ChartsAjaxCallFunction(){
 
 ChartsAjaxCallFunction();
 var idInter = setInterval(ChartsAjaxCallFunction, 10000);
-
-function ChartsGetLabels(){
-    chartsLabels=['T-6','T-5','T-4','T-3','T-2','T-1','T']
-    return chartsLabels;
-}

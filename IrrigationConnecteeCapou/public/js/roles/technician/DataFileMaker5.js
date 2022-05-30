@@ -1,39 +1,38 @@
-const DFMfloorTemperature={};
-const DFMairTemperature={};
-const DFMfloorHumidity={};
-const DFMairHumidity={};
+const dfmFloorTemperature={};
+const dfmAirTemperature={};
+const dfmFloorHumidity={};
+const dfmAirHumidity={};
 const allData={};
-const allDonee={};
 function DFMDownloadTxtDataFile(){
-    let name="donnees du_"+TGGetDateWithHours();
+    let name="donnees du_"+TGGetDateWithTime();
     i=0;
     let Results="Temperatures sol: "
-    while(DFMfloorTemperature[i]!=null){
-        Results=Results+"-Temperature"+i+": "+DFMfloorTemperature[i]+"°C; ";
+    while(dfmFloorTemperature[i]!=null){
+        Results=Results+"-Temperature"+i+": "+dfmFloorTemperature[i].valMeasure+"°C; prise le"+dfmFloorTemperature[i].measureDate+" ";
         i++;
     }
     i=0;
     Results=Results+"\n Temperatures air: "
-    while(DFMairTemperature[i]!=null){
-        Results=Results+"-Temperature"+i+": "+DFMairTemperature[i]+"°C; ";
+    while(dfmAirTemperature[i]!=null){
+        Results=Results+"-Temperature"+i+": "+dfmAirTemperature[i].valMeasure+"°C; "+dfmAirTemperature[i].measureDate+" ";
         i++;
     }
     i=0;
     Results=Results+"\n Humiditée Sol: "
-    while(DFMfloorHumidity[i]!=null){
-        Results=Results+"-Humiditée"+i+": "+DFMfloorHumidity[i]+"°C; ";
+    while(dfmFloorHumidity[i]!=null){
+        Results=Results+"-Humiditée"+i+": "+dfmFloorHumidity[i].valMeasure+"%; "+dfmFloorHumidity[i].measureDate+" ";
         i++;
     }
     i=0;
     Results=Results+"\n Huimitée air: "
-    while(DFMfloorHumidity[i]!=null){
-        Results=Results+"-Humiditée"+i+": "+DFMfloorHumidity[i]+"°C; ";
+    while(dfmAirHumidity[i]!=null){
+        Results=Results+"-Humiditée air:"+i+": "+dfmAirHumidity[i].valMeasure+"%; "+dfmAirHumidity[i].measureDate+" ";
         i++;
     }
     DFMCreateTextFile(Results, name, "txt")
 }
 function DFMDownloadXlsxDataFile(){
-    let name="donnees du_"+TGGetDateWithHours();
+    let name="donnees du_"+TGGetDateWithTime();
     DFMCreateXlsxFile(allData, name)
 }
 
@@ -89,25 +88,25 @@ function DFMUpdateValues(tdata){
     iAt=0;
     iFh=0;
     iAh=0;
+    SortDataList(tdata);
 	tdata.forEach(function(){
         if(tdata[i].measureType=="temperature_sol"){
-            DFMfloorTemperature[iFt]=tdata[i].valMeasure;
+            dfmFloorTemperature[iFt]=tdata[i];
             iFt++;
         }
         if(tdata[i].measureType=="temperature_air"){
-            DFMairTemperature[iAt]=tdata[i].valMeasure;
+            dfmAirTemperature[iAt]=tdata[i];
             iAt++;
         }
         if(tdata[i].measureType=="taux_humidite_sol"){
-            DFMfloorHumidity[iFh]=tdata[i].valMeasure;
+            dfmFloorHumidity[iFh]=tdata[i];
             iFh++;
         }
         if(tdata[i].measureType=="taux_humidite_air"){
-            DFMfloorHumidity[iAh]=tdata[i].valMeasure;
+            dfmAirHumidity[iAh]=tdata[i];
             iAh++;
         }
 		console.log(tdata[i].valMeasure);
-            allDonee[i]=tdata[i].valMeasure;
             i++;
 		}
 	)
@@ -119,7 +118,7 @@ function DFMAjaxCallFunction(){
     $j.get(
 		'/technician/charts',	//url
 		allData,		        //data
-		DFMUpdateValues,	        //success
+		DFMUpdateValues,	    //success
 		'json',		            //dataType
 	)
 }
