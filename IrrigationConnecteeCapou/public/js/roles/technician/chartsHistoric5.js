@@ -101,24 +101,24 @@ function ChartsUpdateChart(data){
     iAt=6;
     iFh=6;
     iAh=6;
-    SortDataList(data);
-    data.forEach(
+    iData=SortDataList(data);
+    iData.forEach(
         function(){
-            if(data[i].measureType=="temperature_sol"){
-                floorTemperatureHistoric[iFt]=data[i].valMeasure;
+            if(iData[i].measureType=="temperature_sol"){
+                floorTemperatureHistoric[iFt]=iData[i].valMeasure;
                 //data[i].measureDate;
                 iFt++;
             }
-            if(data[i].measureType=="temperature_air"){
-                airTemperatureHistoric[iAt]=data[i].valMeasure;
+            if(iData[i].measureType=="temperature_air"){
+                airTemperatureHistoric[iAt]=iData[i].valMeasure;
                 iAt++;
             }
-            if(data[i].measureType=="taux_humidite_sol"){
-                floorHumidityHistoric[iFh]=data[i].valMeasure;
+            if(iData[i].measureType=="taux_humidite_sol"){
+                floorHumidityHistoric[iFh]=iData[i].valMeasure;
                 iFh++;    
             }
-            if(data[i].measureType=="taux_humidite_air"){
-                airHumidityHistoric[iAh]=data[i].valMeasure;
+            if(iData[i].measureType=="taux_humidite_air"){
+                airHumidityHistoric[iAh]=iData[i].valMeasure;
                 iAh++;
             }
             i++;
@@ -180,29 +180,35 @@ scaleChange();
 function ChartsGetLabels(){
     return label;
 }
-function SortDataList(dataTable){
-    /*dataTableLen=0;
-    k=0;
-    n=0;
-    while(n!=k || k==0){
+function SortDataList(dataTable){//not works
+    dataTableLen=0;
+    s=0;
+    while(1){
         k=0;
         n=0;
-        for(; dataTable[k]; k++){
+        while(dataTable[k+1]){
             if(dataTable[k].measureDate>dataTable[k+1].measureDate){
                 sort=dataTable[k]
                 dataTable[k]=dataTable[k+1];
                 dataTable[k+1]=sort;
             }else n++;
-            if(dataTableLen!=0 && (n==k)!=0){
+            if(dataTableLen){
                 if(dataTable[dataTableLen].measureDate<dataTable[dataTableLen-1].measureDate){
-                    sort=dataTable[dataTableLen]
-                    dataTable[dataTableLen]=dataTable[dataTableLen-1];
-                    dataTable[dataTableLen-1]=sort;
+                    sort=dataTable[dataTableLen-1]
+                    dataTable[dataTableLen-1]=dataTable[dataTableLen];
+                    dataTable[dataTableLen]=sort;
                 }
                 dataTableLen--;
             }
+            k++;
         }
         DataTableLen=k;
-        if(n==k)return;
-    }*/
+        if(n==k){
+            return dataTable;
+        }
+        if(s==500){
+            return dataTable;
+        }
+        s++;
+    }
 }

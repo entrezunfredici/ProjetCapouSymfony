@@ -25,7 +25,6 @@ function TGGetIntTableTime(){
 }
 function TGGetMounthSize(){
     if((new Date().getMonth()+1)==2)return 28;
-    alert(((new Date().getMonth()+1)%2));
     if(((new Date().getMonth()+1)%2)==0)return 30;
     return 31;
 }

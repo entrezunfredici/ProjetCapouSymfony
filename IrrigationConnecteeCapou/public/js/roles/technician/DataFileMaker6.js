@@ -8,25 +8,25 @@ function DFMDownloadTxtDataFile(){
     i=0;
     let Results="Temperatures sol: "
     while(dfmFloorTemperature[i]!=null){
-        Results=Results+"-Temperature"+i+": "+dfmFloorTemperature[i].valMeasure+"°C; prise le"+dfmFloorTemperature[i].measureDate+" ";
+        Results=Results+"-Temperature"+dfmFloorTemperature[i].measureDate+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
         i++;
     }
     i=0;
     Results=Results+"\n Temperatures air: "
     while(dfmAirTemperature[i]!=null){
-        Results=Results+"-Temperature"+i+": "+dfmAirTemperature[i].valMeasure+"°C; "+dfmAirTemperature[i].measureDate+" ";
+        Results=Results+"-Temperature"+dfmAirTemperature[i].measureDate+": "+dfmAirTemperature[i].valMeasure+"°C;";
         i++;
     }
     i=0;
     Results=Results+"\n Humiditée Sol: "
     while(dfmFloorHumidity[i]!=null){
-        Results=Results+"-Humiditée"+i+": "+dfmFloorHumidity[i].valMeasure+"%; "+dfmFloorHumidity[i].measureDate+" ";
+        Results=Results+"-Humiditée"+dfmFloorHumidity[i].measureDate+": "+dfmFloorHumidity[i].valMeasure+"%;";
         i++;
     }
     i=0;
     Results=Results+"\n Huimitée air: "
     while(dfmAirHumidity[i]!=null){
-        Results=Results+"-Humiditée air:"+i+": "+dfmAirHumidity[i].valMeasure+"%; "+dfmAirHumidity[i].measureDate+" ";
+        Results=Results+"-Humiditée air:"+dfmAirHumidity[i].measureDate+": "+dfmAirHumidity[i].valMeasure+"%;";
         i++;
     }
     DFMCreateTextFile(Results, name, "txt")
