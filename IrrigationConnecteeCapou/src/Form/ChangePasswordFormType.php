@@ -18,25 +18,33 @@ class ChangePasswordFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => array(
+//                         'autocomplete' => 'new-password',
+                        'class' => 'input100 form-control',
+                        'placeholder' => '6 caractères'
+                    ),
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Veuillez entrer votre mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            'minMessage' => 'Veuillez entrer au minimum {{ limit }} caractères',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'New password',
+                    'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'label' => 'Repeat Password',
+                    'attr' => array(
+//                         'autocomplete' => 'new-password',
+                        'class' => 'input100 form-control',
+                        'placeholder' => '6 caractères'
+                    ),
+                    'label' => 'Répétez mot de passe',
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les deux mots de passe sont différents',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,

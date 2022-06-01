@@ -20,13 +20,13 @@ function DFMDownloadTxtDataFile(){
     i=0;
     Results=Results+"\n Humiditée Sol: "
     while(dfmFloorHumidity[i]!=null){
-        Results=Results+"-Humiditée"+i+": "+dfmFloorHumidity[i]+"°C; ";
+        Results=Results+"-Humiditée"+i+": "+dfmFloorHumidity[i]+"%; ";
         i++;
     }
     i=0;
     Results=Results+"\n Huimitée air: "
     while(dfmAirHumidity[i]!=null){
-        Results=Results+"-Humiditée air:"+i+": "+dfmAirHumidity[i]+"°C; ";
+        Results=Results+"-Humiditée air:"+i+": "+dfmAirHumidity[i]+"%; ";
         i++;
     }
     DFMCreateTextFile(Results, name, "txt")

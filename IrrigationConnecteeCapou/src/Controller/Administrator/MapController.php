@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Card;
 
 #[Route('/admin/map')]
 class MapController extends AbstractController
@@ -33,17 +34,43 @@ class MapController extends AbstractController
     {  
         $this->doctrine = $doctrine;
         
-        $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
-        $measureCoordinate = array();
+        $cardObjects = $this->doctrine->getRepository(Card::class)->findAll();
+        $cardCoordinates = array();
         
-        foreach($measureObjects as $measureObject){
-            $coordinate = $this->DSMToDD($measureObject->getGps());
-            array_push($measureCoordinate, array("idMeasure" => $measureObject->getId(),
-                                                 "latitude" => $coordinate["latitude"],
-                                                 "longitude" => $coordinate["longitude"]
+        foreach($cardObjects as $cardObject){
+            $coordinate = $this->DSMToDD($cardObject->getLocation());
+            array_push($cardCoordinates, array("idStacket" => $cardObject->getId(),
+                                               "latitude" => $coordinate["latitude"],
+                                               "longitude" => $coordinate["longitude"]
             ));
         }
-        return new JsonResponse($measureCoordinate);
+        return new JsonResponse($cardCoordinates);
+    }
+    
+    #[Route('/test', name: 'test')]
+    public function sendStacketAndPlot(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
+    {
+        $this->doctrine = $doctrine;
+        
+        $cardObjects = $this->doctrine->getRepository(Card::class)->findAll();
+        $cardCoordinates = array();
+        $plotObjects = $this->doctrine->getRepository(Plot::class)->findAll();
+        $plotCoordinate = array();
+        
+        foreach($cardObjects as $cardObject){
+            $coordinate = $this->DSMToDD($cardObject->getLocation());
+            array_push($cardCoordinates, array("idStacket" => $cardObject->getId(),
+                "latitude" => $coordinate["latitude"],
+                "longitude" => $coordinate["longitude"]
+            ));
+        }
+        foreach($plotObjects as $plotObject){
+            array_push($plotCoordinate, array("idPlot" => $plotObject->getId(),
+                "filepath" => $plotObject->getFilepath()
+            ));
+        }
+        $testArray=array_merge($plotCoordinate, $cardCoordinates);
+        return new JsonResponse(array($plotCoordinate, $cardCoordinates));
     }
     
     #[Route('/plot', name: 'app_admin_map_plot')]

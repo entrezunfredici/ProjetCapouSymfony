@@ -13,18 +13,22 @@
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/login.css')}}">
 
-	<div class="limiter" src="{{ asset('pictures/etablissement.jpg')}}">
+{# 	<div class="limiter" src="{{ asset('pictures/etablissement.jpg')}}">#}
 		<div class="container-login100">
 		    <div class='container-login100-form-btn-back'>
-    	<div class='btn float-right'>
-    		<div class="container-login100-form-btn">
-        		<a class="nav-link" href={{ path('app_home')}}>
-                    <input class="login100-form-btn" type="button" value="Retour">
-                </a>
-{#     			<button class="login100-form-btn" >Retour</button>#}
-    		</div>
-    	</div>
-	</div>
+            	<div class='btn float-right'>
+            		<div class="container-login100-form-btn">   
+                		<a class="nav-link" href={{ path('app_home')}}>
+                            <input class="login100-form-btn" type="button" value="Retour">
+                        </a>
+                        {% if error %}
+                            <div class="alert alert-danger">
+                               {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+            		</div>
+            	</div>
+        	</div>
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
  					<img class="image" src="{{ asset('pictures/logo.svg')}}" alt="">				
@@ -33,18 +37,18 @@
 					<span class="login100-form-title">Connexion</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100 form-control" type="email" name="email" placeholder="Email" id="inputEmail" autocomplete="email"  required autofocus>						 
+						<input class="input100 form-control" type="email" name="email" placeholder="E-mail" id="inputEmail" autocomplete="email"  required autofocus>						 
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
+							<i class="bi bi-envelope" aria-hidden="true"></i>
 						</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100 form-control" type="password" name="password" placeholder="Password" id="inputPassword" autocomplete="current-password" required>
+						<input class="input100 form-control" type="password" name="password" placeholder="Mot de passe" id="inputPassword" autocomplete="current-password" required>
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
+							<i class="bi bi-lock-fill" aria-hidden="true"></i>
 						</span>
 					</div>
 					 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -59,5 +63,5 @@
 				</form>
 			</div>
 		</div>
-	</div>
+{# 	</div>#}
 {% endblock %}

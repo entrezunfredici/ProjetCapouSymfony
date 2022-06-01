@@ -84,14 +84,10 @@
     	<div class="row mt-3">
     		<div class="dropdown">
         		<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Parcelles</button>
-        		<div class="dropdown-menu">
-        			{% for idPlot in idPlots %}
-        				<a class="dropdown-item" onclick="GetPlotName();" id="plotList">parcelle n°{{idPlot.id}}</a>
-                    {% endfor %}        	
+        		<div class="dropdown-menu" id="dropdownMenu">
               	</div>
-          	</div>          	
-			<h2 id="plot">Parcelle n°</h2>
-			
+          	</div>
+          	<div id="plotName"></div>        				
         	<div class="col-sm-12 col-lg-6">
         		<canvas id="groundReading"></canvas>
         	</div>
@@ -106,9 +102,7 @@
             </div>
     	</div>
 	</div>
-	
-	
-	
+
 	<style>.chart--container {
       min-height: 400px;
       min-width: 400px;

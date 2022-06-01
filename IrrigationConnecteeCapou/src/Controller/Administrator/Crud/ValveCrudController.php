@@ -26,11 +26,9 @@ class ValveCrudController extends AbstractCrudController
     
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->setEntityLabelInPlural('Vannes')
-                    ->setEntityLabelInSingular('Vanne')
-                    ->setPageTitle('index', 'Liste des %entity_label_plural%')
+        return $crud->setPageTitle('index', 'Liste des vannes')
                     ->setPageTitle('edit', fn (Valve $valve) => sprintf('Éditer vanne n°%s', $valve->getId()))
-                    ->setPageTitle('new', 'Ajouter une %entity_label_singular%')
+                    ->setPageTitle('new', 'Ajouter une vanne')
                     ->showEntityActionsInlined();
     }
 

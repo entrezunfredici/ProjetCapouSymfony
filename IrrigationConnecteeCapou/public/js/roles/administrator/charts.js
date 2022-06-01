@@ -9,7 +9,7 @@
 const data={};
 const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
 
-const dataTemperature = {
+const dataHumidity = {
     labels: labels,
     datasets: [{
       label: 'Air',
@@ -23,7 +23,7 @@ const dataTemperature = {
       borderColor: 'rgb(160,225,255)',
     }]
 };
-const dataHumidity = {
+const dataTemperature = {
     labels: labels,
     datasets: [{
       label: 'Air',
@@ -41,7 +41,7 @@ const configTemperature = {type: 'line', data: dataTemperature, options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Humidité aérienne et souterraine'
+                text: 'Température aérienne et souterraine'
             },
             legend: {
 				display: true,
@@ -53,7 +53,7 @@ const configHumidity = {type: 'line', data: dataHumidity, options: {
 		plugins: {
             title: {
                 display: true,
-                text: 'Température aérienne et souterraine'
+                text: 'Humidité aérienne et souterraine'
             },
 	        legend: {
 				display: true,
@@ -223,7 +223,7 @@ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768
             visible: false,
           },
           series: [{
-            values: [35],
+            values: [0],
             valueBox: {
               text: '%v',
               fontColor: 'rgb(235,110,29)',
@@ -237,7 +237,7 @@ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768
     };
 
     zingchart.render({
-      id: 'myChart2',
+      id: 'chartAirHumidity',
       data: chartConfig2,
       height: '100%',
       width: '100%',
@@ -248,83 +248,173 @@ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768
      * a feed attribute that takes in http requests, websockets,
      * and return value from a JS function.
      */
-    setInterval(() => {
-      let colors = ['rgb(255,176,126)', '#E2D51A', '#FB301E'];
-      let Marker = (bgColor, ceiling) => {
-        return {
-          type: 'area',
-          range: [0, ceiling],
-          backgroundColor: bgColor,
-          alpha: 0.95,
-        };
-      };
-      
-    min = Math.ceil(0);
-	max = Math.floor(100);
-    let output0 = Math.floor(Math.random() * (max - min +1)) + min;
-
-      // 1) update gauge values
-      zingchart.exec('myChart2', 'appendseriesdata', {
-        graphid: 0,
-        plotindex: 0,
-        update: false,
-        data: {
-          values: [output0],
-        },
-      });
-
-      // 2) update gauge markers
-      zingchart.exec('myChart2', 'modify', {
-        graphid: 0,
-        update: false,
-        data: {
-          scaleR: {
-            markers: [Marker(colors[0], output0)],
-          },
-        },
-      });
-
-      // batch update all chart modifications
-      zingchart.exec('myChart2', 'update');
-    }, 1500);
+//    setInterval(() => {
+//      let colors = ['rgb(255,176,126)', '#E2D51A', '#FB301E'];
+//      let Marker = (bgColor, ceiling) => {
+//        return {
+//          type: 'area',
+//          range: [0, ceiling],
+//          backgroundColor: bgColor,
+//          alpha: 0.95,
+//        };
+//      };
+//      
+//    min = Math.ceil(0);
+//	max = Math.floor(100);
+//    let output0 = Math.floor(Math.random() * (max - min +1)) + min;
+//
+//      // 1) update gauge values
+//      zingchart.exec('myChart2', 'appendseriesdata', {
+//        graphid: 0,
+//        plotindex: 0,
+//        update: false,
+//        data: {
+//          values: [output0],
+//        },
+//      });
+//
+//      // 2) update gauge markers
+//      zingchart.exec('myChart2', 'modify', {
+//        graphid: 0,
+//        update: false,
+//        data: {
+//          scaleR: {
+//            markers: [Marker(colors[0], output0)],
+//          },
+//        },
+//      });
+//
+//      // batch update all chart modifications
+//      zingchart.exec('myChart2', 'update');
+//    }, 1500);
 
 
 AjaxCall();
+AjaxIdPlotCall();
+setInterval(AjaxIdPlotCall, 10000);
 var idInter = setInterval(AjaxCall, 500000);//Set Interval 3s Between Each Call
 
 function UpdateChart(data){
 	
-//	data.forEach(
+	let i=0;
+	data.forEach((measureObject)=>{
+		if(measureObject["measureType"]=="taux_humidite_air"){
+			
+			zingchart.exec('chartAirHumidity', 'modify', {
+				graphid: 0,
+				update: false,
+				data: {
+					scaleR: {
+						markers: [Marker(colors[0], output0)],
+					},
+				},
+			});			
+			
+            chartHumidityReading.data.datasets[0].data[i] = measureObject["valMeasure"];
+            i++;
+        }
+	}
 //        function(){
-//            if(data[i].measureType=="taux_humidite_sol"){
-//                .data.datasets=data[i].valMeasure
-//            }
-//            i++;
+//			console.log(data[]);
+////            if(data[].measureType=="taux_humidite_sol"){
+////                chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
+////            }
+////            i++;
 //		}
-//	)
+	)
 	
-	j=0;
-	for(i=0;i>=0;i++){
-		chartTemperatureReading.data.datasets[0].data[j] = data[i].valMeasure;
-		chartTemperatureReading.data.datasets[1].data[j] = 4;
-//		if(data[i].measureType=="taux_humidite_air"){
-//			chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
-//        }
-//        if(data[i].measureType=="taux_humidite_sol"){
-//			chartHumidityReading.data.datasets[1].data[j] = 4;
-//        }
-        chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
-        chartHumidityReading.data.datasets[1].data[j] = 4;
-		j++;
+//	j=0;
+//	for(i=0;i>=0;i++){
+//		chartTemperatureReading.data.datasets[0].data[j] = data[i].valMeasure;
+//		chartTemperatureReading.data.datasets[1].data[j] = 4;
+////		if(data[i].measureType=="taux_humidite_air"){
+////			chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
+////        }
+////        if(data[i].measureType=="taux_humidite_sol"){
+////			chartHumidityReading.data.datasets[1].data[j] = 4;
+////        }
+//        chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
+//        chartHumidityReading.data.datasets[1].data[j] = 4;
+//		j++;
 
-		chartTemperatureReading.update();
+		//chartTemperatureReading.update();
 		chartHumidityReading.update();
-	};
 };
 
-function GetPlotName(){
-	document.getElementById("plot").textContent = document.getElementById("plotList").textContent;
-	document.getElementsByName
+let j=0;
+
+function GetPlotName(id){
+	const div = document.querySelector('#plotName');
+	if(document.getElementById("plot")){
+		document.getElementById("plotName").removeChild(document.getElementById("plot"));
+	}
+//	if(j!=0){
+//		document.getElementById("plotName").removeChild(document.getElementById(id));
+//	}
+//	j=1;
+	div.innerHTML += `<h2 id="plot" class="text-center">Parcelle n°${id}</h2>`;
+//	$.get(
+//		'/admin/idPlots',	//url
+//		'false',		//data
+//		function(data){
+//			const div = document.querySelector('#dropdown-menu');
+//			data.forEach((plotObject) => {
+////				console.log(plotObject["idPlot"]);
+//				var top = document.getElementById("dropdown-menu");
+//				var nested = document.getElementById(plotObject["idPlot"]);
+//				console.log(nested);
+//				top.removeChild(nested);
+//			    div.innerHTML += `<a id=${plotObject["idPlot"]} class="dropdown-item" href="#">parcelle n°${plotObject["idPlot"]}</a>`;
+////			    console.log(div);
+//			})
+////			console.log(document.getElementsByName("plotId"));
+////			for(let i=data.length-1; data[i]; i--){
+////				console.log("i="+i);
+////				for(let j=0; document.getElementsByName("plotId")[j]; j++){
+//////					console.log(document.getElementsByName("plotId")[0])
+//////					console.log(document.getElementsByName("plotId")[j]);
+////console.log("j="+j);
+////					if(("parcelle n°"+data[i].idPlot)==document.getElementsByName("plotId")[j].textContent){
+////						console.log(i);
+////						console.log(j);
+////						console.log(document.getElementsByName("plotId")[j].id);
+////						return;
+////					}
+////					if(data[i].idPlot==document.getElementsByName("plotId")[j].id){
+////						console.log(document.getElementsByName("plotId")[j].id);
+////						return;
+////					}	
+////				}
+////			}
+////			data.forEach((plotObject) => {document.getElementById(data[i].idPlot).textContent
+////				if(("parcelle n°"+plotObject["idPlot"]) == document.getElementById(plotObject["idPlot"]).textContent){
+////					//alert("test");
+////				}
+////				//console.log(document.getElementById(plotObject["idPlot"]).textContent);
+//////				document.getElementById("plot").textContent = document.getElementById(plotObject["idPlot"]).textContent;
+////			});
+//		},	//success
+//		'json',		//dataType
+//	)
+}
+let i=0;
+
+function AjaxIdPlotCall(){
+	$.get(
+		'/admin/idPlots',
+		'false',
+		function(data){
+			const div = document.querySelector('#dropdownMenu');
+			data.forEach((plotObject) => {
+				if(i!=0){
+					document.getElementById("dropdownMenu").removeChild(document.getElementById(plotObject["idPlot"]));
+				}
+				div.innerHTML += `<a id=${plotObject["idPlot"]} class="dropdown-item" onclick="GetPlotName(this.id);">parcelle n°${plotObject["idPlot"]}</a>`;
+			})
+			i=1;
+		},
+		'json',
+	)
 }
 
 function AjaxCall(){

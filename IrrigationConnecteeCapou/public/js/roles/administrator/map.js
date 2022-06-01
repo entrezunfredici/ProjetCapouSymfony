@@ -70,19 +70,10 @@ var mapAdmin = new ol.Map({
 select.getFeatures().on(['add'], function () {
   alert('test');
 });
-
-AjaxStacketCall();
-AjaxPlotCall();
-
-//setInterval(RemoveLayers, 10000);
+AjaxStacketAndPlotCall();
 setInterval(AjaxStacketCall, 10000);
-setInterval(AjaxPlotCall, 10000);
-//
-//function AjaxCall(){
-//	RemoveLayers();
-//	AjaxStacketCall();
-//	//AjaxPlotCall();
-//}
+//setInterval(AjaxStacketAndPlotCall, 10000);
+
 
 function RemoveLayers(){
 	if(mapAdmin.getLayers().getLength() >= 1){
@@ -97,7 +88,7 @@ function RemoveLayers(){
 
 function UpdateStacket(data){
 	RemoveLayers();
-
+	AjaxPlotCall();
 	data.forEach((measureObject) => {
 		var vector = new ol.layer.Vector({
 			
@@ -126,11 +117,11 @@ function UpdateStacket(data){
 			//------------------------------------------------------------------//
 		});
 		mapAdmin.addLayer(vector);
+//		vector.getSource().getFeaturesAtCoordinate(point)
 	});
 }
 
-function UpdatePlot(data){	
-	
+function UpdatePlot(data){
 	data.forEach((plotObject) => {		
 		var vector = new ol.layer.Vector({
 			source: new ol.source.Vector({
@@ -157,6 +148,25 @@ function UpdatePlot(data){
 	});
 }
 
+function Update(data){
+	let i=0;
+	for(i=0; data[i]; i++){
+		if(data[i]==){
+			
+		}
+		else{
+			
+		}
+	}
+//	data.forEach((plotObject) => {		
+//		if(plotObject[idPlot]){
+//			i++;
+//			console.log(i);
+//		}
+//		
+//	});
+}
+
 function AjaxStacketCall(){
 	$.get(
 		'/admin/map/stacket',	//Get URL
@@ -172,5 +182,14 @@ function AjaxPlotCall(){
 		'false',
 	    UpdatePlot,			//Call Function
 		'json'				//Type of File
+	)
+}
+
+function AjaxStacketAndPlotCall(){
+	$.get(
+		'/admin/map/test',	//Get URL
+		'false',
+	    Update,			//Call Function
+		'json'					//Type of File
 	)
 }

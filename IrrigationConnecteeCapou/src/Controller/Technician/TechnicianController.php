@@ -17,9 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class TechnicianController extends AbstractController
 {
     
-    #[IsGranted('ROLE_TECHNICIAN')]
-    
     #[Route('/technician', name: 'app_technician')]
+    #[IsGranted('ROLE_TECHNICIAN')]
     public function index(): Response
     {
         $firstName=$this->getUser()->getFirstName();

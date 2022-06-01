@@ -23,28 +23,23 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\BodyRenderer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use Faker\Factory;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserCrudController extends AbstractCrudController
 {
     private $encoder, $mailerController;
-    
     private LoggerInterface $logger;
-    private RequestStack $requestStack;
     
-    public function __construct(UserPasswordHasherInterface $encoder, MailerController $mailerController, LoggerInterface $logger, RequestStack $requestStack)
+    public function __construct(UserPasswordHasherInterface $encoder, MailerController $mailerController, LoggerInterface $logger)
     {
         $this->encoder = $encoder;
         $this->mailerController  = $mailerController;
         $this->logger = $logger;
-        $this->requestStack = $requestStack;
     }
     
     public static function getEntityFqcn(): string
@@ -54,11 +49,9 @@ class UserCrudController extends AbstractCrudController
     
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->setEntityLabelInPlural('Utilisateurs')
-                    ->setEntityLabelInSingular('Utilisateur')
-                    ->setPageTitle('index', 'Liste des %entity_label_plural%')
+        return $crud->setPageTitle('index', 'Liste des utilisateurs')
                     ->setPageTitle('edit', fn (User $user) => sprintf('Éditer "%s %s"', $user->getFirstName(), $user->getLastName()))
-                    ->setPageTitle('new', 'Ajouter un %entity_label_singular%')
+                    ->setPageTitle('new', 'Ajouter un utilisateur')
                     ->showEntityActionsInlined();
     }
 
@@ -73,7 +66,7 @@ class UserCrudController extends AbstractCrudController
         return [
             TextField::new('firstName', 'Prénom')->setRequired(1),
             TextField::new('lastName', 'Nom')->setRequired(1),
-            EmailField::new('email', 'Adresse e-mail')->setFormType(EmailType::class)->setHelp('ex: jean-dupont@gmail.com'),
+            EmailField::new('email', 'Adresse e-mail')->setHelp('ex: jean-dupont@gmail.com')->setRequired(1),
             TelephoneField::new('phone_number', 'Téléphone')->setFormType(TelType::class),
             TextField::new('address', 'Adresse')->setHelp('ex: 8 rue Laplace'),
             TextField::new('city', 'Ville'),
@@ -95,7 +88,7 @@ class UserCrudController extends AbstractCrudController
         $entityInstance->setPassword($password);
 
         $email = $this->mailerController->emailRegistration($entityInstance);
-        $loader = new FilesystemLoader('C:\Users\sarah\git\Capou\IrrigationConnecteeCapou\templates');
+        $loader = new FilesystemLoader('..\templates');
         $twig = new Environment($loader);
                 
         $renderer = new BodyRenderer($twig);
@@ -117,7 +110,7 @@ class UserCrudController extends AbstractCrudController
     
     public function deleteEntity($entityManager, $entityInstance):void
     {
-        $this->logger->info("Un administrateur vient de supprimmer un utilisateur ");
+        $this->logger->info("Un administrateur vient de supprimer un utilisateur ");
         $entityManager->remove($entityInstance);
         $entityManager->flush();
     }

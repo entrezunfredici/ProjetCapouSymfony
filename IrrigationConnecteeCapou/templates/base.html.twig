@@ -11,7 +11,7 @@
         <head>
             <meta charset="UTF-8">
             <title>{% block title %}Welcome!{% endblock %}</title>
-            <link rel="icon" type="image/svg" href=""{{ asset('pictures/logo.svg')}}"">
+            <link rel="icon" type="image/svg" href="{{ asset('pictures/logo.svg')}}">
             {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
             {% block stylesheets %}
                 {{ encore_entry_link_tags('app') }}
@@ -35,6 +35,6 @@
             <script src="{{ asset('js/libraries/charts/rGraph/rGraph.common.core.js')}}"></script>
             <script src="{{ asset('js/libraries/fileSaver.min.js') }}"></script>
             <script src="{{ asset('js/libraries/xlsx.full.min.js') }}"></script>
-            <script src="{{ asset('js/dynamicsDisplays.js') }}"></script>
+            <script src="{{ asset('js/dynamicsDisplay.js') }}"></script>
         </body>
     </html>

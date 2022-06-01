@@ -29,10 +29,14 @@ class Plot
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $filepath;
+
+    #[ORM\OneToMany(mappedBy: 'plotId', targetEntity: Card::class)]
+    private $cards;
     
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->cards = new ArrayCollection();
     }
         
     public function getId(): ?int
@@ -109,6 +113,36 @@ class Plot
     {
         $this->filepath = $filepath;
         
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Card>
+     */
+    public function getCards(): Collection
+    {
+        return $this->cards;
+    }
+
+    public function addCard(Card $card): self
+    {
+        if (!$this->cards->contains($card)) {
+            $this->cards[] = $card;
+            $card->setPlotId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCard(Card $card): self
+    {
+        if ($this->cards->removeElement($card)) {
+            // set the owning side to null (unless already changed)
+            if ($card->getPlotId() === $this) {
+                $card->setPlotId(null);
+            }
+        }
+
         return $this;
     }
 }

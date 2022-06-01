@@ -11,7 +11,6 @@
 namespace App\Controller\Administrator\Crud;
 
 use App\Entity\Plot;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -20,8 +19,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\DBAL\Types\TextType;
 
 class PlotCrudController extends AbstractCrudController
 {
@@ -34,11 +31,9 @@ class PlotCrudController extends AbstractCrudController
     
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->setEntityLabelInPlural('Parcelles')
-                    ->setEntityLabelInSingular('Parcelle')
-                    ->setPageTitle('index', 'Liste des %entity_label_plural%')
+        return $crud->setPageTitle('index', 'Liste des parcelles')
                     ->setPageTitle('edit', fn (Plot $plot) => sprintf('Éditer "%s"', $plot->getName()))
-                    ->setPageTitle('new', 'Ajouter une %entity_label_singular%')
+                    ->setPageTitle('new', 'Ajouter une parcelle')
                     ->setPageTitle('detail', fn (Plot $plot) => sprintf('Détails %s', $plot->getName()))
                     ->showEntityActionsInlined();
     }

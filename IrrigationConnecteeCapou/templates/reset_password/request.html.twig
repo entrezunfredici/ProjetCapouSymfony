@@ -1,22 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Mot de passe oublié{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+    <link rel="stylesheet" href="{{ asset('css/login.css')}}">
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address and we will send you a
-                link to reset your password.
-            </small>
-        </div>
+	<div class="container-login100">
+		<div class='container-login100-form-btn-back'>
+        	<div class='btn float-right'>
+        		<div class="container-login100-form-btn">   
+            		<a class="nav-link" href={{ path('app_login')}}>
+                        <input class="login100-form-btn" type="button" value="Retour">
+                    </a>
+                    {% for flash_error in app.flashes('reset_password_error') %}
+                    	<div class="alert alert-danger" role="alert">{{ flash_error|trans }}</div>
+                    {% endfor %}
+        		</div>
+        	</div>
+    	</div>
+		<div class="wrap-login100">
+			<div class="login100-pic js-tilt" data-tilt>
+				<img class="image" src="{{ asset('pictures/logo.svg')}}" alt="">				
+			</div>
+			{{ form_start(requestForm) }}
+			<form class="login100-form validate-form formulaire" method="post">
+				<span class="login100-form-title">Mot de passe oublié</span>
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+				<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+    				{{ form_widget(requestForm.email ) }}
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="bi bi-envelope" aria-hidden="true"></i>
+					</span>
+				</div>				
+				<div class="container-login100-form-btn">
+					<button class="btn login100-form-btn">Réinitialiser mon mot de passe</button>
+					{{ form_end(requestForm) }}
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}

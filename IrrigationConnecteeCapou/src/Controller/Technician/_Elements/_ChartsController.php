@@ -26,7 +26,7 @@ class _ChartsController extends AbstractController
         $this->doctrine = $doctrine;
     }
     #[Route('/charts', name: 'app_technician_charts')]
-    public function sendMesures(): Response
+    public function sendMeasures(): Response
     {
         $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
         $measureCoordinate = array();

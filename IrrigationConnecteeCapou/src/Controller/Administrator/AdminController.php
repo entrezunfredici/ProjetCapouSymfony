@@ -23,9 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractDashboardController
-{
-    #[IsGranted('ROLE_ADMIN')]
-    
+{   
     private $doctrine;
     
     public function __construct(ManagerRegistry $doctrine)
@@ -34,11 +32,11 @@ class AdminController extends AbstractDashboardController
     }
     
     #[Route('/admin', name: 'app_admin')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
         $users = $this->doctrine->getRepository(User::class)->count([]);
         $plots = $this->doctrine->getRepository(Plot::class)->count([]);
-        $idPlots = $this->doctrine->getRepository(Plot::class)->findAll();
         $openValve = $this->doctrine->getRepository(Valve::class)->count(['state' => 1]);
         if(($this->doctrine->getRepository(Card::class)->count([]))!=0){
             $cards = $this->doctrine->getRepository(Card::class)->count([]);
@@ -46,22 +44,7 @@ class AdminController extends AbstractDashboardController
         else{
             $cards = 0;
         }
-
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(OneOfYourCrudController::class)->generateUrl());
-
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirect('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
-        return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards, 'idPlots'=>$idPlots]);
+        return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards]);
     }
 
     public function configureDashboard(): Dashboard
@@ -90,6 +73,12 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::subMenu('Actions', 'fas fa-list')->setSubItems([
             MenuItem::linkToCrud('Ajouter vanne', 'fas fa-plus', Valve::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Liste vannes', 'fas fa-eye', Valve::class)
+        ]);
+        
+        yield MenuItem::section('Piquets');
+        yield MenuItem::subMenu('Actions', 'fas fa-list')->setSubItems([
+            MenuItem::linkToCrud('Ajouter piquet', 'fas fa-plus', Card::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Liste piquets', 'fas fa-eye', Card::class)
         ]);
 
         yield MenuItem::linkToLogout('Se déconnecter', 'fas fa-sign-out-alt');

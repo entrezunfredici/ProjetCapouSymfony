@@ -130,7 +130,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [
@@ -157,7 +157,7 @@ class ResetPasswordController extends AbstractController
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'There was a problem handling your password reset request - %s',
+                'Un problème persiste lors de votre requête - %s',
                 $e->getReason()
                 ));
             // If you want to tell the user why a reset email was not sent, uncomment

@@ -11,6 +11,7 @@
 namespace App\Controller\Administrator;
 
 use App\Entity\Measure;
+use App\Entity\Plot;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,5 +39,16 @@ class ChartsController extends AbstractController
             ));
         }
         return new JsonResponse($measureCoordinate);
-    }   
+    }
+    
+    #[Route('/idPlots', name: 'app_admin_idPlots')]
+    public function sendIdPlot (): Response
+    {
+        $measureObjects = $this->doctrine->getRepository(Plot::class)->findAll();
+        $measureCoordinate = array();
+        foreach($measureObjects as $measureObject){
+            array_push($measureCoordinate, array("idPlot" => $measureObject->getId()));
+        }
+        return new JsonResponse($measureCoordinate);
+    }
 }

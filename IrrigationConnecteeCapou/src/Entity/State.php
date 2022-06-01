@@ -26,6 +26,11 @@ class State
         $this->cards = new ArrayCollection();
     }
     
+    public function __toString(): string
+    {
+        return $this->description;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
