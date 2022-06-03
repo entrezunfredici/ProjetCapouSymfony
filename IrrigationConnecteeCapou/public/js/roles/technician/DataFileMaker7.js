@@ -1,37 +1,42 @@
 const dfmFloorTemperature={};
-const dfmAirTemperature={};
 const dfmFloorHumidity={};
+const dfmAirTemperature={};
 const dfmAirHumidity={};
 const allData={};
 function DFMDownloadTxtDataFile(){
-    let name="donnees du_"+TGGetDateWithTime();
+    DFMAjaxCallFunction();
+    let name="donnees telechargees le "+TGGetDateWithTime();
     i=0;
-    let Results="Temperatures sol: "
+    sDateIntervall=scaleChange();
+    let Results="données de "+sDateIntervall[0]+" à "+sDateIntervall[1]+"\n Temperatures sol: ";
+    alert(sDateIntervall[0]);
+    alert(sDateIntervall[1]);
     while(dfmFloorTemperature[i]!=null){
-        Results=Results+"-Temperature"+dfmFloorTemperature[i].measureDate+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
+        if(TGDateCompare(dfmFloorTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature"+dfmFloorTemperature[i].measureDate+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
         i++;
     }
     i=0;
     Results=Results+"\n Temperatures air: "
     while(dfmAirTemperature[i]!=null){
-        Results=Results+"-Temperature"+dfmAirTemperature[i].measureDate+": "+dfmAirTemperature[i].valMeasure+"°C;";
+        if(TGDateCompare(dfmAirTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature"+dfmAirTemperature[i].measureDate+": "+dfmAirTemperature[i].valMeasure+"°C;";
         i++;
     }
     i=0;
     Results=Results+"\n Humiditée Sol: "
     while(dfmFloorHumidity[i]!=null){
-        Results=Results+"-Humiditée"+dfmFloorHumidity[i].measureDate+": "+dfmFloorHumidity[i].valMeasure+"%;";
+        if(TGDateCompare(dfmFloorHumidity[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Humiditée"+dfmFloorHumidity[i].measureDate+": "+dfmFloorHumidity[i].valMeasure+"%;";
         i++;
     }
     i=0;
     Results=Results+"\n Huimitée air: "
     while(dfmAirHumidity[i]!=null){
-        Results=Results+"-Humiditée air:"+dfmAirHumidity[i].measureDate+": "+dfmAirHumidity[i].valMeasure+"%;";
+        if(TGDateCompare(dfmAirHumidity[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Humiditée air:"+dfmAirHumidity[i].measureDate+": "+dfmAirHumidity[i].valMeasure+"%;";
         i++;
     }
     DFMCreateTextFile(Results, name, "txt")
 }
 function DFMDownloadXlsxDataFile(){
+    DFMAjaxCallFunction();
     let name="donnees du_"+TGGetDateWithTime();
     DFMCreateXlsxFile(allData, name)
 }
@@ -90,6 +95,7 @@ function DFMUpdateValues(tdata){
     iAh=0;
     SortDataList(tdata);
 	tdata.forEach(function(){
+        sDateIntervall=scaleChange();
         if(tdata[i].measureType=="temperature_sol"){
             dfmFloorTemperature[iFt]=tdata[i];
             iFt++;
@@ -107,9 +113,8 @@ function DFMUpdateValues(tdata){
             iAh++;
         }
 		console.log(tdata[i].valMeasure);
-            i++;
-		}
-	)
+        i++;
+	})
 };
 
 var $j = jQuery.noConflict();

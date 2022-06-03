@@ -4,7 +4,7 @@ const data={};
 const DateIntervall={};
 sChartDateIntervall=[" "," "];
 label=["1","2","3","4","5","6","7"];
-
+DayMode=1;
 //Temperatures
 temperatureMax=70;
 temperatureMin=-30;
@@ -16,6 +16,9 @@ humidityMin=0;
 humidityMax=100;
 airHumidityHistoric=[0,0,0,0,0,0,0];
 floorHumidityHistoric=[0,0,0,0,0,0,0];
+
+scale=["1","2","3","4","5","6","7"];
+
 function ChartsShowMeasurements() {
     let canvas = document.getElementById('HumidityHistoricDatas');
     let ctx = canvas.getContext('2d');
@@ -52,7 +55,6 @@ function ChartsShowMeasurements() {
     ctx = canvas.getContext('2d');
     ctx.fillStyle = '#FFFFFF'; //Nuance de bleu
     ctx.fillRect(0, 0, 500, 400);
-    if(lineTwo)delete linetwo;
     var lineTwo=new RGraph.Line({
         id: 'TemperatureHistoricDatas',
         data: [
@@ -96,34 +98,68 @@ function ChartsIrrigation(idButton, buttonColor1, buttonColor2){
 }
 
 function ChartsUpdateChart(data){
-	i=0;
-    iFt=6;
-    iAt=6;
-    iFh=6;
-    iAh=6;
     iData=SortDataList(data);
-    iData.forEach(
-        function(){
-            if(iData[i].measureType=="temperature_sol"){
-                floorTemperatureHistoric[iFt]=iData[i].valMeasure;
-                //data[i].measureDate;
-                iFt++;
+    for(k=0; k<6; k++){
+        i=0;
+        ift=0;
+        iat=0;
+        ifh=0;
+        iah=0;
+        airTemperatureSum=0;
+        floorTemperatureSum=0;
+        floorHumiditySum=0;
+        airHumiditySum=0;
+        iData.forEach(function(){
+                if(!DayMode){
+                    if(TGDateCompare(iData[i].measureDate, scale[k], scale[k+1])){
+                        if(iData[i].measureType=="temperature_sol"){
+                            floorTemperatureSum+=iData[i].valMeasure;
+                            ift++;
+                        }
+                        if(iData[i].measureType=="temperature_air"){
+                            airTemperatureSum+=iData[i].valMeasure;
+                            iat++;
+                        }
+                        if(iData[i].measureType=="taux_humidite_sol"){
+                            floorHumiditySum+=iData[i].valMeasure;
+                            ifh++;
+                        }
+                        if(iData[i].measureType=="taux_humidite_air"){
+                            airHumiditySum+=iData[i].valMeasure;
+                            iah++;
+                        }
+                    }
+                }else{
+                    if(iData[i].measureType=="temperature_sol"){
+                        floorTemperatureHistoric[iat]=iData[i].valMeasure;
+                        ift++;
+                    }
+                    if(iData[i].measureType=="temperature_air"){
+                        airTemperatureHistoric[iat]=iData[i].valMeasure;
+                        iat++;
+                    }
+                    if(iData[i].measureType=="taux_humidite_sol"){
+                        floorHumidityHistoric[ifh]=iData[i].valMeasure;
+                        ifh++;
+                    }
+                    if(iData[i].measureType=="taux_humidite_air"){
+                        airHumidityHistoric[iah]=iData[i].valMeasure;
+                        iah++;
+                    }
+                }
+                console.log(iData[i].valMeasure);
+                i++;
             }
-            if(iData[i].measureType=="temperature_air"){
-                airTemperatureHistoric[iAt]=iData[i].valMeasure;
-                iAt++;
-            }
-            if(iData[i].measureType=="taux_humidite_sol"){
-                floorHumidityHistoric[iFh]=iData[i].valMeasure;
-                iFh++;    
-            }
-            if(iData[i].measureType=="taux_humidite_air"){
-                airHumidityHistoric[iAh]=iData[i].valMeasure;
-                iAh++;
-            }
-            i++;
-		}
-	)
+        )
+        if(iat==0)iat=1
+        if(ift==0)iat=1
+        if(iah==0)iat=1
+        if(ifh==0)iat=1
+        if(!DayMode)airTemperatureHistoric[k]=0;
+        if(!DayMode)floorTemperatureHistoric[k]=0;
+        if(!DayMode)airHumidityHistoric[k]=0;
+        if(!DayMode)floorHumidityHistoric[k]=0;
+    }
 };
 
 var $j = jQuery.noConflict();
@@ -143,44 +179,46 @@ var idInter = setInterval(ChartsAjaxCallFunction, 10000);
 const scaleSelect = document.getElementById('time-scale-select');
 function scaleChange() {
     const scaleValue = scaleSelect.value;
-    scaling=0;
-    accurancy=0;
     if(scaleValue=="Day"){
-        accurancy=24;
         sChartDateIntervall=[TGGetDate(),TGGetDate()];
         label=['0h','4h','8h','12h','16h','20h','24h'];
+        DayMode=1;
     }else if(scaleValue=="Week"){
-        scaling=7;
-        accurancy=14;
-        sChartDateIntervall=TGWeekDateRange(TGGetIntTableDate());
+        sChartDateIntervall=TGWeekDateRange(TGGetIntTableDate(),scale);
         label=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+        DayMode=0;
     }else if(scaleValue=="Mounth"){
-        accurancy=24;
-        sChartDateIntervall=TGMounthDateRange(TGGetIntTableDate());
+        sChartDateIntervall=TGMounthDateRange(TGGetIntTableDate(),scale);
         switch(TGGetMounthSize()){
             case 28:
                 label=['0','5','9','14','19','23','28'];
+                break;
             case 30:
                 label=['0','5','10','15','20','25','30'];
+                break;
             case 31:
                 label=['0','5','10','16','21','26','31'];
+                break;
             default:
+                break;
         }
+        DayMode=0;
     }else if(scaleValue=="Year"){
-        scaling=12;
-        accurancy=24;
-        sChartDateIntervall=TGYearDateRange(TGGetIntTableDate());
+        sChartDateIntervall=TGYearDateRange(TGGetIntTableDate(),scale);
         label=['Nov-Déc','Jan-Fév','Mars-Avril','Mai-Juin','Juil-Aout','Sept-Oct','Nov-Déc'];
+        DayMode=0;
     }
-    document.getElementById("MinimumDate").value =  sChartDateIntervall[0];
-    document.getElementById("MaximumDate").value =  sChartDateIntervall[1];
+    document.getElementById("MinimumDate").innerHTML =  sChartDateIntervall[0];
+    document.getElementById("MaximumDate").innerHTML =  sChartDateIntervall[1];
+    ChartsAjaxCallFunction();
+    return sChartDateIntervall; 
 }
 scaleSelect.addEventListener('change', scaleChange);
 scaleChange();
 function ChartsGetLabels(){
     return label;
 }
-function SortDataList(dataTable){//not works
+function SortDataList(dataTable){
     dataTableLen=0;
     s=0;
     while(1){
@@ -194,7 +232,7 @@ function SortDataList(dataTable){//not works
             }else n++;
             if(dataTableLen){
                 if(dataTable[dataTableLen].measureDate<dataTable[dataTableLen-1].measureDate){
-                    sort=dataTable[dataTableLen-1]
+                    sort=dataTable[dataTableLen-1];
                     dataTable[dataTableLen-1]=dataTable[dataTableLen];
                     dataTable[dataTableLen]=sort;
                 }
