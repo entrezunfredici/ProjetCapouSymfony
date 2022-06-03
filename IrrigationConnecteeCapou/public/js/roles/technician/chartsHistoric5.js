@@ -96,70 +96,34 @@ function ChartsIrrigation(idButton, buttonColor1, buttonColor2){
         }
     }
 }
-
+//if(TGDateCompare(iData[i].measureDate, scale[k], scale[k+1])){
 function ChartsUpdateChart(data){
     iData=SortDataList(data);
-    for(k=0; k<6; k++){
-        i=0;
-        ift=0;
-        iat=0;
-        ifh=0;
-        iah=0;
-        airTemperatureSum=0;
-        floorTemperatureSum=0;
-        floorHumiditySum=0;
-        airHumiditySum=0;
-        iData.forEach(function(){
-                if(!DayMode){
-                    if(TGDateCompare(iData[i].measureDate, scale[k], scale[k+1])){
-                        if(iData[i].measureType=="temperature_sol"){
-                            floorTemperatureSum+=iData[i].valMeasure;
-                            ift++;
-                        }
-                        if(iData[i].measureType=="temperature_air"){
-                            airTemperatureSum+=iData[i].valMeasure;
-                            iat++;
-                        }
-                        if(iData[i].measureType=="taux_humidite_sol"){
-                            floorHumiditySum+=iData[i].valMeasure;
-                            ifh++;
-                        }
-                        if(iData[i].measureType=="taux_humidite_air"){
-                            airHumiditySum+=iData[i].valMeasure;
-                            iah++;
-                        }
-                    }
-                }else{
-                    if(iData[i].measureType=="temperature_sol"){
-                        floorTemperatureHistoric[iat]=iData[i].valMeasure;
-                        ift++;
-                    }
-                    if(iData[i].measureType=="temperature_air"){
-                        airTemperatureHistoric[iat]=iData[i].valMeasure;
-                        iat++;
-                    }
-                    if(iData[i].measureType=="taux_humidite_sol"){
-                        floorHumidityHistoric[ifh]=iData[i].valMeasure;
-                        ifh++;
-                    }
-                    if(iData[i].measureType=="taux_humidite_air"){
-                        airHumidityHistoric[iah]=iData[i].valMeasure;
-                        iah++;
-                    }
-                }
-                console.log(iData[i].valMeasure);
-                i++;
-            }
-        )
-        if(iat==0)iat=1
-        if(ift==0)iat=1
-        if(iah==0)iat=1
-        if(ifh==0)iat=1
-        if(!DayMode)airTemperatureHistoric[k]=0;
-        if(!DayMode)floorTemperatureHistoric[k]=0;
-        if(!DayMode)airHumidityHistoric[k]=0;
-        if(!DayMode)floorHumidityHistoric[k]=0;
-    }
+    i=0;
+    ift=0;
+    iat=0;
+    ifh=0;
+    iah=0;
+    iData.forEach(function(){
+        if(iData[i].measureType=="temperature_sol"){
+            floorTemperatureHistoric[iat]=iData[i].valMeasure;
+            ift++;
+        }
+        if(iData[i].measureType=="temperature_air"){
+            airTemperatureHistoric[iat]=iData[i].valMeasure;
+            iat++;
+        }
+        if(iData[i].measureType=="taux_humidite_sol"){
+            floorHumidityHistoric[ifh]=iData[i].valMeasure;
+            ifh++;
+        }
+        if(iData[i].measureType=="taux_humidite_air"){
+            airHumidityHistoric[iah]=iData[i].valMeasure;
+            iah++;
+        }
+        console.log(iData[i].valMeasure);
+        i++;
+    })
 };
 
 var $j = jQuery.noConflict();

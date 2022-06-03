@@ -9,8 +9,6 @@ function DFMDownloadTxtDataFile(){
     i=0;
     sDateIntervall=scaleChange();
     let Results="données de "+sDateIntervall[0]+" à "+sDateIntervall[1]+"\n Temperatures sol: ";
-    alert(sDateIntervall[0]);
-    alert(sDateIntervall[1]);
     while(dfmFloorTemperature[i]!=null){
         if(TGDateCompare(dfmFloorTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature"+dfmFloorTemperature[i].measureDate+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
         i++;
