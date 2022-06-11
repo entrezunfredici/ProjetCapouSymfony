@@ -28,6 +28,9 @@ class Measure
     #[ORM\ManyToOne(targetEntity: MeasureType::class, inversedBy: 'measures')]
     #[ORM\JoinColumn(nullable: false)]
     private $measureType;
+
+    #[ORM\ManyToOne(targetEntity: Card::class, inversedBy: 'measures')]
+    private $card;
     
     public function getId(): ?int
     {
@@ -93,28 +96,16 @@ class Measure
         
         return $this;
     }
-    
-    //     public function getDate(): ?\DateTimeInterface
-    //     {
-    //         return $this->date;
-    //     }
-    
-    //     public function setDate(\DateTimeInterface $date): self
-    //     {
-    //         $this->date = $date;
-    
-    //         return $this;
-    //     }
-    
-    //     public function getTime(): ?\DateTimeInterface
-    //     {
-    //         return $this->time;
-    //     }
-    
-    //     public function setTime(\DateTimeInterface $time): self
-    //     {
-    //         $this->time = $time;
-    
-    //         return $this;
-    //     }
+
+    public function getCardId(): ?Card
+    {
+        return $this->card;
+    }
+
+    public function setCardId(?Card $card): self
+    {
+        $this->card = $card;
+
+        return $this;
+    }
 }

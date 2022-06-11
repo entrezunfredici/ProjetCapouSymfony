@@ -180,7 +180,7 @@ class ResetPasswordController extends AbstractController
         $loader = new FilesystemLoader('../templates');
         $twig = new Environment($loader);
                     
-        $twig->addExtension(new TranslationExtension());
+//         $twig->addExtension(new TranslationExtension());
 
         $renderer = new BodyRenderer($twig);
         $renderer->render($email);

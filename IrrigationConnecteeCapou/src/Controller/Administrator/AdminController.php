@@ -80,7 +80,7 @@ class AdminController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter piquet', 'fas fa-plus', Card::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Liste piquets', 'fas fa-eye', Card::class)
         ]);
-
+        
         yield MenuItem::linkToLogout('Se déconnecter', 'fas fa-sign-out-alt');
     }
 }

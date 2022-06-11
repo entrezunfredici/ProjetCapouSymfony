@@ -30,7 +30,7 @@ class Plot
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $filepath;
 
-    #[ORM\OneToMany(mappedBy: 'plotId', targetEntity: Card::class)]
+    #[ORM\OneToMany(mappedBy: 'plot', targetEntity: Card::class)]
     private $cards;
     
     public function __construct()

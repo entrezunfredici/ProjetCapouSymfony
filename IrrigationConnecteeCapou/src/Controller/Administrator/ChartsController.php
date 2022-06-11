@@ -28,14 +28,22 @@ class ChartsController extends AbstractController
     }
     
     #[Route('/charts', name: 'app_admin_charts')]
-    public function sendTemperature (): Response
+    public function sendMeasures (): Response 
     {
         $measureObjects = $this->doctrine->getRepository(Measure::class)->findAll();
+
         $measureCoordinate = array();
         foreach($measureObjects as $measureObject){
+            if($measureObject->getCardId()!=null){
+                $cardsMeasure = $measureObject->getCardId()->getPlotId()->getId();
+            }
+            else{$cardsMeasure = null;}
+            
             array_push($measureCoordinate, array("idMeasure" => $measureObject->getId(),
                                                  "valMeasure" => $measureObject->getValue(),
-                                                 "measureType" => $measureObject->getMeasureType()->getType()
+                                                 "measureType" => $measureObject->getMeasureType()->getType(),
+                                                 "cardsMeasure" => $cardsMeasure,
+                                                 "timeMeasure" => $measureObject->getTime()
             ));
         }
         return new JsonResponse($measureCoordinate);

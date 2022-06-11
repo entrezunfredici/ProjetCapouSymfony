@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CardRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -31,7 +33,15 @@ class Card
     private $state;
 
     #[ORM\ManyToOne(targetEntity: Plot::class, inversedBy: 'cards')]
-    private $plotId;
+    private $plot;
+
+    #[ORM\OneToMany(mappedBy: 'card', targetEntity: Measure::class)]
+    private $measures;
+
+    public function __construct()
+    {
+        $this->measuresId = new ArrayCollection();
+    }
     
     public function getId(): ?int
     {
@@ -100,12 +110,42 @@ class Card
 
     public function getPlotId(): ?Plot
     {
-        return $this->plotId;
+        return $this->plot;
     }
 
-    public function setPlotId(?Plot $plotId): self
+    public function setPlotId(?Plot $plot): self
     {
-        $this->plotId = $plotId;
+        $this->plot = $plot;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Measure>
+     */
+    public function getMeasuresId(): Collection
+    {
+        return $this->measures;
+    }
+
+    public function addMeasuresId(Measure $measures): self
+    {
+        if (!$this->measures->contains($measures)) {
+            $this->measures[] = $measures;
+            $measures->setCardId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeasuresId(Measure $measures): self
+    {
+        if ($this->measures->removeElement($measures)) {
+            // set the owning side to null (unless already changed)
+            if ($measures->getCardId() === $this) {
+                $measures->setCardId(null);
+            }
+        }
 
         return $this;
     }

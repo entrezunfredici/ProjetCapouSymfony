@@ -9,20 +9,97 @@
 const data={};
 const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
 
-const dataHumidity = {
-    labels: labels,
-    datasets: [{
+const dataHumidityInt = {
+//    labels: labels,
+    datasets: [
+	{
       label: 'Air',
       color: 'rgb(0,144,212)',
       backgroundColor: 'rgb(0,144,212)',
       borderColor: 'rgb(0,144,212)',
-    },{
-	  label: 'Sol',
+    }
+    ]
+};
+
+const dataHumidityExt = {
+//    labels: labels,
+    datasets: [{
+      label: 'Air',
       color: 'rgb(160,225,255)',
       backgroundColor: 'rgb(160,225,255)',
       borderColor: 'rgb(160,225,255)',
-    }]
+    }
+    ]
 };
+
+const configHumidityInt = {type: 'line', data: dataHumidityInt, options: {
+	plugins: {
+        title: {
+            display: true,
+            text: 'Humidité interne'
+        },
+        legend: {
+			display: true,
+			position: 'bottom'
+		}
+	},
+	scales: {
+		y : {
+			title: {
+				display: true,
+				text: "taux d\'humidité (%)"
+			},
+//			ticks: {
+//          		stepSize: 20
+//        	},
+			beginAtZero: true,
+			max : 100
+		},
+        x : {
+			title: {
+				display: true,
+				text: "temps (h:min:s)"
+			},
+		}
+    },
+}};
+	
+const configHumidityExt = {type: 'line', data: dataHumidityExt, options: {
+	plugins: {
+        title: {
+            display: true,
+            text: 'Humidité externe'
+        },
+        legend: {
+			display: true,
+			position: 'bottom'
+		}
+	},
+	scales: {
+        y : {
+			title: {
+				display: true,
+				text: "taux d\'humidité (%)"
+			},
+//			ticks: {
+//          		stepSize: 20
+//        	},
+			beginAtZero: true,
+			max : 100
+        },
+        x : {
+			title: {
+				display: true,
+				text: "temps (h:min:s)"
+			},
+		}
+    },
+}};
+
+const chartIntHumidity = new Chart(document.getElementById('humidityInternal'), configHumidityInt);
+const chartExtHumidity = new Chart(document.getElementById('humidityExternal'), configHumidityExt);
+
+
 const dataTemperature = {
     labels: labels,
     datasets: [{
@@ -41,7 +118,7 @@ const configTemperature = {type: 'line', data: dataTemperature, options: {
         plugins: {
             title: {
                 display: true,
-                text: 'Température aérienne et souterraine'
+                text: 'Température interne et externe'
             },
             legend: {
 				display: true,
@@ -49,23 +126,8 @@ const configTemperature = {type: 'line', data: dataTemperature, options: {
 			}
         }
     }};
-const configHumidity = {type: 'line', data: dataHumidity, options: {
-		plugins: {
-            title: {
-                display: true,
-                text: 'Humidité aérienne et souterraine'
-            },
-	        legend: {
-				display: true,
-				position: 'bottom'
-			}
-		}
-	}};
-
-const chartTemperatureReading = new Chart(document.getElementById('groundReading'), configTemperature);
-const chartHumidityReading = new Chart(document.getElementById('airReading'), configHumidity);
-
-
+    
+const chartTemperatureReading = new Chart(document.getElementById('temperatureReading'), configTemperature);
 
 ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
     let chartConfig = {
@@ -73,7 +135,7 @@ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768
       graphset: [{
           type: 'gauge',
           title: {
-            text: 'Humiditée aérienne',
+            text: 'Humiditée interne',
           },
           plot: {
             csize: '3%',
@@ -289,116 +351,77 @@ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768
 //    }, 1500);
 
 
-AjaxCall();
+AjaxMeasuresCall();
 AjaxIdPlotCall();
 setInterval(AjaxIdPlotCall, 10000);
-var idInter = setInterval(AjaxCall, 500000);//Set Interval 3s Between Each Call
+setInterval(AjaxMeasuresCall, 10000);
 
+var idPlot=0;
 function UpdateChart(data){
 	
-	let i=0;
-	data.forEach((measureObject)=>{
-		if(measureObject["measureType"]=="taux_humidite_air"){
-			
-			zingchart.exec('chartAirHumidity', 'modify', {
-				graphid: 0,
-				update: false,
-				data: {
-					scaleR: {
-						markers: [Marker(colors[0], output0)],
-					},
-				},
-			});			
-			
-            chartHumidityReading.data.datasets[0].data[i] = measureObject["valMeasure"];
-            i++;
-        }
-	}
-//        function(){
-//			console.log(data[]);
-////            if(data[].measureType=="taux_humidite_sol"){
-////                chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
-////            }
-////            i++;
-//		}
-	)
+	console.log(data[data.length-1]);
 	
-//	j=0;
-//	for(i=0;i>=0;i++){
-//		chartTemperatureReading.data.datasets[0].data[j] = data[i].valMeasure;
-//		chartTemperatureReading.data.datasets[1].data[j] = 4;
-////		if(data[i].measureType=="taux_humidite_air"){
-////			chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
-////        }
-////        if(data[i].measureType=="taux_humidite_sol"){
-////			chartHumidityReading.data.datasets[1].data[j] = 4;
-////        }
-//        chartHumidityReading.data.datasets[0].data[j] = data[i].valMeasure;
-//        chartHumidityReading.data.datasets[1].data[j] = 4;
-//		j++;
-
-		//chartTemperatureReading.update();
-		chartHumidityReading.update();
+//	for(let m=0; data[m]; m++){
+//		
+//	}
+	
+	let i=0, j=0, k=0, l=0;
+	data.forEach((measureObject)=>{		
+		if(measureObject["cardsMeasure"]==idPlot){
+			if(measureObject["measureType"]=="taux_humidite_sol"){
+				if(i==10){;}
+				else{
+					chartIntHumidity.data.datasets[0].data[i] = measureObject["valMeasure"];
+					chartIntHumidity.data.labels[i] = measureObject["timeMeasure"];
+					i++;
+				}
+			}
+			else if(measureObject["measureType"]=="taux_humidite_air"){
+				chartExtHumidity.data.datasets[0].data[j] = measureObject["valMeasure"];
+				j++;
+			}
+			else if(measureObject["measureType"]=="temperature_air"){
+				chartTemperatureReading.data.datasets[0].data[k] = measureObject["valMeasure"];
+				k++;
+			}
+			else if(measureObject["measureType"]=="temperature_sol"){
+				chartTemperatureReading.data.datasets[1].data[l] = measureObject["valMeasure"];
+				l++;
+			}
+//			zingchart.exec('chartAirHumidity', 'modify', {
+//				graphid: 0,
+//				update: false,
+//				data: {
+//					scaleR: {
+//						markers: [Marker(colors[0], output0)],
+//					},
+//				},
+//			});			
+			 
+        }
+	})
+	chartIntHumidity.update();
+	chartTemperatureReading.update();
 };
-
-let j=0;
 
 function GetPlotName(id){
 	const div = document.querySelector('#plotName');
 	if(document.getElementById("plot")){
 		document.getElementById("plotName").removeChild(document.getElementById("plot"));
 	}
-//	if(j!=0){
-//		document.getElementById("plotName").removeChild(document.getElementById(id));
-//	}
-//	j=1;
 	div.innerHTML += `<h2 id="plot" class="text-center">Parcelle n°${id}</h2>`;
-//	$.get(
-//		'/admin/idPlots',	//url
-//		'false',		//data
-//		function(data){
-//			const div = document.querySelector('#dropdown-menu');
-//			data.forEach((plotObject) => {
-////				console.log(plotObject["idPlot"]);
-//				var top = document.getElementById("dropdown-menu");
-//				var nested = document.getElementById(plotObject["idPlot"]);
-//				console.log(nested);
-//				top.removeChild(nested);
-//			    div.innerHTML += `<a id=${plotObject["idPlot"]} class="dropdown-item" href="#">parcelle n°${plotObject["idPlot"]}</a>`;
-////			    console.log(div);
-//			})
-////			console.log(document.getElementsByName("plotId"));
-////			for(let i=data.length-1; data[i]; i--){
-////				console.log("i="+i);
-////				for(let j=0; document.getElementsByName("plotId")[j]; j++){
-//////					console.log(document.getElementsByName("plotId")[0])
-//////					console.log(document.getElementsByName("plotId")[j]);
-////console.log("j="+j);
-////					if(("parcelle n°"+data[i].idPlot)==document.getElementsByName("plotId")[j].textContent){
-////						console.log(i);
-////						console.log(j);
-////						console.log(document.getElementsByName("plotId")[j].id);
-////						return;
-////					}
-////					if(data[i].idPlot==document.getElementsByName("plotId")[j].id){
-////						console.log(document.getElementsByName("plotId")[j].id);
-////						return;
-////					}	
-////				}
-////			}
-////			data.forEach((plotObject) => {document.getElementById(data[i].idPlot).textContent
-////				if(("parcelle n°"+plotObject["idPlot"]) == document.getElementById(plotObject["idPlot"]).textContent){
-////					//alert("test");
-////				}
-////				//console.log(document.getElementById(plotObject["idPlot"]).textContent);
-//////				document.getElementById("plot").textContent = document.getElementById(plotObject["idPlot"]).textContent;
-////			});
-//		},	//success
-//		'json',		//dataType
-//	)
+	for(let j=0; chartIntHumidity.data.datasets[0].data[j]; j++){
+		chartIntHumidity.data.datasets[0].data[j]=null;
+	}
+	for(let j=0; chartTemperatureReading.data.datasets[0].data[j]||chartTemperatureReading.data.datasets[1].data[j]; j++){
+		chartTemperatureReading.data.datasets[0].data[j]=null;
+		chartTemperatureReading.data.datasets[1].data[j]=null;
+	}
+	AjaxMeasuresCall();
+	idPlot=id;
 }
-let i=0;
 
+let i=0;
 function AjaxIdPlotCall(){
 	$.get(
 		'/admin/idPlots',
@@ -417,7 +440,7 @@ function AjaxIdPlotCall(){
 	)
 }
 
-function AjaxCall(){
+function AjaxMeasuresCall(){
 	$.get(
 		'/admin/charts',	//url
 		'false',		//data

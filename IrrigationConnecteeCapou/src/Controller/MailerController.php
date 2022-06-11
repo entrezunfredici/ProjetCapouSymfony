@@ -25,7 +25,7 @@ class MailerController extends AbstractController
     
     public function emailSend(RawMessage $email)
     {
-        $transport = Transport::fromDsn('gmail://AddrTest666@gmail.com:Q5qcd9yNbuE7D3m@default');
+        $transport = Transport::fromDsn('gmail://AddrTest666@gmail.com:gxglvwdypzyaoyia@default');
         $this->mailer = new Mailer($transport);
         $this->mailer->send($email);
     }
@@ -40,7 +40,7 @@ class MailerController extends AbstractController
             ->context([
                 'identifiant' => $user->getEmail(),
                 'mdp'=> $user->getPlainPassword(),
-            ]);;
+            ]);
                         
         return $email;
     }

@@ -29,7 +29,7 @@ class MapController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    #[Route('/stacket', name: 'app_admin_map_stacket')]
+    #[Route('/picket', name: 'app_admin_map_picket')]
     public function sendStacketLocation(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
     {  
         $this->doctrine = $doctrine;
@@ -47,8 +47,8 @@ class MapController extends AbstractController
         return new JsonResponse($cardCoordinates);
     }
     
-    #[Route('/test', name: 'test')]
-    public function sendStacketAndPlot(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
+    #[Route('/stacketAndPlot', name: 'app_admin_map_stacket_plot')]
+    public function sendStacketAndPlot(ManagerRegistry $doctrine): Response
     {
         $this->doctrine = $doctrine;
         
@@ -69,25 +69,24 @@ class MapController extends AbstractController
                 "filepath" => $plotObject->getFilepath()
             ));
         }
-        $testArray=array_merge($plotCoordinate, $cardCoordinates);
         return new JsonResponse(array($plotCoordinate, $cardCoordinates));
     }
     
-    #[Route('/plot', name: 'app_admin_map_plot')]
-    public function sendPlotCoordinates(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
-    {
-        $this->doctrine = $doctrine;
+//     #[Route('/plot', name: 'app_admin_map_plot')]
+//     public function sendPlotCoordinates(ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
+//     {
+//         $this->doctrine = $doctrine;
         
-        $plotObjects = $this->doctrine->getRepository(Plot::class)->findAll();
-        $plotCoordinate = array();
+//         $plotObjects = $this->doctrine->getRepository(Plot::class)->findAll();
+//         $plotCoordinate = array();
         
-        foreach($plotObjects as $plotObject){
-            array_push($plotCoordinate, array("idPlot" => $plotObject->getId(),
-                                              "filepath" => $plotObject->getFilepath()
-            ));
-        }
-        return new JsonResponse($plotCoordinate);
-    }
+//         foreach($plotObjects as $plotObject){
+//             array_push($plotCoordinate, array("idPlot" => $plotObject->getId(),
+//                                               "filepath" => $plotObject->getFilepath()
+//             ));
+//         }
+//         return new JsonResponse($plotCoordinate);
+//     }
     
     /* *********************************************** Get Coordinate **************************************************** */
     private function DSMToDD($frameArray): array

@@ -70,10 +70,8 @@ var mapAdmin = new ol.Map({
 select.getFeatures().on(['add'], function () {
   alert('test');
 });
-AjaxStacketAndPlotCall();
-setInterval(AjaxStacketCall, 10000);
-//setInterval(AjaxStacketAndPlotCall, 10000);
 
+setInterval(AjaxStacketAndPlotCall, 10000);
 
 function RemoveLayers(){
 	if(mapAdmin.getLayers().getLength() >= 1){
@@ -86,43 +84,9 @@ function RemoveLayers(){
 	}	
 }
 
-function UpdateStacket(data){
+function Update(data){
 	RemoveLayers();
-	AjaxPlotCall();
-	data.forEach((measureObject) => {
-		var vector = new ol.layer.Vector({
-			
-			//------------------------- Marker Location ------------------------//
-			source: new ol.source.Vector({
-				features: [
-					new ol.Feature({
-		  				geometry: new ol.geom.Point(ol.proj.fromLonLat([measureObject["longitude"], measureObject["latitude"]]))
-					}),
-				]
-			}),
-			//------------------------------------------------------------------//
-			//-------------------------- Marker Style --------------------------//
-			style: new ol.style.Style({
-				image: new ol.style.Circle({
-					radius: 3,
-					stroke: new ol.style.Stroke({
-						color: '#b1c903',
-						width: 2,
-					}), // Marker's Stroke Color(white)
-					fill: new ol.style.Fill({
-						color: 'rgba(255,0,0,0)',
-					})
-				})
-			})
-			//------------------------------------------------------------------//
-		});
-		mapAdmin.addLayer(vector);
-//		vector.getSource().getFeaturesAtCoordinate(point)
-	});
-}
-
-function UpdatePlot(data){
-	data.forEach((plotObject) => {		
+	data[0].forEach((plotObject) => {
 		var vector = new ol.layer.Vector({
 			source: new ol.source.Vector({
 				url: plotObject["filepath"],
@@ -146,48 +110,40 @@ function UpdatePlot(data){
 		});
 		mapAdmin.addLayer(vector);
 	});
-}
-
-function Update(data){
-	let i=0;
-	for(i=0; data[i]; i++){
-		if(data[i]==){
+	data[1].forEach((measureObject) => {
+		var vector = new ol.layer.Vector({
 			
-		}
-		else{
-			
-		}
-	}
-//	data.forEach((plotObject) => {		
-//		if(plotObject[idPlot]){
-//			i++;
-//			console.log(i);
-//		}
-//		
-//	});
-}
-
-function AjaxStacketCall(){
-	$.get(
-		'/admin/map/stacket',	//Get URL
-		'false',
-	    UpdateStacket,			//Call Function
-		'json'					//Type of File
-	)
-}
-
-function AjaxPlotCall(){
-	$.get(
-		'/admin/map/plot',	//Get URL
-		'false',
-	    UpdatePlot,			//Call Function
-		'json'				//Type of File
-	)
+			//------------------------- Marker Location ------------------------//
+			source: new ol.source.Vector({
+				features: [
+					new ol.Feature({
+		  				geometry: new ol.geom.Point(ol.proj.fromLonLat([measureObject["longitude"], measureObject["latitude"]]))
+					}),
+				]
+			}),
+			//------------------------------------------------------------------//
+			//-------------------------- Marker Style --------------------------//
+			style: new ol.style.Style({
+				image: new ol.style.Circle({
+					radius: 3,
+					stroke: new ol.style.Stroke({
+						color: '#b1c903',
+						width: 2,
+					}),
+					fill: new ol.style.Fill({
+						color: 'rgba(255,0,0,0)',
+					})
+				})
+			})
+			//------------------------------------------------------------------//
+		});
+		mapAdmin.addLayer(vector);
+	})
 }
 
 function AjaxStacketAndPlotCall(){
 	$.get(
-		'/admin/map/test',	//Get URL
+		'/admin/map/stacketAndPlot',	//Get URL
 		'false',
 	    Update,			//Call Function
 		'json'					//Type of File
