@@ -17,7 +17,6 @@ function ChartsShowMeasurements() {
     document.getElementById("FloorHumidityValue").innerHTML=floorHumidity;
     document.getElementById("AirTemperatureValue").innerHTML=airTemperature;
     document.getElementById("FloorTemperatureValue").innerHTML=floorTemperature;
-
     //thermometers
     new RGraph.Thermometer({
         id:    'AirTemperature',
@@ -64,10 +63,7 @@ function ChartsUpdateChart(data){
     iAt=6;
     iFh=6;
     iAh=6;
-    nbAirHumidity=0;
-    nbAirTemperature=0;
-    nbFloorHumidity=0;
-    ndFloorTemperature=0;
+    SortDataList(data);
 	data.forEach(
         function(){
             if(data[i].measureType=="temperature_sol"){
@@ -106,7 +102,35 @@ function ChartsAjaxCallFunction(){
 ChartsAjaxCallFunction();
 var idInter = setInterval(ChartsAjaxCallFunction, 10000);
 
-function ChartsGetLabels(){
-    chartsLabels=['T-6','T-5','T-4','T-3','T-2','T-1','T']
-    return chartsLabels;
+function SortDataList(dataTable){
+    dataTableLen=0;
+    s=0;
+    while(1){
+        k=0;
+        n=0;
+        while(dataTable[k+1]){
+            if(dataTable[k].measureDate>dataTable[k+1].measureDate){
+                sort=dataTable[k]
+                dataTable[k]=dataTable[k+1];
+                dataTable[k+1]=sort;
+            }else n++;
+            if(dataTableLen){
+                if(dataTable[dataTableLen].measureDate<dataTable[dataTableLen-1].measureDate){
+                    sort=dataTable[dataTableLen-1];
+                    dataTable[dataTableLen-1]=dataTable[dataTableLen];
+                    dataTable[dataTableLen]=sort;
+                }
+                dataTableLen--;
+            }
+            k++;
+        }
+        DataTableLen=k;
+        if(n==k){
+            return dataTable;
+        }
+        if(s==500){
+            return dataTable;
+        }
+        s++;
+    }
 }

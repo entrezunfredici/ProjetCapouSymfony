@@ -18,6 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,6 +46,20 @@ class AdminController extends AbstractDashboardController
             $cards = 0;
         }
         return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards]);
+    }
+    
+    public function configureUserMenu($user): UserMenu
+    {
+        $fullName = $user->getFirstName().' '.$user->getLastName();
+        
+        return parent::configureUserMenu($user)
+        // use the given $user object to get the user name
+        ->setName($fullName)
+        // use this method if you don't want to display the name of the user
+        
+        ->addMenuItems([
+            MenuItem::linkToRoute('Mot de passe', 'fa fa-lock', 'app_admin_password_change'),
+        ]);
     }
 
     public function configureDashboard(): Dashboard

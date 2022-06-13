@@ -8,7 +8,7 @@
     Date 	    : 2022
  ============================================================================*/
 
-namespace App\Controller\Administrator;
+namespace App\Controller\Administrator\_Elements;
 
 use App\Entity\Measure;
 use App\Entity\Plot;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Card;
 
 #[Route('/admin/map')]
-class MapController extends AbstractController
+class _MapController extends AbstractController
 {
     private $doctrine;
     public function __construct(ManagerRegistry $doctrine)

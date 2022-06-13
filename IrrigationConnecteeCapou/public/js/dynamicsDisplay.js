@@ -3,22 +3,16 @@ function DDShowMenuWhithButton(idButton, buttonClass1, buttonClass2, idBalise){
     DDChangeBaliseClass(idButton, buttonClass1, buttonClass2)
 }
 
-function DDDarkThemeClassic(idButton, idInterface){
-    DDChangeBaliseClass(idInterface, 'Interface', 'DarkInterface')
-    DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
-}
-
-function DDDarkThemeClassicWithOtherButton(idButton, idButton2, idInterface){
-    DDChangeBaliseClass(idInterface, 'Interface', 'DarkInterface')
-    DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
-    DDChangeBaliseClass(idButton2, 'bi-sun', 'bi-moon-stars')
-}
-
-function DDDarkThemForDashboard(idButton, idDahBar, idSideBar, idDashBoard){
-    DDChangeBaliseClass(idDashBoard, 'DashBoard', 'DarkDashBoard')
-    DDChangeBaliseClass(idSideBar, 'DashBar', 'DarkDashBar')
-    DDChangeBaliseClass(idDahBar, 'DashBar', 'DarkDashBar')
-    DDChangeBaliseClass(idButton, 'bi-sun', 'bi-moon-stars')
+function DDChangeTheme(sInterfaceID, sBackColorFirstTheme, sBackColorSecondBackTheme, sElemColorFirstTheme, sElemColorSecondTheme, sButtonFirstTheme, sButtonSecondTheme){
+    if($('#'+sInterfaceID).hasClass(sBackColorFirstTheme)){
+        $('.'+sBackColorFirstTheme).removeClass(sBackColorFirstTheme).addClass(sBackColorSecondBackTheme);
+        $('.'+sButtonFirstTheme).removeClass(sButtonFirstTheme).addClass(sButtonSecondTheme);
+        $('.'+sElemColorFirstTheme).removeClass(sElemColorFirstTheme).addClass(sElemColorSecondTheme);
+    }else if($('#'+sInterfaceID).hasClass(sBackColorSecondBackTheme)){
+        $('.'+sBackColorSecondBackTheme).removeClass(sBackColorSecondBackTheme).addClass(sBackColorFirstTheme);
+        $('.'+sButtonSecondTheme).removeClass(sButtonSecondTheme).addClass(sButtonFirstTheme);
+        $('.'+sElemColorSecondTheme).removeClass(sElemColorSecondTheme).addClass(sElemColorFirstTheme);
+    }
 }
 
 //this function hide one Object and Show one other object
@@ -38,6 +32,7 @@ function ConfirmChangement(message) {
 
 function DDChangeBaliseClass(idBalise, class1, class2){
     baliseID=document.getElementById(idBalise);
+    alert(baliseID);
     if(baliseID.classList.contains(class1)){
         baliseID.classList.remove(class1);
         baliseID.classList.add(class2);

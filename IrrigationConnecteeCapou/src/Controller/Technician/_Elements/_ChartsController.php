@@ -35,7 +35,10 @@ class _ChartsController extends AbstractController
             array_push($measureCoordinate, array(
                                                 "idMeasure" => $measureObject->getId(),
                                                 "valMeasure" => $measureObject->getValue(),
-                                                "measureType" => $measureObject->getMeasureType()->getType()
+                                                "measureType" => $measureObject->getMeasureType()->getType(),
+                                                "measureDate" => $measureObject->getDate(),
+                                                "measureTime" => $measureObject->getTime(),
+                                                "measureGps" => $measureObject->getGps()
             ));
         }
         return new JsonResponse($measureCoordinate);

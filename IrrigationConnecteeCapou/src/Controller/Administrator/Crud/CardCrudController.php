@@ -44,7 +44,9 @@ class CardCrudController extends AbstractCrudController
     
     public function configureActions(Actions $actions): Actions
     {
-        return $actions->add(Crud::PAGE_INDEX, Action::DETAIL);
+        return $actions->add(Crud::PAGE_INDEX, Action::DETAIL)
+                       ->remove(Crud::PAGE_INDEX, Action::DELETE)
+                       ->remove(Crud::PAGE_DETAIL, Action::DELETE);
     }
 
     public function configureFields(string $pageName): iterable
@@ -69,8 +71,8 @@ class CardCrudController extends AbstractCrudController
             array_push($plotFiles, array("idPlot" => $plotObject->getId(), "filepathPlot" => $plotObject->getFilepath()));
         }  
         
-        dump($plotFiles[0]["filepathPlot"]);
-        die();
+//         dump($plotFiles[0]["filepathPlot"]);
+//         die();
 //         $plotObjects = $this->doctrine->getRepository(Plot::class)->findAll();
 //         $plotFiles = array();
         
@@ -93,17 +95,25 @@ class CardCrudController extends AbstractCrudController
     
     public function updateEntity($entityManager, $entityInstance):void
     {
+        if(!$entityInstance instanceof Card) return;
+        
         $this->logger->info("Un administrateur vient de modifier un piquet ");
         $entityManager->persist($entityInstance);
         $entityManager->flush();
     }
     
-    public function deleteEntity($entityManager, $entityInstance):void
-    {
-        $this->logger->info("Un administrateur vient de supprimer un piquet ");
-        $entityManager->remove($entityInstance);
-        $entityManager->flush();
-    }
+//     public function deleteEntity($entityManager, $entityInstance):void
+//     {
+//         if(!$entityInstance instanceof Card) return;
+        
+//         if($entityInstance->getPlotId()){
+//             $entityInstance->setPlotId(null);
+//         }
+        
+//         $this->logger->info("Un administrateur vient de supprimer un piquet ");
+//         $entityManager->remove($entityInstance);
+//         $entityManager->flush();
+//     }
     
     /* *********************************************** Get Coordinate **************************************************** */
     private function DSMToDD($frameArray): array

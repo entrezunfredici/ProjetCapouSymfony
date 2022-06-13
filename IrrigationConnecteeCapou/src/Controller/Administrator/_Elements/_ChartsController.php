@@ -8,7 +8,7 @@
     Date 	    : 2022
  ============================================================================*/
 
-namespace App\Controller\Administrator;
+namespace App\Controller\Administrator\_Elements;
 
 use App\Entity\Measure;
 use App\Entity\Plot;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin')]
-class ChartsController extends AbstractController
+class _ChartsController extends AbstractController
 {
     private $doctrine;
     public function __construct(ManagerRegistry $doctrine)

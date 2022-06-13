@@ -111,6 +111,8 @@ class UserCrudController extends AbstractCrudController
     
     public function updateEntity($entityManager, $entityInstance):void
     {
+        if(!$entityInstance instanceof User) return;
+        
         $this->logger->info("Un administrateur vient de modifier un utilisateur ");
         $entityManager->persist($entityInstance);
         $entityManager->flush();

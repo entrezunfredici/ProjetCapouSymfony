@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Technician\_Elements;
+namespace App\Controller\Administrator\_Elements;
 
 use App\Controller\MailerController;
 use App\Form\ChangePasswordRequestFormType;
@@ -8,13 +8,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Symfony\Bridge\Twig\Mime\BodyRenderer;
 
-#[Route('/technician')]
+#[Route('/admin')]
 class _PasswordChangeController extends AbstractController
 {
     private $mailerController;
@@ -24,20 +24,18 @@ class _PasswordChangeController extends AbstractController
     {
         $this->entityManager = $entityManager;
         $this->mailerController  = $mailerController;
-    }    
+    }  
     
-    #[Route('/password/change', name: 'app_technician_password_change')]
+    #[Route('/password/change', name: 'app_admin_password_change')]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        $firstName=$this->getUser()->getFirstName();
-        $lastName=$this->getUser()->getLastName();
         $user=$this->getUser();
         
         $form = $this->createForm(ChangePasswordRequestFormType::class);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            if(password_verify($form->get('oldPassword')->getData(), $user->getPassword())){                
+            if(password_verify($form->get('oldPassword')->getData(), $user->getPassword())){
                 $encodedPassword = $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
@@ -53,14 +51,13 @@ class _PasswordChangeController extends AbstractController
                 $renderer = new BodyRenderer($twig);
                 $renderer->render($email);
                 $this->mailerController->emailSend($email);
-
+                
                 $this->addFlash('success', 'Votre mot de passe a bien été changé !');
             }
             else{
                 $this->addFlash('error', 'Le mot de passe actuel rentré est erroné !');
-            } 
-        }
-
-        return $this->render('roles/technician/_elements/_changePassword.html.twig', ['firstname' => $firstName, 'lastname' => $lastName, 'resetForm' => $form->createView()]);
+            }
+        }        
+        return $this->render('roles/administrator/_elements/_changePassword.html.twig', ['resetForm' => $form->createView()]);
     }
 }

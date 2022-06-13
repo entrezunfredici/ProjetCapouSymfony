@@ -29,8 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string
      */
-    private $plainPassword;
-    
+    private $plainPassword;    
     
     #[ORM\Column(type: 'string', length: 255)]
     private $lastName;
@@ -148,7 +147,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainPassword = $plainPassword;
         return $this;
     }
-    
+        
     /**
      * @see UserInterface
      */

@@ -19,9 +19,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Psr\Log\LoggerInterface;
 
 class PlotCrudController extends AbstractCrudController
 {
+    private LoggerInterface $logger;
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+    
     public const PLOT_UPLOAD_DIR = 'public/documents/plots';
 
     public static function getEntityFqcn(): string
@@ -62,8 +69,34 @@ class PlotCrudController extends AbstractCrudController
             yield ImageField::new('filepath', 'Chemin fichier')
                 ->setUploadDir(self::PLOT_UPLOAD_DIR)
                 ->onlyOnForms()
+                ->setRequired(true)
                 //->setUploadedFileNamePattern(fn (UploadedFile $file): string => sprintf('%s',$file->getClientOriginalName()));
                 ->setUploadedFileNamePattern('documents/plots/[name].json');
             yield NumberField::new('area', 'Surface');
-    }  
+    }
+    
+    public function persistEntity($entityManager, $entityInstance): void
+    {
+        if(!$entityInstance instanceof Plot) return;
+        
+        $this->logger->info("Un administrateur vient d'ajouter une parcelle");
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+    }
+    
+    public function updateEntity($entityManager, $entityInstance):void
+    {
+        if(!$entityInstance instanceof Plot) return;
+        
+        $this->logger->info("Un administrateur vient de modifier une parcelle");
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+    }
+    
+    public function deleteEntity($entityManager, $entityInstance):void
+    {
+        $this->logger->info("Un administrateur vient de supprimer une parcelle");
+        $entityManager->remove($entityInstance);
+        $entityManager->flush();
+    }
 }
