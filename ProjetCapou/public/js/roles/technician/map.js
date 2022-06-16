@@ -1,7 +1,15 @@
 /*============================================================================
    Name        : map.js
    Path	       : public/js/roles/technician
-   Author      : BTS SNIR, Lyc�e Antoine Bourdelle
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
+   Description : Technician's map creation
+   Date 	   : 2022
+============================================================================*/
+
+/*============================================================================
+   Name        : map.js
+   Path	       : public/js/roles/technician
+   Author      : BTS SNIR, Lycée Antoine Bourdelle
    Description : Technician's map creation
    Date 	   : 2022
 ============================================================================*/

@@ -30,7 +30,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ path('app_technician') }}">
                     <i class="bi bi-house-door-fill"></i>
                     <span>Accueil</span></a>
             </li>
@@ -92,7 +92,7 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ path('app_historical_data') }}">Telechargement</a>
+                        <a class="collapse-item" href="{{ path('app_technician_data_historical') }}">Telechargement</a>
                     </div>
                 </div>
             </li>
@@ -104,36 +104,60 @@
 
         </ul>
         <!-- End of Sidebar -->
-        <div id="HistoricStatsBoard" calss="StatsBoard Hidden container">
-            <div class="row">
-                <div class="col title">
-                    <h4>Historique des mesures</h4>
-                </div>
-            </div>
-            <div class="row">
         
-            </div>
-            <div class="row">
-            
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <a href="javascript:DFMDownloadTxtDataFile()">
-                            <i class="bi bi-download"></i>Telecharger les donnees au format texte
-                        </a>
-                        <a href="javascript:DFMDownloadXlsxDataFile()">
-                            <i class="bi bi-download"></i>Telecharger les donnees au format Xlsx
-                        </a>
+        <div id="HistoricStatsBoard" calss="StatsBoard Hidden container">
+                        <div class="row">
+                            <div class="col title">
+                                <h2>Historique des mesures</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <h3>Humiditée</h3>
+                                <canvas id="HumidityHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
+                            </div>
+                            <div class="col-5">
+                                <h3>Température</h3>
+                                <canvas id="TemperatureHistoricDatas" width="500px" height="400">[No canvas support]</canvas>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                Dataset:<br />
+                                <input id="dataset" type="text" /><br /><br />
+                            </div>
+                            <div class="col-5">
+                                Point:<br />
+                                <input id="point" type="text" />
+                            </div>
+                            <h3>nb Air humiditée <span id="nbAirHumidityValue"></span></h3>
+                            <h3>nb Sol humiditée <span id="nbFloorHumidityValue"></span></h3>
+                            <h3>nb Air température <span id="nbAirTemperatureValue"></span></h3>
+                            <h3>nb Sol température <span id="nbFloorTemperatureValue"></span></h3>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <a href="javascript:DFMDownloadTxtDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format texte
+                                    </a>
+                                    <a href="javascript:DFMDownloadXlsxDataFile()">
+                                        <i class="bi bi-download"></i> Télécharger les données au format Xlsx
+                                    </a>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
 	<!-- ********************************************** Script files ************************************************** -->
     <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ asset('js/DataFileMakerDFM1.js')}}"></script>
+    <script src="{{ asset('js/libraries/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/rGraph/rGraph.line.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/chartsInstant.js')}}"></script>
+    <script src="{{ asset('js/roles/technician/dataFileMaker.js') }}"></script>
 	<!-- ************************************************************************************************************** -->
     
 {% endblock %}

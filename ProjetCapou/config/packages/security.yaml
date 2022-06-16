@@ -24,7 +24,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_login
+                target: app_home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -36,7 +36,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-#        - { path: ^/technician, roles: ROLE_TECHNICIAN }
+        - { path: ^/technician, roles: ROLE_TECHNICIAN }
         
     role_hierarchy:
         ROLE_TECHNICIAN: ROLE_USER

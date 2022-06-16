@@ -1,13 +1,7 @@
 const allData={};
 const allDonee={};
 function DFMDownloadTxtDataFile(){
-    let dateYear = new Date().getFullYear();
-    let dateMounth = new Date().getMonth();
-    let dateDay = new Date().getDay();
-    let timeHours = new Date().getHours();
-    let timeMinutes = new Date().getMinutes();
-    let timeSeconds = new Date().getSeconds();
-    let name="donnees du_"+dateDay+"_"+dateMounth+"_"+dateYear+"_a_"+timeHours+"h"+timeMinutes+"_"+timeSeconds;
+    let name="donnees du_"+TGGetDateWithHours();
     i=0;
     let Results="Données:\n"
     while(allDonee[i]!=null){
@@ -17,34 +11,28 @@ function DFMDownloadTxtDataFile(){
     DFMCreateTextFile(Results, name, "txt")
 }
 function DFMDownloadXlsxDataFile(){
-    let dateYear = new Date().getFullYear();
-    let dateMounth = new Date().getMonth();
-    let dateDay = new Date().getDay();
-    let timeHours = new Date().getHours();
-    let timeMinutes = new Date().getMinutes();
-    let timeSeconds = new Date().getSeconds();
-    let name="donnees du_"+dateDay+"_"+dateMounth+"_"+dateYear+"_a_"+timeHours+"h"+timeMinutes+"_"+timeSeconds;
-    i=0;
+    let name="donnees du_"+TGGetDateWithHours();
     DFMCreateXlsxFile(allData, name)
 }
 
 function DFMCreateXlsxFile(data, file_name) {
     var wb = XLSX.utils.book_new();
     wb.Props = {
-        Title: "SheetJS Tutorial",
-        Subject: "Test",
+        Title: "Mesures",
+        Subject: "Mesures",
         Author: "Red Stapler",
-    };
-        
+    };    
     wb.SheetNames.push("Test Sheet");
-    var ws_data = [['Mesure' , 'Valeur']];
+    i=0;
+    var datas = ['Mesure' , 'Valeur'];
     while(data[i]!=null){
-        ws_data=ws_data+[[i , data[i]]];
+        var data=[i, data[i]];
+        var datas = datas,data;
         i++;
     }
+    var ws_data = [datas];
     var ws = XLSX.utils.aoa_to_sheet(ws_data);
-    wb.Sheets["Test Sheet"] = ws;
-
+    wb.Sheets["Test Sheet"] = XLSX.utils.aoa_to_sheet(ws_data);
     var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
     function s2ab(s) {
         var buf = new ArrayBuffer(s.length);
@@ -76,7 +64,6 @@ function DFMCreateTextFile(data, file_name, file_type) {
 function UpdateValues(tdata){
 	i=0;
 	tdata.forEach(function(){
-		console.log(tdata[i].valMeasure);
             allDonee[i]=tdata[i].valMeasure;
             i++;
 		}

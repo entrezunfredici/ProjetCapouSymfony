@@ -59,7 +59,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         ['user_IP' => $userIP] = $this->getRouteNameAndUserIP();
         $userEmail = $this->getUserEmail($token);
-        $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient de se connecter avec l'email '{$userEmail}'");
+        $this->logger->info("L'utilisateur ayant l'adresse IP '{$userIP}' vient de se connecter avec l'email '{$userEmail}'");
         
         $roles = array('ROLE_ADMIN', 'ROLE_TECHNICIAN');
         if($token->getUser()->getRoles() === $roles){
@@ -85,7 +85,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         'route_name' => $routeName
         ] = $this->getRouteNameAndUserIP();
         
-        $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' a tenté d'accéder à la page: '{$routeName}'");
+        $this->logger->info("L'utilisateur ayant l'adresse IP '{$userIP}' a tenté d'accéder à la page: '{$routeName}'");
         
         return new RedirectResponse($url);
     }

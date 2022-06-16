@@ -19,8 +19,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,14 +27,10 @@ class AdminController extends AbstractDashboardController
     #[IsGranted('ROLE_ADMIN')]
     
     private $doctrine;
-    private LoggerInterface $logger;
-    private RequestStack $requestStack;
     
-    public function __construct(ManagerRegistry $doctrine, LoggerInterface $logger, RequestStack $requestStack)
+    public function __construct(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
-        $this->logger = $logger;
-        $this->requestStack = $requestStack;
     }
     
     #[Route('/admin', name: 'app_admin')]
@@ -44,6 +38,7 @@ class AdminController extends AbstractDashboardController
     {
         $users = $this->doctrine->getRepository(User::class)->count([]);
         $plots = $this->doctrine->getRepository(Plot::class)->count([]);
+        $idPlots = $this->doctrine->getRepository(Plot::class)->findAll();
         $openValve = $this->doctrine->getRepository(Valve::class)->count(['state' => 1]);
         if(($this->doctrine->getRepository(Card::class)->count([]))!=0){
             $cards = $this->doctrine->getRepository(Card::class)->count([]);
@@ -66,15 +61,7 @@ class AdminController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        
-        [
-        'user_IP' => $userIP,
-        'route_name' => $routeName
-        ] = $this->getRouteNameAndUserIP();
-        
-        $this->logger->info("Un administrateur ayant l'adresse IP '{$userIP}' vient d'acc�der à la page: '{$routeName}' ");
-        
-        return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards]);
+        return $this->render('roles/administrator/index.html.twig', ['users'=>$users, 'plots'=>$plots, 'openValve'=>$openValve, 'cards'=>$cards, 'idPlots'=>$idPlots]);
     }
 
     public function configureDashboard(): Dashboard
@@ -106,15 +93,5 @@ class AdminController extends AbstractDashboardController
         ]);
 
         yield MenuItem::linkToLogout('Se déconnecter', 'fas fa-sign-out-alt');
-    }
-    
-    private function getRouteNameAndUserIP(): array
-    {
-        $request = $this->requestStack->getCurrentRequest();
-        
-        return [
-            'user_IP' => $request->getClientIp() ?? 'Inconnue',
-            'route_name' => $request->attributes->get('_route')
-        ];
     }
 }

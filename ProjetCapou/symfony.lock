@@ -1,7 +1,4 @@
 {
-    "bluerhinos/phpmqtt": {
-        "version": "1.0.1"
-    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {

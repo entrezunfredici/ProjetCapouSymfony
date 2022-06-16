@@ -6,7 +6,7 @@
    Date 	   : 2022
 ============================================================================#}
 
-{% extends '@EasyAdmin/page/content.html.twig' %}
+{% extends '@!EasyAdmin/page/content.html.twig' %}
 
 {% block stylesheets %}
 	
@@ -72,37 +72,55 @@
     	<div class="row"
         	<div class="col-sm-12 col-lg-6">
             	<div id="mapAdmin" class="map mt-2"></div>
-            	<div id="popup" class="ol-popup">
-                	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                	<div id="popup-content"></div>
-           		</div>
+{#             	<div id="popup" class="ol-popup">#}
+{#                 	<a href="#" id="popup-closer" class="ol-popup-closer"></a>#}
+{#                 	<div id="popup-content"></div>#}
+{#            		</div>#}
         	</div>
         </div>
     </div> 
-    
+    	  
     <div class="col-12">
     	<div class="row mt-3">
+    		<div class="dropdown">
+        		<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Parcelles</button>
+        		<div class="dropdown-menu">
+        			{% for idPlot in idPlots %}
+        				<a class="dropdown-item" onclick="GetPlotName();" id="plotList">parcelle n°{{idPlot.id}}</a>
+                    {% endfor %}        	
+              	</div>
+          	</div>          	
+			<h2 id="plot">Parcelle n°</h2>
+			
         	<div class="col-sm-12 col-lg-6">
-        		<canvas id="waterConsumptionChart"></canvas>
+        		<canvas id="groundReading"></canvas>
         	</div>
         	<div class="col-sm-12 col-lg-6">
-        		<canvas id="humidityLevelChart"></canvas>
+        		<canvas id="airReading"></canvas>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+				<div id="myChart" class="chart--container"></div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+				<div id="myChart2" class="chart--container"></div>
             </div>
     	</div>
 	</div>
-	<canvas id="test"></canvas>
 	
-{#      <form method="get" href="{{ asset('Controller/TestMapController.php')}}">#}
-{#          <input type="submit" value="ON" name="on">#}
-{#          <input type="submit" value="OFF" name="off">#}
-{#      </form>#}
+	
+	
+	<style>.chart--container {
+      min-height: 400px;
+      min-width: 400px;
+    }</style>
    
     <!-- ********************************************** Script files ************************************************** -->
     <script src="{{ asset('js/libraries/jquery.min.js')}}"></script>
+    <script src="{{ asset('js/libraries/bootstrap.bundle.min.js')}}"></script>
     
     <script src="{{ asset('js/libraries/charts/chart.js')}}"></script>
+    <script src="{{ asset('js/libraries/charts/zingchart.min.js')}}"></script>
     <script src="{{ asset('js/roles/administrator/charts.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/charts.js')}}"></script>
     
     <script src="{{ asset('js/libraries/maps/openlayer.js') }}"></script>
     <script src="{{ asset('js/roles/administrator/map.js') }}"></script>

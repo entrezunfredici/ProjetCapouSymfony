@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class PlotCrudController extends AbstractCrudController
 {
     
-    public const PLOT_UPLOAD_DIR = 'public/upload/plots';
+    public const PLOT_UPLOAD_DIR = 'public/documents/plots';
     
     private $doctrine;
     private $logger;
@@ -71,7 +71,8 @@ class PlotCrudController extends AbstractCrudController
                     ->setEntityLabelInSingular('Parcelle')
                     ->setPageTitle('index', 'Liste des %entity_label_plural%')
                     ->setPageTitle('edit', fn (Plot $plot) => sprintf('Éditer "%s"', $plot->getName()))
-                    ->setPageTitle('new', 'Ajouter une %entity_label_singular%');
+                    ->setPageTitle('new', 'Ajouter une %entity_label_singular%')
+                    ->showEntityActionsInlined();
     }
         
     public function configureFields(string $pageName): iterable
@@ -89,8 +90,8 @@ class PlotCrudController extends AbstractCrudController
                     }
                     return $str;
                 }),
-            ImageField::new('filePath', 'Fichier')
-                ->setUploadDir(self::PLOT_UPLOAD_DIR)->onlyOnForms(),
+            ImageField::new('filepath', 'Fichier')
+                ->setUploadDir(self::PLOT_UPLOAD_DIR)->onlyOnForms()->setRequired(true),
             NumberField::new('area', 'Surface'),
         ];
     }

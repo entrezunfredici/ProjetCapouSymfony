@@ -36,7 +36,7 @@ class HomeController extends AbstractController
         ] = $this->getRouteNameAndUserIP();
         
         if(!$this->getUser()){
-            $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient d'accÃ¨der Ã  la page: '{$routeName}' ");
+            $this->logger->info("Un utilisateur anonyme ayant l'adresse IP '{$userIP}' vient d'accéder à la page: '{$routeName}' ");
         }
         
         return $this->render('home/index.html.twig');

@@ -22,8 +22,9 @@ function DDDarkThemForDashboard(idButton, idDahBar, idSideBar, idDashBoard){
 }
 
 //this function hide one Object and Show one other object
-function DDChangeBaliseShowed(idBaliseHidden, idBaliseShown){
-    DDHideBalise(idBaliseHidden);
+function DDChangeBaliseShowed(idBaliseHidden1, idBaliseHidden2, idBaliseShown){
+    DDHideBalise(idBaliseHidden1);
+    DDHideBalise(idBaliseHidden2);
     DDShowBalise(idBaliseShown);
 }
 

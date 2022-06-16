@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="{{ asset('css/librairies/bootstrap.min.css')}}">
+
+{% block body %}
+<body>
+     <form method="get" href="{{ asset('src/Controller/LedController.php')}}">
+         <div class="container">
+ 			<div class="row">
+                <div class="col col-4"></div>
+                <div class="col"><h1>Controle des vannes</h1></div>
+                <div class="col col-3"></div>
+ 			</div>
+			<div class="row">
+                <div class="col"><h5>Vanne 1</h5></div>
+            </div>
+            <div class="col">
+                 <input type="submit" class="btn btn-success" value="ON" name="on">
+                 <input type="submit" class="btn btn-danger" value="OFF" name="off">
+            </div>
+			<div class="row">
+                <div class="col"><h1> </h1></div>
+            </div>
+            <div class="row">
+                <div class="col"><h5>Vanne 2</h5></div>
+            </div>
+            <div class="col">
+                 <input type="submit" class="btn btn-success" value="ON" name="onLed">
+                 <input type="submit" class="btn btn-danger" value="OFF" name="offLed">
+            </div>
+		</div>
+     </form>
+  </body>
+{% endblock %}

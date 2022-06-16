@@ -1,3 +1,11 @@
+{#============================================================================
+   Name        : index.html.twig
+   Path	       : templates/roles/technician
+   Author      : BTS SNIR, LycÃ©e Antoine Bourdelle
+   Description : Technician's interface creation
+   Date 	   : 2022
+============================================================================#}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Irrigation Connectee{% endblock %}
@@ -32,7 +40,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ path('app_technician') }}">
                     <i class="bi bi-house-door-fill"></i>
                     <span>Accueil</span></a>
             </li>
@@ -94,7 +102,7 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ path('app_historical_data') }}">Telechargement</a>
+                        <a class="collapse-item" href="{{ path('app_technician_data_historical') }}">Telechargement</a>
                     </div>
                 </div>
             </li>
@@ -120,7 +128,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown ">
-						<a><span class="mr-4 d-lg-inline bi bi-person-circle"> User</span></a>
+						<a><span class="mr-4 d-lg-inline bi bi-person-circle"> {{ firstname }} {{ lastname }}</span></a>
                         </li>
                     </ul>
 
@@ -221,11 +229,11 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <h3>Air <span id="AirTemperatureValue"></span>°C</h3>
+                                                    <h3>Air <span id="AirTemperatureValue"></span>Â°C</h3>
                                                     <canvas id="AirTemperature" width="100px" height="400px"></canvas>
                                                 </div>
                                                 <div class="col">
-                                                    <h3>Sol <span id="FloorTemperatureValue"></span>°C</h3>
+                                                    <h3>Sol <span id="FloorTemperatureValue"></span>Â°C</h3>
                                                     <canvas id="FloorTemperature" width="100px" height="400px"></canvas>
                                                 </div>
                                             </div>
@@ -252,7 +260,7 @@
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/chart.js')}}"></script>
     <script src="{{ asset('js/roles/technician/charts.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/libraries/bootstrap.bundle.min.js')}}"></script>
 	<script src="{{ asset('js/libraries/maps/openlayer.js')}}"></script>
     <script src="{{ asset('js/roles/technician/map.js')}}"></script>
 	<!-- ************************************************************************************************************** -->

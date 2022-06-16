@@ -6,7 +6,7 @@ use App\Repository\PlotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+ 
 #[ORM\Entity(repositoryClass: PlotRepository::class)]
 class Plot
 {
@@ -18,9 +18,6 @@ class Plot
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
     
-    #[ORM\Column(type: 'string', length: 255)]
-    private $filePath;
-    
     #[ORM\Column(type: 'float')]
     private $area;
     
@@ -29,12 +26,15 @@ class Plot
     
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'plots')]
     private $user;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $filepath;
     
     public function __construct()
     {
         $this->user = new ArrayCollection();
     }
-    
+        
     public function getId(): ?int
     {
         return $this->id;
@@ -48,18 +48,6 @@ class Plot
     public function setName(string $name): self
     {
         $this->name = $name;
-        
-        return $this;
-    }
-    
-    public function getFilePath(): ?string
-    {
-        return $this->filePath;
-    }
-    
-    public function setFilePath(string $filePath): self
-    {
-        $this->filePath = $filePath;
         
         return $this;
     }
@@ -108,6 +96,18 @@ class Plot
     public function removeUser(User $user): self
     {
         $this->user->removeElement($user);
+        
+        return $this;
+    }
+    
+    public function getFilepath(): ?string
+    {
+        return $this->filepath;
+    }
+    
+    public function setFilepath(string $filepath): self
+    {
+        $this->filepath = $filepath;
         
         return $this;
     }

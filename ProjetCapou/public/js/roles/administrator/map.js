@@ -8,32 +8,32 @@
 
 var screen = new ol.control.FullScreen();
 var scale = new ol.control.ScaleLine();
-var select = 
-	new ol.interaction.Select({style: new ol.style.Style({
-	    stroke: new ol.style.Stroke({
-	      color: '#FFFFFF',
-	      width: 2,
-	    }),
-	}),
+var select = new ol.interaction.Select({
+	style: new ol.style.Style({
+		fill: new ol.style.Fill({
+			color: 'rgba(255, 255, 255, 0.4)',
+		}),
+		stroke: new ol.style.Stroke({
+			color: 'rgba(255, 255, 255, 0.7)',
+	    	width: 2,
+		}),
+	})
 });
 
-//----------------- Elements that make up the popup ----------------//
-const container = document.getElementById('popup');
-const content = document.getElementById('popup-content');
-const closer = document.getElementById('popup-closer');
-//------------------------------------------------------------------//
-//------------------- Overlay to anchor the popup ------------------//
-const overlay = new ol.Overlay({
-	element: container,
-	autoPan: true,
-	autoPanAnimation: {
-		duration: 250
-	}});
-//------------------------------------------------------------------//
+////----------------- Elements that make up the popup ----------------//
+//const container = document.getElementById('popup');
+//const content = document.getElementById('popup-content');
+//const closer = document.getElementById('popup-closer');
+////------------------------------------------------------------------//
+////------------------- Overlay to anchor the popup ------------------//
+//const overlay = new ol.Overlay({
+//	element: container
+//});
+////------------------------------------------------------------------//
 
 var mapAdmin = new ol.Map({
 	interactions: ol.interaction.defaults().extend([select]),
-	overlays: [overlay],
+	//overlays: [overlay],
 	target: 'mapAdmin',
 	controls: [screen, scale],
 	layers: [
@@ -45,90 +45,43 @@ var mapAdmin = new ol.Map({
 	],
 	view: new ol.View({
         center: ol.proj.fromLonLat([1.3092730301117868, 44.03460973142589]),
-        zoom: 15
+        zoom: 17
 	})
 });
 
-//------------------- Click handler to hide popup ------------------//
-closer.onclick = function () {
-	overlay.setPosition(undefined);
-  	closer.blur();
-  	return false;
-};
-//------------------------------------------------------------------//
-//------------------ Click handler to render popup -----------------//
-//mapAdmin.on('singleclick', function (evt) {
-//  	const coordinate = evt.coordinate;
-//  	const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
-//
-//  	content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
-//  	overlay.setPosition(coordinate);
-//});
-
-mapAdmin.on('singleclick', function(evt){
-	mapAdmin.forEachFeatureAtPixel(evt.pixel,
-		function (feature){
-			if(ol.feature){
-				clearInterval(idInter)
-				var coordinate = evt.coordinate;
-				
-				//----------------------- Get Data From AddMap ---------------------//
-				var idMeasure = GetLayerEvent(ol.feature).get("idMeasure");
-				var data = "idMeasure="+ idMeasure.toString();
-				//------------------------------------------------------------------//
-				
-				$.get(
-					'/admin/map',	//Get URL
-					data, 		//
-				    UpdateMap, 				//Call Function
-					'json'					//Type of File
-				)
-				
-				//-------------------------- Popup's Content -----------------------//
-				content.innerHTML = 'Camion : n°' + idMeasure.toString();
-				//------------------------------------------------------------------//
-				
-				ol.overlay.setPosition(coordinate);
-			}
-			else{
-				overlay.setPosition(undefined);
-				closer.blur();
-			}
-		}
-	);
+select.getFeatures().on(['add'], function () {
+  alert('test');
 });
 
-//------------------------------------------------------------------//
+AjaxStacketCall();
+AjaxPlotCall();
 
-AjaxCall();
-var idInter = setInterval(AjaxCall, 50000);
+//setInterval(RemoveLayers, 10000);
+setInterval(AjaxStacketCall, 10000);
+setInterval(AjaxPlotCall, 10000);
+//
+//function AjaxCall(){
+//	RemoveLayers();
+//	AjaxStacketCall();
+//	//AjaxPlotCall();
+//}
 
-function UpdateMap(data){	
-	
-	const vector = new ol.layer.Vector({
-		source: new ol.source.Vector({
-			url: 'upload/plots/us-states.json',
-			format: new ol.format.GeoJSON(),
-		}),
-		style: new ol.style.Style({
-		    stroke: new ol.style.Stroke({
-		      color: '#b1c903',
-		      width: 2,
-		    }),
-		    fill: new ol.style.Fill({
-				color: 'rgba(0,0,0,0)',
-			})
-  		}),
-	});
-	//---------------------- Remove Marker's Layer ---------------------//
+function RemoveLayers(){
 	if(mapAdmin.getLayers().getLength() >= 1){
-		for(let i = 1, ii = mapAdmin.getLayers().getLength(); i <= ii; i++){
-			mapAdmin.removeLayer(mapAdmin.getLayers().item(i));
-		}
-	}
-	//------------------------------------------------------------------//
+		mapAdmin.getAllLayers().forEach(function(layer){
+			if(layer instanceof ol.layer.Tile){;}
+			else{
+				mapAdmin.removeLayer(layer);	
+			};
+		});
+	}	
+}
+
+function UpdateStacket(data){
+	RemoveLayers();
+
 	data.forEach((measureObject) => {
-		var layer = new ol.layer.Vector({
+		var vector = new ol.layer.Vector({
 			
 			//------------------------- Marker Location ------------------------//
 			source: new ol.source.Vector({
@@ -142,28 +95,64 @@ function UpdateMap(data){
 			//-------------------------- Marker Style --------------------------//
 			style: new ol.style.Style({
 				image: new ol.style.Circle({
-					radius: 5,
+					radius: 3,
 					stroke: new ol.style.Stroke({
 						color: '#b1c903',
 						width: 2,
 					}), // Marker's Stroke Color(white)
 					fill: new ol.style.Fill({
-						color: 'rgba(0,0,0,0)',
+						color: 'rgba(255,0,0,0)',
 					})
 				})
 			})
 			//------------------------------------------------------------------//
 		});
-		mapAdmin.addLayer(layer);
-	})
-	mapAdmin.addLayer(vector);
+		mapAdmin.addLayer(vector);
+	});
 }
 
-function AjaxCall(){
+function UpdatePlot(data){	
+	
+	data.forEach((plotObject) => {		
+		var vector = new ol.layer.Vector({
+			source: new ol.source.Vector({
+				url: plotObject["filepath"],
+				format: new ol.format.GeoJSON(),
+			}),
+			style: new ol.style.Style({
+				text: new ol.style.Text({
+					text: new String(plotObject["idPlot"]),
+					fill: new ol.style.Fill({
+						color: 'rgba(255,255,255,1)',
+					})
+				}),
+		    	stroke: new ol.style.Stroke({
+		     		color: 'rgba(0,0,0,1)',
+		      		width: 2,
+		    	}),
+		    	fill: new ol.style.Fill({
+					color: 'rgba(0,0,0,0)',
+				})
+  			})
+		});
+		mapAdmin.addLayer(vector);
+	});
+}
+
+function AjaxStacketCall(){
 	$.get(
-		'/admin/map',	//Get URL
-		'false', 		//
-	    UpdateMap, 		//Call Function
-		'json'			//Type of File
+		'/admin/map/stacket',	//Get URL
+		'false',
+	    UpdateStacket,			//Call Function
+		'json'					//Type of File
+	)
+}
+
+function AjaxPlotCall(){
+	$.get(
+		'/admin/map/plot',	//Get URL
+		'false',
+	    UpdatePlot,			//Call Function
+		'json'				//Type of File
 	)
 }

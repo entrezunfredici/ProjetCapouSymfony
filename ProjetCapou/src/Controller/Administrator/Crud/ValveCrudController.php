@@ -86,7 +86,8 @@ class ValveCrudController extends AbstractCrudController
         ->setEntityLabelInSingular('Vanne')
         ->setPageTitle('index', 'Liste des %entity_label_plural%')
         ->setPageTitle('edit', fn (Valve $valve) => sprintf('Éditer vanne n°%s', $valve->getId()))
-        ->setPageTitle('new', 'Ajouter une %entity_label_singular%');
+        ->setPageTitle('new', 'Ajouter une %entity_label_singular%')
+        ->showEntityActionsInlined();
     }
 
     public function configureFields(string $pageName): iterable
