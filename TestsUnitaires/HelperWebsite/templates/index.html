@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Last received data:</h1>
+
+    <p> <strong>Node ID: </strong>{{node_id}}</p>
+    <p> <strong>Latitude: </strong> {{latitude}} °</p>
+    <p> <strong>Longitude: </strong> {{longitude}} ° </p>
+    <p> <strong>External temperature: </strong> {{external_temperature}} °C</p>
+    <p> <strong>External humidity: </strong> {{external_humidity}} %</p>
+    <p> <strong>Internal temperature: </strong> {{internal_temperature}} °C</p>
+    <p> <strong>Internal humidity: </strong> {{internal_humidity}} %</p>
+    <p> <strong>Battery: </strong> {{battery_voltage}} V</p>
+
+    <h1>Valve States</h1>
+    {% for dictionary in valveStates %}
+        {% for key, values in dictionary.items() %}
+            <p><strong>{{key}}</strong> - {{values}}</p>
+        {% endfor %}
+        <br>
+    {%endfor%}
+
+{% endblock %}
