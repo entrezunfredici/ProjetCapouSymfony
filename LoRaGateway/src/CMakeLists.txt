@@ -1,0 +1,1 @@
+idf_component_register(SRCS "main.cpp" "CLoRaGateway.cpp" "CApp.cpp" "oled/OLEDDisplay.cpp" "oled/OLEDDisplayUi.cpp")
