@@ -56,7 +56,7 @@ class MailerController extends AbstractController
         return $email;
     } 
     
-    public function emailResetPassword(User $user, ResetPasswordToken $resetToken, string $url): RawMessage
+    public function emailResetPassword(User $user, string $url): RawMessage
     {
         $email = (new TemplatedEmail())
             ->from(new Address('AddrTest666@gmail.com', 'no-reply-reset-password'))

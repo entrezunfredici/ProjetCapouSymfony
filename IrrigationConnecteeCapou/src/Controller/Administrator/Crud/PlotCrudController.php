@@ -62,6 +62,8 @@ class PlotCrudController extends AbstractCrudController
                     $str = $entity->getUser()[0];
                     for ($i = 1; $i < $entity->getUser()->count(); $i++) {
                         $str = $str . ", " . $entity->getUser()[$i];
+                        dump($str);
+                        die();
                     }
                     return $str;
                 });

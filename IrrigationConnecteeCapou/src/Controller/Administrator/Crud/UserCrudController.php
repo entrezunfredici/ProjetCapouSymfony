@@ -72,18 +72,32 @@ class UserCrudController extends AbstractCrudController
         ];
 
         return [
-            TextField::new('firstName', 'Prénom')->setRequired(1),
-            TextField::new('lastName', 'Nom')->setRequired(1),
-            EmailField::new('email', 'Adresse e-mail')->setHelp('ex: jean-dupont@gmail.com')->setRequired(1),
-            TelephoneField::new('phone_number', 'Téléphone')->setFormType(TelType::class),
-            TextField::new('address', 'Adresse')->setHelp('ex: 8 rue Laplace')->hideOnIndex(),
-            TextField::new('city', 'Ville')->hideOnIndex(),
-            TextField::new('zipcode', 'Code postal')->setMaxLength(5)->hideOnIndex(),
-            ChoiceField::new('roles', 'Fonction(s)')->setChoices($roles)->allowMultipleChoices()->renderExpanded(),
-            ColorField::new('color', 'Couleur')->hideOnIndex(),
+            TextField::new('firstName', 'Prénom')
+                ->setRequired(1),
+            TextField::new('lastName', 'Nom')
+                ->setRequired(1),
+            EmailField::new('email', 'Adresse e-mail')
+                ->setHelp('ex: jean-dupont@gmail.com')
+                ->setRequired(1),
+            TelephoneField::new('phone_number', 'Téléphone')
+                ->setFormType(TelType::class),
+            TextField::new('address', 'Adresse')
+                ->setHelp('ex: 8 rue Laplace')
+                ->hideOnIndex(),
+            TextField::new('city', 'Ville')
+                ->hideOnIndex(),
+            TextField::new('zipcode', 'Code postal')
+                ->setMaxLength(5)
+                ->hideOnIndex(),
+            ChoiceField::new('roles', 'Fonction(s)')
+                ->setChoices($roles)
+                ->allowMultipleChoices()
+                ->renderExpanded(),
+            ColorField::new('color', 'Couleur')
+                ->hideOnIndex(),
         ];
     }
-    
+     
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if(!$entityInstance instanceof User) return;

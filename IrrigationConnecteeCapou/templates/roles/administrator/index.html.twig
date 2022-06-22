@@ -87,24 +87,36 @@
         		<div class="dropdown-menu" id="dropdownMenu">
               	</div>
           	</div>
-          	<div id="plotName"></div>        				
-        	<div class="col-sm-12 col-lg-6">
+          	<div id="plotName"></div>
+          	<h2 class="text-uppercase text-center">Humidité</h2>
+          	<div class="col-sm-12 col-lg-6">
+				<div id="humidityInternalInstant" class="chart--container"></div>
+            </div>  
+        	<div class="col-sm-6 col-lg-6">
         		<canvas id="humidityInternal"></canvas>
             </div>
-            <div class="col-sm-12 col-lg-6">
+            <div class="col-sm-6 col-lg-6">
         		<canvas id="humidityExternal"></canvas>
             </div>
             <div class="col-sm-12 col-lg-6">
-				<div id="myChart" class="chart--container"></div>
+				<div id="humidityExternalInstant" class="chart--container"></div>
             </div>
-        	<div class="col-sm-12 col-lg-6">
-        		<canvas id="temperatureReading"></canvas>
+            <div><hr></div>
+            <h2 class="text-uppercase text-center">Température</h2>
+            <div class="col-sm-12 col-lg-6">
+				<div id="temperatureInternalInstant" class="chart--container"></div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+        		<canvas id="temperatureInternal"></canvas>
         	</div>
-{#             <div class="col-sm-12 col-lg-6">#}
-{# 				<div id="myChart2" class="chart--container"></div>#}
-{#             </div>#}
+            <div class="col-sm-12 col-lg-6">
+				<canvas id="temperatureExternal"></canvas>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+				<div id="temperatureExternalInstant" class="chart--container"></div>
+            </div>
     	</div>
-	</div>
+	</div> 
 
 	<style>.chart--container {
       min-height: 400px;

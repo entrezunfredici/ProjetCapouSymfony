@@ -40,7 +40,7 @@ class _MapController extends AbstractController
         foreach($cardObjects as $cardObject){
             $coordinate = $this->DSMToDD($cardObject->getLocation());
             array_push($cardCoordinates, array("idStacket" => $cardObject->getId(),
-                                               "latitude" => $coordinate["latitude"],
+                                               "latitude" => $coordinate["latitude"], 
                                                "longitude" => $coordinate["longitude"]
             ));
         }

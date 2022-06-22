@@ -20,6 +20,9 @@ class Valve
     
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'valves')]
     private $user;
+
+    #[ORM\OneToOne(inversedBy: 'valve', targetEntity: Card::class, cascade: ['persist', 'remove'])]
+    private $card;
     
     public function __construct()
     {
@@ -64,6 +67,18 @@ class Valve
     {
         $this->user->removeElement($user);
         
+        return $this;
+    }
+
+    public function getCard(): ?Card
+    {
+        return $this->card;
+    }
+
+    public function setCard(?Card $card): self
+    {
+        $this->card = $card;
+
         return $this;
     }
 }

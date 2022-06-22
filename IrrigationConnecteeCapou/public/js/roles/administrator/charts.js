@@ -7,31 +7,31 @@
 ============================================================================*/
 
 const data={};
-const labels = ['00h00', '04h00', '08h00', '12h00', '16h00', '20h00', '00h00'];
-
+	
+//-------------------------- Data's Chart --------------------------//
 const dataHumidityInt = {
-//    labels: labels,
-    datasets: [
-	{
-      label: 'Air',
-      color: 'rgb(0,144,212)',
-      backgroundColor: 'rgb(0,144,212)',
-      borderColor: 'rgb(0,144,212)',
-    }
-    ]
-};
-
-const dataHumidityExt = {
-//    labels: labels,
     datasets: [{
-      label: 'Air',
-      color: 'rgb(160,225,255)',
-      backgroundColor: 'rgb(160,225,255)',
-      borderColor: 'rgb(160,225,255)',
-    }
-    ]
+      borderColor: 'rgb(0,144,212)',
+    }]
 };
+const dataHumidityExt = {
+    datasets: [{
+      borderColor: 'rgb(160,225,255)',
+    }]
+};
+const dataTemperatureInt = {
+    datasets: [{
+      borderColor: 'rgb(235,110,29)',
+    }]
+};
+const dataTemperatureExt = {
+    datasets: [{
+      borderColor: 'rgb(255,176,126)',
+    }]
+};
+//------------------------------------------------------------------//
 
+//------------------------ Config's Chart -------------------------//
 const configHumidityInt = {type: 'line', data: dataHumidityInt, options: {
 	plugins: {
         title: {
@@ -39,7 +39,7 @@ const configHumidityInt = {type: 'line', data: dataHumidityInt, options: {
             text: 'Humidité interne'
         },
         legend: {
-			display: true,
+			display: false,
 			position: 'bottom'
 		}
 	},
@@ -49,9 +49,6 @@ const configHumidityInt = {type: 'line', data: dataHumidityInt, options: {
 				display: true,
 				text: "taux d\'humidité (%)"
 			},
-//			ticks: {
-//          		stepSize: 20
-//        	},
 			beginAtZero: true,
 			max : 100
 		},
@@ -63,7 +60,6 @@ const configHumidityInt = {type: 'line', data: dataHumidityInt, options: {
 		}
     },
 }};
-	
 const configHumidityExt = {type: 'line', data: dataHumidityExt, options: {
 	plugins: {
         title: {
@@ -71,7 +67,7 @@ const configHumidityExt = {type: 'line', data: dataHumidityExt, options: {
             text: 'Humidité externe'
         },
         legend: {
-			display: true,
+			display: false,
 			position: 'bottom'
 		}
 	},
@@ -81,9 +77,6 @@ const configHumidityExt = {type: 'line', data: dataHumidityExt, options: {
 				display: true,
 				text: "taux d\'humidité (%)"
 			},
-//			ticks: {
-//          		stepSize: 20
-//        	},
 			beginAtZero: true,
 			max : 100
         },
@@ -95,328 +88,555 @@ const configHumidityExt = {type: 'line', data: dataHumidityExt, options: {
 		}
     },
 }};
+const configTemperatureInt = {type: 'line', data: dataTemperatureInt, options: {
+	plugins: {
+        title: {
+            display: true,
+            text: 'Température interne'
+        },
+        legend: {
+			display: false,
+			position: 'bottom'
+		}
+	},
+	scales: {
+		y : {
+			title: {
+				display: true,
+				text: "température (°C)"
+			},
+			beginAtZero: true,
+			max : 100
+		},
+        x : {
+			title: {
+				display: true,
+				text: "temps (h:min:s)"
+			},
+		}
+    },
+}};
+const configTemperatureExt = {type: 'line', data: dataTemperatureExt, options: {
+	plugins: {
+        title: {
+            display: true,
+            text: 'Température externe'
+        },
+        legend: {
+			display: false,
+			position: 'bottom'
+		}
+	},
+	scales: {
+		y : {
+			title: {
+				display: true,
+				text: "température (°C)"
+			},
+			beginAtZero: true,
+			max : 100
+		},
+        x : {
+			title: {
+				display: true,
+				text: "temps (h:min:s)"
+			},
+		}
+    },
+}};
+//------------------------------------------------------------------//
 
+//----------------------- Chart's Creation' -----------------------//
 const chartIntHumidity = new Chart(document.getElementById('humidityInternal'), configHumidityInt);
 const chartExtHumidity = new Chart(document.getElementById('humidityExternal'), configHumidityExt);
+const chartIntTemperature = new Chart(document.getElementById('temperatureInternal'), configTemperatureInt);
+const chartExtTemperature = new Chart(document.getElementById('temperatureExternal'), configTemperatureExt);
+//------------------------------------------------------------------//
 
-
-const dataTemperature = {
-    labels: labels,
-    datasets: [{
-      label: 'Air',
-      backgroundColor: 'rgb(235,110,29)',
-      borderColor: 'rgb(235,110,29)',
-    },{
-	  label: 'Sol',
-      color: 'rgb(255,176,126)',
-      backgroundColor: 'rgb(255,176,126)',
-      borderColor: 'rgb(255,176,126)',
-    }]
+let configInstantHumidityInt = {
+	graphset: [{
+  		type: 'gauge', 								//Chart's type
+  		title: {									//Chart's title
+    		text: 'Humidité interne instantanée',	//Title
+    		fontColor: 'grey',						//Title's color
+    		fontSize: '11px',						//Title's size
+  		},
+		plot: {										//Center
+			valueBox: {								//Center's value
+              	text: '%v',							//Text's value
+              	fontColor: 'grey',					//Text's color
+              	fontSize: '15px',					//Text's size
+              	placement: 'center',				//Text's placement (center, tip or edge)
+        	},
+		},
+      	plotarea: {									//Chart's area
+        	marginTop: '35%',						//Area Margin Top
+      	},
+      	scale: {									//Chart's scale
+        	sizeFactor: "175%",						//Scale factor
+      	},
+		scaleR: { 									//Radial scale
+            values: '0:100:10', 					//min:max:step
+            aperture: 180, 							//Scale range
+            center: {								//Gauge center
+				size: '15px',						//Center's size					
+              	borderColor: 'rgb(0,144,212)',		//Border center's color
+              	borderWidth: '2px',					//Border center's width
+          	},
+          	ring: {									//Gauge ring
+				size: '5px',						//Ring's size
+          		backgroundColor: 'rgb(0,144,212)',	//Ring's color
+        	},
+        	item: {									//Scale label
+          		offsetR: 0,							//Label's placement
+        	},
+        },
+		series: [{
+        	values: [0],							//Starting value
+        	csize: "5%", 							//Needle width
+        	size: "75%", 							//Needle length
+        	'background-color': 'rgb(0,144,212)',	//Needle color
+        	indicator: [0,0.5,0,0,0],				//[Base's radius, Tip's radius, Base’s angle, tTp’s angle, Offset]
+  		}],
+	}],
 };
 
-const configTemperature = {type: 'line', data: dataTemperature, options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Température interne et externe'
-            },
-            legend: {
-				display: true,
-				position: 'bottom'
-			}
-        }
-    }};
-    
-const chartTemperatureReading = new Chart(document.getElementById('temperatureReading'), configTemperature);
+zingchart.render({
+  	id: 'humidityInternalInstant',
+  	data: configInstantHumidityInt,
+  	height: '100%',
+  	width: '100%',
+});
 
-ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-    let chartConfig = {
-      backgroundColor: 'rgb(160,225,255)',
-      graphset: [{
-          type: 'gauge',
-          title: {
-            text: 'Humiditée interne',
-          },
-          plot: {
-            csize: '3%',
-            size: '100%',
-          },
-          plotarea: {
-            marginTop: '35%',
-          },
-          scale: {
-            sizeFactor: 1.2,
-            mediaRules: [{
-              maxWidth: '650px',
-              sizeFactor: 1.6,
-            }, ],
-          },
-          scaleR: {
-            values: '0:100:10',
-            aperture: 180,
-            center: {
-              borderColor: 'rgb(0,144,212)',
-              borderWidth: '2px',
-              size: '20px',
-            },
-            
-            item: {
-              offsetR: 0,
-            },
-            
-            ring: {
-              backgroundColor: 'rgb(0,144,212)',
-            },
-            tick: {
-              visible: false,
-            },
-          },
-          tooltip: {
-            visible: false,
-          },
-          series: [{
-            values: [35],
-            valueBox: {
-              text: '%v',
-              fontColor: 'rgb(0,144,212)',
-              fontSize: '14px',
-              placement: 'center',
-            },
-            backgroundColor: 'rgb(0,144,212)',
-          }, ],
-        }
-      ],
-    };
-
-    zingchart.render({
-      id: 'myChart',
-      data: chartConfig,
-      height: '100%',
-      width: '100%',
-    });
-
-    /*
-     * SetInterval is used to simulate live input. We also have
-     * a feed attribute that takes in http requests, websockets,
-     * and return value from a JS function.
-     */
-    setInterval(() => {
-      let colors = ['rgb(160,225,255)', '#E2D51A', '#FB301E'];
-      let Marker = (bgColor, ceiling) => {
-        return {
-          type: 'area',
-          range: [0, ceiling],
-          backgroundColor: bgColor,
-          alpha: 0.95,
-        };
-      };
-    min = Math.ceil(0);
-	max = Math.floor(100);
-    let output0 = Math.floor(Math.random() * (max - min +1)) + min;
-
-      // 1) update gauge values
-      zingchart.exec('myChart', 'appendseriesdata', {
-        graphid: 0,
-        plotindex: 0,
-        update: false,
-        data: {
-          values: [output0],
+let configInstantHumidityExt = {
+	graphset: [{
+  		type: 'gauge', 								//Chart's type
+  		title: {									//Chart's title
+    		text: 'Humidité externe instantanée',	//Title
+    		fontColor: 'grey',						//Title's color
+    		fontSize: '11px',						//Title's size
+  		},
+		plot: {										//Center
+			valueBox: {								//Center's value
+              	text: '%v',							//Text's value
+              	fontColor: 'grey',					//Text's color
+              	fontSize: '15px',					//Text's size
+              	placement: 'center',				//Text's placement (center, tip or edge)
+        	},
+		},
+      	plotarea: {									//Chart's area
+        	marginTop: '35%',						//Area Margin Top
+      	},
+      	scale: {									//Chart's scale
+        	sizeFactor: "175%",						//Scale factor
+      	},
+		scaleR: { 									//Radial scale
+            values: '0:100:10', 					//min:max:step
+            aperture: 180, 							//Scale range
+            center: {								//Gauge center
+				size: '15px',						//Center's size					
+              	borderColor: 'rgb(160,225,255)',		//Border center's color
+              	borderWidth: '2px',					//Border center's width
+          	},
+          	ring: {									//Gauge ring
+				size: '5px',						//Ring's size
+          		backgroundColor: 'rgb(160,225,255)',	//Ring's color
+        	},
+        	item: {									//Scale label
+          		offsetR: 0,							//Label's placement
+        	},
         },
-      });
+		series: [{
+        	values: [0],							//Starting value
+        	csize: "5%", 							//Needle width
+        	size: "75%", 							//Needle length
+        	'background-color': 'rgb(160,225,255)',	//Needle color
+        	indicator: [0,0.5,0,0,0],				//[Base's radius, Tip's radius, Base’s angle, tTp’s angle, Offset]
+  		}],
+	}],
+};
 
-      // 2) update guage markers
-      zingchart.exec('myChart', 'modify', {
-        graphid: 0,
-        update: false,
-        data: {
-          scaleR: {
-            markers: [Marker(colors[0], output0)],
-          },
+zingchart.render({
+  	id: 'humidityExternalInstant',
+  	data: configInstantHumidityExt,
+  	height: '100%',
+  	width: '100%',
+});
+
+let configInstantTemperatureInt = {
+	graphset: [{
+  		type: 'gauge', 								//Chart's type
+  		title: {									//Chart's title
+    		text: 'Température interne instantanée',//Title
+    		fontColor: 'grey',						//Title's color
+    		fontSize: '11px',						//Title's size
+  		},
+		plot: {										//Center
+			valueBox: {								//Center's value
+              	text: '%v',							//Text's value
+              	fontColor: 'grey',					//Text's color
+              	fontSize: '15px',					//Text's size
+              	placement: 'center',				//Text's placement (center, tip or edge)
+        	},
+		},
+      	plotarea: {									//Chart's area
+        	marginTop: '35%',						//Area Margin Top
+      	},
+      	scale: {									//Chart's scale
+        	sizeFactor: "175%",						//Scale factor
+      	},
+		scaleR: { 									//Radial scale
+            values: '0:100:10', 					//min:max:step
+            aperture: 180, 							//Scale range
+            center: {								//Gauge center
+				size: '15px',						//Center's size					
+              	borderColor: 'rgb(235,110,29)',		//Border center's color
+              	borderWidth: '2px',					//Border center's width
+          	},
+          	ring: {									//Gauge ring
+				size: '5px',						//Ring's size
+          		backgroundColor: 'rgb(235,110,29)',	//Ring's color
+        	},
+        	item: {									//Scale label
+          		offsetR: 0,							//Label's placement
+        	},
         },
-      });
+		series: [{
+        	values: [0],							//Starting value
+        	csize: "5%", 							//Needle width
+        	size: "75%", 							//Needle length
+        	'background-color': 'rgb(235,110,29)',	//Needle color
+        	indicator: [0,0.5,0,0,0],				//[Base's radius, Tip's radius, Base’s angle, tTp’s angle, Offset]
+  		}],
+	}],
+};
 
-      // batch update all chart modifications
-      zingchart.exec('myChart', 'update');
-    }, 1500);
-    
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-    let chartConfig2 = {
-      backgroundColor: 'rgb(255,176,126)',
-      graphset: [{
-          type: 'gauge',
-          title: {
-            text: 'Humiditée terrestre',
-          },
-          plot: {
-            csize: '3%',
-            size: '100%',
-          },
-          plotarea: {
-            marginTop: '35%',
-          },
-          scale: {
-            sizeFactor: 1.2,
-            mediaRules: [{
-              maxWidth: '650px',
-              sizeFactor: 1.6,
-            }, ],
-          },
-          scaleR: {
-            values: '0:100:10',
-            aperture: 180,
-            center: {
-              borderColor: 'rgb(235,110,29)',
-              borderWidth: '2px',
-              size: '20px',
-            },
-            
-            item: {
-              offsetR: 0,
-            },
-            
-            ring: {
-              backgroundColor: 'rgb(235,110,29)',
-            },
-            tick: {
-              visible: false,
-            },
-          },
-          tooltip: {
-            visible: false,
-          },
-          series: [{
-            values: [0],
-            valueBox: {
-              text: '%v',
-              fontColor: 'rgb(235,110,29)',
-              fontSize: '14px',
-              placement: 'center',
-            },
-            backgroundColor: 'rgb(235,110,29)',
-          }, ],
-        }
-      ],
-    };
+zingchart.render({
+  	id: 'temperatureInternalInstant',
+  	data: configInstantTemperatureInt,
+  	height: '100%',
+  	width: '100%',
+});
 
-    zingchart.render({
-      id: 'chartAirHumidity',
-      data: chartConfig2,
-      height: '100%',
-      width: '100%',
-    });
+let configInstantTemperatureExt = {
+	graphset: [{
+  		type: 'gauge', 								//Chart's type
+  		title: {									//Chart's title
+    		text: 'Température externe instantanée',//Title
+    		fontColor: 'grey',						//Title's color
+    		fontSize: '11px',						//Title's size
+  		},
+		plot: {										//Center
+			valueBox: {								//Center's value
+              	text: '%v',							//Text's value
+              	fontColor: 'grey',					//Text's color
+              	fontSize: '15px',					//Text's size
+              	placement: 'center',				//Text's placement (center, tip or edge)
+        	},
+		},
+      	plotarea: {									//Chart's area
+        	marginTop: '35%',						//Area Margin Top
+      	},
+      	scale: {									//Chart's scale
+        	sizeFactor: "175%",						//Scale factor
+      	},
+		scaleR: { 									//Radial scale
+            values: '0:100:10', 					//min:max:step
+            aperture: 180, 							//Scale range
+            center: {								//Gauge center
+				size: '15px',						//Center's size					
+              	borderColor: 'rgb(255,176,126)',		//Border center's color
+              	borderWidth: '2px',					//Border center's width
+          	},
+          	ring: {									//Gauge ring
+				size: '5px',						//Ring's size
+          		backgroundColor: 'rgb(255,176,126)',	//Ring's color
+        	},
+        	item: {									//Scale label
+          		offsetR: 0,							//Label's placement
+        	},
+        },
+		series: [{
+        	values: [0],							//Starting value
+        	csize: "5%", 							//Needle width
+        	size: "75%", 							//Needle length
+        	'background-color': 'rgb(255,176,126)',	//Needle color
+        	indicator: [0,0.5,0,0,0],				//[Base's radius, Tip's radius, Base’s angle, tTp’s angle, Offset]
+  		}],
+	}],
+};
 
-    /*
-     * SetInterval is used to simulate live input. We also have
-     * a feed attribute that takes in http requests, websockets,
-     * and return value from a JS function.
-     */
-//    setInterval(() => {
-//      let colors = ['rgb(255,176,126)', '#E2D51A', '#FB301E'];
-//      let Marker = (bgColor, ceiling) => {
-//        return {
-//          type: 'area',
-//          range: [0, ceiling],
-//          backgroundColor: bgColor,
-//          alpha: 0.95,
-//        };
-//      };
-//      
-//    min = Math.ceil(0);
-//	max = Math.floor(100);
-//    let output0 = Math.floor(Math.random() * (max - min +1)) + min;
-//
-//      // 1) update gauge values
-//      zingchart.exec('myChart2', 'appendseriesdata', {
-//        graphid: 0,
-//        plotindex: 0,
-//        update: false,
-//        data: {
-//          values: [output0],
-//        },
-//      });
-//
-//      // 2) update gauge markers
-//      zingchart.exec('myChart2', 'modify', {
-//        graphid: 0,
-//        update: false,
-//        data: {
-//          scaleR: {
-//            markers: [Marker(colors[0], output0)],
-//          },
-//        },
-//      });
-//
-//      // batch update all chart modifications
-//      zingchart.exec('myChart2', 'update');
-//    }, 1500);
-
+zingchart.render({
+  	id: 'temperatureExternalInstant',
+  	data: configInstantTemperatureExt,
+  	height: '100%',
+  	width: '100%',
+});
 
 AjaxMeasuresCall();
 AjaxIdPlotCall();
 setInterval(AjaxIdPlotCall, 10000);
 setInterval(AjaxMeasuresCall, 10000);
 
+function DeleteIntHumidityDataChart(){
+	for(let m=0; chartIntHumidity.data.datasets[0].data[m] || chartIntHumidity.data.labels[m]; m++){
+		chartIntHumidity.data.datasets[0].data[m] = null;
+		chartIntHumidity.data.labels[m] = null;
+	}
+}
+function DeleteExtHumidityDataChart(){
+	for(let m=0; chartExtHumidity.data.datasets[0].data[m] || chartExtHumidity.data.labels[m]; m++){
+		chartExtHumidity.data.datasets[0].data[m] = null;
+		chartExtHumidity.data.labels[m] = null;
+	}
+}
+function DeleteIntTemperatureDataChart(){
+	for(let m=0; chartIntTemperature.data.datasets[0].data[m] || chartIntTemperature.data.labels[m]; m++){
+		chartIntTemperature.data.datasets[0].data[m] = null;
+		chartIntTemperature.data.labels[m] = null;
+	}
+}
+function DeleteExtTemperatureDataChart(){
+	for(let m=0; chartExtTemperature.data.datasets[0].data[m] || chartExtTemperature.data.labels[m]; m++){
+		chartExtTemperature.data.datasets[0].data[m] = null;
+		chartExtTemperature.data.labels[m] = null;
+	}
+}
+
 var idPlot=0;
 function UpdateChart(data){
+
+	//-------------------- Internal Humidity Update --------------------//	
+	var intHumidityVal = [];
+	var intHumidityLbl = [];
+	for(let m=0; data[m]; m++){
+		if(data[m].cardsMeasure == idPlot){
+			if(data[m].measureType == "taux_humidite_sol"){
+				intHumidityVal.push(data[m].valMeasure);
+				intHumidityLbl.push(data[m].timeMeasure);
+			}
+		}
+	}
+	DeleteIntHumidityDataChart();
+	let nmbIntHumidity = 0;
+	for(let i=intHumidityVal.length-3; (nmbIntHumidity <= 4) && (i <= intHumidityVal.length); i++){
+		if(i <= 0){;}
+		else{
+			chartIntHumidity.data.datasets[0].data[nmbIntHumidity] = intHumidityVal[i-1];
+			chartIntHumidity.data.labels[nmbIntHumidity] = intHumidityLbl[i-1];
+			nmbIntHumidity++;
+		}
+	}
+	//------------------------------------------------------------------//
 	
-	console.log(data[data.length-1]);
+	//-------------------- External Humidity Update --------------------//	
+	var extHumidityVal = [];
+	var extHumidityLbl = [];
+	for(let m=0; data[m]; m++){
+		if(data[m].cardsMeasure == idPlot){
+			if(data[m].measureType == "taux_humidite_air"){
+				extHumidityVal.push(data[m].valMeasure);
+				extHumidityLbl.push(data[m].timeMeasure);
+			}
+		}
+	}
+	DeleteExtHumidityDataChart();
+	let nmbExtHumidity = 0;
+	for(let i=extHumidityVal.length-3; (nmbExtHumidity <= 4) && (i <= extHumidityVal.length); i++){
+		if(i <= 0){;}
+		else{
+			chartExtHumidity.data.datasets[0].data[nmbExtHumidity] = extHumidityVal[i-1];
+			chartExtHumidity.data.labels[nmbExtHumidity] = extHumidityLbl[i-1];
+			nmbExtHumidity++;
+		}
+	}
+	//------------------------------------------------------------------//
 	
-//	for(let m=0; data[m]; m++){
-//		
-//	}
+	//------------------ Internal Temperature Update -------------------//	
+	var intTemperatureVal = [];
+	var intTemperatureLbl = [];
+	for(let m=0; data[m]; m++){
+		if(data[m].cardsMeasure == idPlot){
+			if(data[m].measureType == "temperature_sol"){
+				intTemperatureVal.push(data[m].valMeasure);
+				intTemperatureLbl.push(data[m].timeMeasure);
+			}
+		}
+	}
+	DeleteIntTemperatureDataChart();
+	let nmbIntTemperature = 0;
+	for(let i=intTemperatureVal.length-3; (nmbIntTemperature <= 4) && (i <= intTemperatureVal.length); i++){
+		if(i <= 0){;}
+		else{
+			chartIntTemperature.data.datasets[0].data[nmbIntTemperature] = intTemperatureVal[i-1];
+			chartIntTemperature.data.labels[nmbIntTemperature] = intTemperatureLbl[i-1];
+			nmbIntTemperature++;
+		}
+	}
+	//------------------------------------------------------------------//
 	
-	let i=0, j=0, k=0, l=0;
-	data.forEach((measureObject)=>{		
-		if(measureObject["cardsMeasure"]==idPlot){
-			if(measureObject["measureType"]=="taux_humidite_sol"){
-				if(i==10){;}
-				else{
-					chartIntHumidity.data.datasets[0].data[i] = measureObject["valMeasure"];
-					chartIntHumidity.data.labels[i] = measureObject["timeMeasure"];
-					i++;
-				}
+	//------------------ External Temperature Update -------------------//	
+	var extTemperatureVal = [];
+	var extTemperatureLbl = [];
+	for(let m=0; data[m]; m++){
+		if(data[m].cardsMeasure == idPlot){
+			if(data[m].measureType == "temperature_air"){
+				extTemperatureVal.push(data[m].valMeasure);
+				extTemperatureLbl.push(data[m].timeMeasure);
 			}
-			else if(measureObject["measureType"]=="taux_humidite_air"){
-				chartExtHumidity.data.datasets[0].data[j] = measureObject["valMeasure"];
-				j++;
-			}
-			else if(measureObject["measureType"]=="temperature_air"){
-				chartTemperatureReading.data.datasets[0].data[k] = measureObject["valMeasure"];
-				k++;
-			}
-			else if(measureObject["measureType"]=="temperature_sol"){
-				chartTemperatureReading.data.datasets[1].data[l] = measureObject["valMeasure"];
-				l++;
-			}
-//			zingchart.exec('chartAirHumidity', 'modify', {
-//				graphid: 0,
-//				update: false,
-//				data: {
-//					scaleR: {
-//						markers: [Marker(colors[0], output0)],
-//					},
-//				},
-//			});			
-			 
-        }
-	})
+		}
+	}
+	DeleteExtTemperatureDataChart();
+	let nmbExtTemperature = 0;
+	for(let i=extTemperatureVal.length-3; (nmbExtTemperature <= 4) && (i <= extTemperatureVal.length); i++){
+		if(i <= 0){;}
+		else{
+			chartExtTemperature.data.datasets[0].data[nmbExtTemperature] = extTemperatureVal[i-1];
+			chartExtTemperature.data.labels[nmbExtTemperature] = extTemperatureLbl[i-1];
+			nmbExtTemperature++;
+		}
+	}
+	//------------------------------------------------------------------//
+
+	let Marker = (bgColor, ceiling) => {
+		return {
+			type: 'area',
+			range: [0, ceiling],
+			backgroundColor: bgColor,
+  			alpha: 0.95,
+    	};
+  	};
+
+	//---------------- Instant Internal Humidity Update ----------------//
+  	var instantIntHumidity;
+	if(intHumidityVal[intHumidityVal.length-1]){
+		instantIntHumidity = intHumidityVal[intHumidityVal.length-1];
+	}
+	else{
+		instantIntHumidity = 0;
+	}
+  	zingchart.exec('humidityInternalInstant', 'appendseriesdata', {
+    	plotindex: 0,
+    	update: false,
+    	data: {
+      		values: [instantIntHumidity],
+    	},
+  	});
+
+  	//Update gauge markers
+  	zingchart.exec('humidityInternalInstant', 'modify', {
+    	update: false,
+    	data: {
+      		scaleR: {
+        		markers: [Marker('rgb(160,225,255)', instantIntHumidity)],
+      		},
+    	},
+  	});
+	//------------------------------------------------------------------//
+  	
+  	//---------------- Instant External Humidity Update ----------------//
+  	//Update gauge values
+  	var instantExtHumidity;
+	if(extHumidityVal[extHumidityVal.length-1]){
+		instantExtHumidity = extHumidityVal[extHumidityVal.length-1];
+	}
+	else{
+		instantExtHumidity = 0;
+	}
+  	zingchart.exec('humidityExternalInstant', 'appendseriesdata', {
+    	plotindex: 0,
+    	update: false,
+    	data: {
+      		values: [instantExtHumidity],
+    	},
+  	});
+
+  	//Update gauge markers
+  	zingchart.exec('humidityExternalInstant', 'modify', {
+    	update: false,
+    	data: {
+      		scaleR: {
+        		markers: [Marker('rgb(0,144,212)', instantExtHumidity)],
+      		},
+    	},
+  	});
+  	//------------------------------------------------------------------//
+  	
+  	//-------------- Instant Internal Temperature Update ---------------//
+  	//Update gauge values
+  	var instantIntTemperature;
+	if(intTemperatureVal[intTemperatureVal.length-1]){
+		instantIntTemperature = intTemperatureVal[intTemperatureVal.length-1];
+	}
+	else{
+		instantIntTemperature = 0;
+	}
+  	zingchart.exec('temperatureInternalInstant', 'appendseriesdata', {
+    	plotindex: 0,
+    	update: false,
+    	data: {
+      		values: [instantIntTemperature],
+    	},
+  	});
+
+  	//Update gauge markers
+  	zingchart.exec('temperatureInternalInstant', 'modify', {
+    	update: false,
+    	data: {
+      		scaleR: {
+        		markers: [Marker('rgb(255,176,126)', instantIntTemperature)],
+      		},
+    	},
+  	});
+  	//------------------------------------------------------------------//
+  	
+  	//-------------- Instant External Temperature Update ---------------//
+  	//Update gauge values
+  	var instantExtTemperature;
+	if(extTemperatureVal[extTemperatureVal.length-1]){
+		instantExtTemperature = extTemperatureVal[extTemperatureVal.length-1];
+	}
+	else{
+		instantExtTemperature = 0;
+	}
+  	zingchart.exec('temperatureExternalInstant', 'appendseriesdata', {
+    	plotindex: 0,
+    	update: false,
+    	data: {
+      		values: [instantExtTemperature],
+    	},
+  	});
+
+  	//Update gauge markers
+  	zingchart.exec('temperatureExternalInstant', 'modify', {
+    	update: false,
+    	data: {
+      		scaleR: {
+        		markers: [Marker('rgb(235,110,29)', instantExtTemperature)],
+      		},
+    	},
+  	});
+  	//------------------------------------------------------------------//
+
 	chartIntHumidity.update();
-	chartTemperatureReading.update();
+	chartExtHumidity.update();
+	chartIntTemperature.update();
+	chartExtTemperature.update();
+	
+	zingchart.exec('humidityInternalInstant', 'update');
+	zingchart.exec('humidityExternalInstant', 'update');
+	zingchart.exec('temperatureInternalInstant', 'update');
+	zingchart.exec('temperatureExternalInstant', 'update');
 };
 
 function GetPlotName(id){
 	const div = document.querySelector('#plotName');
 	if(document.getElementById("plot")){
 		document.getElementById("plotName").removeChild(document.getElementById("plot"));
+		document.getElementById("plotName").removeChild(document.getElementById("divider"));
 	}
 	div.innerHTML += `<h2 id="plot" class="text-center">Parcelle n°${id}</h2>`;
-	for(let j=0; chartIntHumidity.data.datasets[0].data[j]; j++){
-		chartIntHumidity.data.datasets[0].data[j]=null;
-	}
-	for(let j=0; chartTemperatureReading.data.datasets[0].data[j]||chartTemperatureReading.data.datasets[1].data[j]; j++){
-		chartTemperatureReading.data.datasets[0].data[j]=null;
-		chartTemperatureReading.data.datasets[1].data[j]=null;
-	}
+	div.innerHTML += '<hr id="divider">';
 	AjaxMeasuresCall();
 	idPlot=id;
 }
@@ -428,6 +648,12 @@ function AjaxIdPlotCall(){
 		'false',
 		function(data){
 			const div = document.querySelector('#dropdownMenu');
+			if(document.getElementById('dropdownDivider')){
+				document.getElementById("dropdownMenu").removeChild(document.getElementById('dropdownDivider'));
+				document.getElementById("dropdownMenu").removeChild(document.getElementById('parcelleG'));
+			}
+			div.innerHTML += `<a id="parcelleG" class="dropdown-item">parcelle</a>`;
+			div.innerHTML += '<hr class="dropdown-divider" id="dropdownDivider">';
 			data.forEach((plotObject) => {
 				if(i!=0){
 					document.getElementById("dropdownMenu").removeChild(document.getElementById(plotObject["idPlot"]));

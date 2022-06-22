@@ -32,8 +32,8 @@ var select = new ol.interaction.Select({
 ////------------------------------------------------------------------//
 
 var mapAdmin = new ol.Map({
-	interactions: ol.interaction.defaults().extend([select]),
-	//overlays: [overlay],
+//	interactions: ol.interaction.defaults().extend([select]),
+//	overlays: [overlay],
 	target: 'mapAdmin',
 	controls: [screen, scale],
 	layers: [
@@ -71,6 +71,7 @@ select.getFeatures().on(['add'], function () {
   alert('test');
 });
 
+AjaxStacketAndPlotCall();
 setInterval(AjaxStacketAndPlotCall, 10000);
 
 function RemoveLayers(){
@@ -144,7 +145,6 @@ function Update(data){
 function AjaxStacketAndPlotCall(){
 	$.get(
 		'/admin/map/stacketAndPlot',	//Get URL
-		'false',
 	    Update,			//Call Function
 		'json'					//Type of File
 	)

@@ -38,6 +38,9 @@ class Card
     #[ORM\OneToMany(mappedBy: 'card', targetEntity: Measure::class)]
     private $measures;
 
+    #[ORM\OneToOne(mappedBy: 'card', targetEntity: Valve::class, cascade: ['persist', 'remove'])]
+    private $valve;
+
     public function __construct()
     {
         $this->measuresId = new ArrayCollection();
@@ -146,6 +149,28 @@ class Card
                 $measures->setCardId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getValve(): ?Valve
+    {
+        return $this->valve;
+    }
+
+    public function setValve(?Valve $valve): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($valve === null && $this->valve !== null) {
+            $this->valve->setCard(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($valve !== null && $valve->getCard() !== $this) {
+            $valve->setCard($this);
+        }
+
+        $this->valve = $valve;
 
         return $this;
     }

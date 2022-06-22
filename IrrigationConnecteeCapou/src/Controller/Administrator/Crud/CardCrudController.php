@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 
 class CardCrudController extends AbstractCrudController
 {
@@ -51,11 +52,19 @@ class CardCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $function = [
+            'Vanne'=>'Vanne',
+            'Relais'=>'Relais'
+        ];
+        
         yield TextField::new('lora', 'Identifiant Lora');
         yield DateTimeField::new('date', 'Date de mise en service')
             ->setFormat('dd/MM/yyyy HH:mm');
-        yield TextField::new('location', 'Localisation')->setLabel('longitude, latitude');
-        yield TextField::new('function', 'Fonction')->setLabel('Maître ou esclave');
+        yield TextField::new('location', 'Localisation')
+            ->setLabel('longitude, latitude');
+        yield ChoiceField::new('function', 'Fonction')
+            ->setChoices($function)
+            ->renderExpanded();
         yield AssociationField::new ('state', 'État du piquet')
             ->setRequired(true);
     }
