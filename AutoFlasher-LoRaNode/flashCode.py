@@ -23,8 +23,8 @@ def listSerialPorts() -> list:
     listPorts = []
     if os.name == 'nt':
         ports = serial.tools.list_ports.comports()
-        for port, _, _ in sorted(ports):
-            listPorts.append(port)
+        for _, desc, _ in sorted(ports):
+            listPorts.append(desc)
     else:
         lsCommand = subprocess.run(['ls', '/dev/'], stdout=subprocess.PIPE, text=True)
         for line in lsCommand.stdout.split('\n'):
