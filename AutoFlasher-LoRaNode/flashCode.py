@@ -11,20 +11,23 @@ def main():
     listPorts = listSerialPorts()
     print("Ports série disponibles: ")
 
-    for iteration, ports in enumerate(listPorts):
-        print(f"{iteration+1}) {ports}")
-    
-    numberInput = int(input("Choisissez votre port série: "))
-    serialPort = listPorts[numberInput-1]
+    strChoicePhrase = "Choisissez votre port série: "
+    serialPort = giveChoiceFromList(listPorts, strChoicePhrase)
     
     os.system(f"esptool.py --chip esp32 --port {serialPort} --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 {bootloaderPath} 0x8000 {partitionPath} 0x10000 {firmwarePath}")
+
+def giveChoiceFromList(elems: list, strChoicePhrase: str):
+    for iteration, elem in enumerate(elems):
+            print(f"{iteration+1}) {elem}")
+
+    return elems[int(input(strChoicePhrase))-1]
 
 def listSerialPorts() -> list:
     listPorts = []
     if os.name == 'nt':
         ports = serial.tools.list_ports.comports()
-        for _, desc, _ in sorted(ports):
-            listPorts.append(desc)
+        for port, _, _ in sorted(ports):
+            listPorts.append(port)
     else:
         lsCommand = subprocess.run(['ls', '/dev/'], stdout=subprocess.PIPE, text=True)
         for line in lsCommand.stdout.split('\n'):
@@ -32,8 +35,6 @@ def listSerialPorts() -> list:
                 listPorts.append(f"/dev/{line}")
 
     return listPorts
-
-        
 
 if __name__ =="__main__":
     main()
