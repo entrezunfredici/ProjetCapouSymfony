@@ -3,12 +3,13 @@ const dfmFloorHumidity={};
 const dfmAirTemperature={};
 const dfmAirHumidity={};
 const allData={};
+
 function DFMDownloadTxtDataFile(){
     DFMAjaxCallFunction();
     let name="donnees telechargees le "+TGGetDateWithTime();
     i=0;
     sDateIntervall=scaleChange();
-    let Results="données de "+sDateIntervall[0]+" à "+sDateIntervall[1]+"\n Temperatures sol: ";
+    let Results="données de "+sDateIntervall[0]+" à "+TGGetDate()+"\n Temperatures sol: ";
     while(dfmFloorTemperature[i]!=null){
         if(TGDateCompare(dfmFloorTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature "+dfmFloorTemperature[i].measureDate+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
         i++;

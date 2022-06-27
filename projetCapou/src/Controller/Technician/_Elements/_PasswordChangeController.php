@@ -32,7 +32,6 @@ class _PasswordChangeController extends AbstractController
         $firstName=$this->getUser()->getFirstName();
         $lastName=$this->getUser()->getLastName();
         $user=$this->getUser();
-        
         $form = $this->createForm(ChangePasswordRequestFormType::class);
         $form->handleRequest($request);
         

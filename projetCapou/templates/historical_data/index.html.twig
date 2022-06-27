@@ -19,9 +19,9 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="historic">
                 {% include "roles/technician/_elements/_topbar.html.twig" %}
-                <div id="HistoricStatsBoard" calss="StatsBoard Hidden container">
+                <div id="DashboardPageContent" class="TechnicianLightInterface">
                     <div class="row">
                         <div class="col title">
                             <h2>Historique des mesures</h2>
@@ -69,7 +69,7 @@
                     <div class="row">
                         <h3>Sélectionnez votre intervalle temporel</h3>
                         <div id="Elements" class="row content">
-                            <select id="time-scale-select" class="ElementsInterface">
+                            <select id="time-scale-select" class="ElementsInterface  TechnicianLightElementsInterface">
                                 <option value="Day" selected>Journalier</option>
                                 <option value="Week">semaines</option>
                                 <option value="Mounth">Mensuel</option>
@@ -101,7 +101,7 @@
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.gauge.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.thermometer.js')}}"></script>
     <script src="{{ asset('js/libraries/charts/rGraph/rGraph.line.js')}}"></script>
-    <script src="{{ asset('js/roles/technician/dataFileMaker.js') }}"></script>
+    <script src="{{ asset('js/roles/technician/dataFileMaker2.js') }}"></script>
     <script src="{{ asset('js/roles/technician/chartsHistoric.js')}}"></script>
 	<!-- ************************************************************************************************************** -->
     

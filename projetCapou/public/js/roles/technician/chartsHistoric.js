@@ -50,10 +50,6 @@ function ChartsShowMeasurements() {
                 snap: true
             }
         }
-    }).on('measures', function(obj)
-    {
-        document.getElementById("dataset").value =  obj.canvas.__measures_snap_dataset__;
-        document.getElementById("point").value =  obj.canvas.__measures_snap_point__;
     }).draw()
     canvas = document.getElementById('TemperatureHistoricDatas');
     ctx = canvas.getContext('2d');
@@ -81,10 +77,6 @@ function ChartsShowMeasurements() {
                 snap: true
             }
         }
-    }).on('measures', function(obj)
-    {
-        document.getElementById("dataset").value =  obj.canvas.__measures_snap_dataset__;
-        document.getElementById("point").value =  obj.canvas.__measures_snap_point__;
     }).draw()
 }
 setInterval(ChartsShowMeasurements, 250)

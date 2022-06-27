@@ -5,10 +5,10 @@ function TGGetDate(){
     sDay="0"
     if((iMounth=new Date().getMonth()+1)<10){
         sMounth="0"+iMounth;
-    }
+    }else sMounth=iMounth;
     if((iDay=new Date().getDate())<10){
         sDay="0"+iDay
-    }
+    }else sDay=iDay;
     return new Date().getFullYear()+"-"+sMounth+"-"+sDay;
 }
 
@@ -135,8 +135,7 @@ function TGDayTimeRange(){
 //date comparator
 function TGDateCompare(sDateToCompare, sDateMinReference, sDateMaxReference){
     if(sDateMaxReference>TGGetDate())sDateMaxReference=TGGetDate();
-    if(sDateMinReference<=sDateToCompare && sDateToCompare<=sDateMaxReference)return 1;
-    return 0;
+    return (sDateMinReference<=sDateToCompare && sDateToCompare<=sDateMaxReference);
 }
 
 //

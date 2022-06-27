@@ -54,9 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
     private $city;
-
-    #[ORM\Column(type: 'string', length: 7, nullable: true)]
-    private $color;
     
     public function __construct()
     {
@@ -279,18 +276,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(?string $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(?string $color): self
-    {
-        $this->color = $color;
 
         return $this;
     }

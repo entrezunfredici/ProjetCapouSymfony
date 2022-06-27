@@ -32,7 +32,6 @@ function ConfirmChangement(message) {
 
 function DDChangeBaliseClass(idBalise, class1, class2){
     baliseID=document.getElementById(idBalise);
-    alert(baliseID);
     if(baliseID.classList.contains(class1)){
         baliseID.classList.remove(class1);
         baliseID.classList.add(class2);
