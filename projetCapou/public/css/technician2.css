@@ -44,6 +44,15 @@
     color:white;
     font-size:20px;
 }
+.DownloadsMenu ul{
+    list-style: none;
+}
+.button{
+    padding:10px;
+    width:700px;
+    height:50px;
+    font-size:30px;
+}
 /*show element*/
 .Show{
     display: block;

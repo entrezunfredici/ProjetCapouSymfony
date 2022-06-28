@@ -10,7 +10,7 @@
 
 	<!-- ********************************************** Style  files ************************************************** -->
     <link rel="stylesheet" href="{{ asset('css/roles/technician/sb-admin-2.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/technician.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/technician2.css')}}">
 	<!-- ************************************************************************************************************** -->
 
     <!-- Page Wrapper -->
@@ -39,31 +39,35 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            Dataset:<br />
-                            <input id="dataset" type="text" /><br /><br />
+                            <h3>
+                                Vert= Sol <br/>
+                                Rouge= Air
+                            </h3>
                         </div>
                         <div class="col-6">
-                            Point:<br />
-                            <input id="point" type="text" />
+                            <h3>
+                                Vert= Sol <br/>
+                                Rouge= Air
+                            </h3>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <ul>
+                        <div class="col-lg-3">
+                            <!--<ul>
                                 <li>
                                     <a class="nav-link" onclick=""><i class="bi bi-caret-left"></i></a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </div>
-                        <div class="col">
+                        <div class="col-lg-6">
                             <h3>du <span id="MinimumDate"></span> au <span id="MaximumDate"></span></h3>
                         </div>
-                        <div class="col">
-                            <ul>
+                        <div class="col-lg-3">
+                            <!--<ul>
                                 <li>
                                     <a class="nav-link" onclick=""><i class="bi bi-caret-right"></i></a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </div>
                     </div>
                     <div class="row">
@@ -80,14 +84,23 @@
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <a href="javascript:DFMDownloadTxtDataFile()">
-                                    <i class="bi bi-download"></i> Télécharger les données au format texte
-                                </a>
-                                <a href="javascript:DFMDownloadXlsxDataFile()">
-                                    <i class="bi bi-download"></i> Télécharger les données au format Xlsx
-                                </a>
+                                <div id="DownloadsMenu">
+                                    <ul>
+                                        <li class="TechnicianLightElementsInterface button card-body">
+                                            <a href="javascript:DFMDownloadTxtDataFile()">
+                                                <i class="bi bi-download"></i> Télécharger les données au format texte
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul>
+                                        <li>
+                                            <a href="javascript:DFMDownloadXlsxDataFile()" class="TechnicianLightElementsInterface button">
+                                                <i class="bi bi-download"></i> Télécharger les données au format Xlsx
+                                            </a>
+                                        </li>
+                                    </ul>-->
+                                </div>
                             </div>
-                        <br>
                     	</div>
                 	</div>
             	</div>
