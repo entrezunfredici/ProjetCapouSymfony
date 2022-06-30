@@ -170,4 +170,3 @@ function DFMAjaxCallFunction(){
 }
 
 DFMAjaxCallFunction();
-setInterval(DFMAjaxCallFunction, 10000);
