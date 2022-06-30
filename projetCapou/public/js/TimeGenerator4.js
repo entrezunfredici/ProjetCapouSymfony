@@ -2,18 +2,30 @@
 //getter return string 
 function TGGetDate(){
     sMounth="0";
-    sDay="0"
-    if((iMounth=new Date().getMonth()+1)<10){
+    sDay="0";
+    if((sMounth=iMounth=new Date().getMonth()+1)<10){
         sMounth="0"+iMounth;
-    }else sMounth=iMounth;
-    if((iDay=new Date().getDate())<10){
+    }
+    if((sDay=iDay=new Date().getDate())<10){
         sDay="0"+iDay
-    }else sDay=iDay;
+    }
     return new Date().getFullYear()+"-"+sMounth+"-"+sDay;
 }
 
 function TGGetTime(){
-    return new Date().getHours()+":"+new Date().getMinutes()+":"+new Date().getSeconds();
+    sHours="0";
+    sMinutes="0";
+    sSeconds="0";
+    if(new Date().getHours()<10){
+        sHours="0"+new Date().getHours()
+    }else sHours=new Date().getHours()
+    if(new Date().getMinutes()<10){
+        sMinutes="0"+new Date().getMinutes();
+    }else sMinutes=new Date().getMinutes();
+    if(new Date().getSeconds()<10){
+        sSeconds="0"+new Date().getSeconds();
+    }else sSeconds=new Date().getSeconds();
+    return sHours+":"+sMinutes+":"+sSeconds;
 }
 
 function TGGetDateWithTime(){
@@ -41,7 +53,11 @@ function TGGetMounthSize(iMounth){
     if((iMounth%2)==0)return 30;
     return 31;
 }
+
 //range calculators
+function TGDayDateRange(){
+    return [TGCreateDateWithTime(TGGetDate(), TGCreateTimeInStrFormat(0, 0, 0)),TGCreateDateWithTime(TGGetDate(), TGCreateTimeInStrFormat(23, 59, 59))]
+}
 function TGWeekDateRange(iDateParameter, sDateScale){
     iDay=new Date().getDay() - 1;
     iDate=TGGetIntTableDate();
@@ -96,7 +112,8 @@ function TGWeekDateRange(iDateParameter, sDateScale){
             sDateScale[k]=TGCreateDateInStrFormat(iDay, iDate[1], iDate[2]);
         }
     }
-    return [TGCreateDateInStrFormat(iDate[0], iDate[1], iDate[2]), TGCreateDateInStrFormat(iYearMax, iMounthMax, iDayMax)];
+    //return [TGCreateDateInStrFormat(iDate[0], iDate[1], iDate[2]), TGCreateDateWithTime(TGCreateDateInStrFormat(iYearMax, iMounthMax, iDayMax)];
+    return [TGCreateDateWithTime(TGCreateDateInStrFormat(iDate[0], iDate[1], iDate[2]), TGCreateTimeInStrFormat(0, 0, 0)), TGCreateDateWithTime(TGCreateDateInStrFormat(iYearMax, iMounthMax, iDayMax), TGCreateTimeInStrFormat(23, 59, 59))];
 }
 function TGMounthDateRange(iDate, sDateScale){
     if((iDate[1]<1))iDate[1]=1;
@@ -121,15 +138,14 @@ function TGMounthDateRange(iDate, sDateScale){
         }
         sDateScale[k]=TGCreateDateInStrFormat(iDate[0], iDate[1], iResult);
     }
-    return [TGCreateDateInStrFormat(iDate[0], iDate[1], 0), TGCreateDateInStrFormat(iDate[0], iDate[1], iDate[2])];
+    //return [TGCreateDateInStrFormat(iDate[0], iDate[1], 0), TGCreateDateInStrFormat(iDate[0], iDate[1], iDate[2])];
+    return [TGCreateDateWithTime(TGCreateDateInStrFormat(iDate[0], iDate[1], 0), TGCreateTimeInStrFormat(0, 0, 0)), TGCreateDateWithTime(TGCreateDateInStrFormat(iDate[0], iDate[1], iDate[2]), TGCreateTimeInStrFormat(23, 59, 59))];
 }
 function TGYearDateRange(iDate, sDateScale){
     sDateScale[0]=TGCreateDateInStrFormat((iDate[0]-1), 11, 0);
     for(k=0; k<5; k++)sDateScale[k]=TGCreateDateInStrFormat(iDate[0], (1+2*k), 0);
-    return [TGCreateDateInStrFormat(iDate[0], 1, 1), TGCreateDateInStrFormat(iDate[0], 12, 31)];
-}
-function TGDayTimeRange(){
-    return [TGCreateDateInStrFormat(0, 0, 0), TGCreateDateInStrFormat(23, 59, 59)];
+    //return [TGCreateDateInStrFormat(iDate[0], 1, 1), TGCreateDateInStrFormat(iDate[0], 12, 31)];
+    return [TGCreateDateWithTime(TGCreateDateInStrFormat(iDate[0], 1, 1), TGCreateTimeInStrFormat(0, 0, 0)), TGCreateDateWithTime(TGCreateDateInStrFormat(iDate[0], 12, 31), TGCreateTimeInStrFormat(23, 59, 59))];
 }
 
 //date comparator
@@ -137,10 +153,31 @@ function TGDateCompare(sDateToCompare, sDateMinReference, sDateMaxReference){
     if(sDateMaxReference>TGGetDate())sDateMaxReference=TGGetDate();
     return (sDateMinReference<=sDateToCompare && sDateToCompare<=sDateMaxReference);
 }
+//date comparator
+function TGDateWithTimeCompare(sDateWithTimeToCompare, sDateWithTimeMinReference, sDateWithTimeMaxReference){
+    if(sDateWithTimeMaxReference>TGGetDateWithTime())sDateWithTimeMaxReference=TGGetDateWithTime();
+    return (sDateWithTimeMinReference<=sDateWithTimeToCompare && sDateWithTimeToCompare<=sDateWithTimeMaxReference);
+}
+
+function TGCreateDateWithTime(sDate, sTime){
+    return sDate+"/"+sTime;
+}
 
 //
 function TGCreateTimeInStrFormat(iHours, iMinutes, iSeconds){
-    return iHours+":"+iMinutes+":"+iSeconds;
+    sHours="0";
+    sMinutes="0";
+    sSeconds="0";
+    if((sHours=iHours)<10){
+        sHours="0"+iHours;
+    }
+    if((sMinutes=iMinutes)<10){
+        sMinutes="0"+iMinutes;
+    }
+    if((sSeconds=iSeconds)<10){
+        sSeconds="0"+iSeconds;
+    }
+    return sHours+":"+sMinutes+":"+sSeconds;
 }
 
 function TGCreateDateInStrFormat(iYears, iMounth, iDay){

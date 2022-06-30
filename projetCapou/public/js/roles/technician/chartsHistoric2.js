@@ -1,8 +1,8 @@
 //datas
-chFloorTemperature=[];
-chFloorHumidity=[];
-chAirTemperature=[];
-chAirHumidity=[];
+const chFloorTemperature={};
+const chFloorHumidity={};
+const chAirTemperature={};
+const chAirHumidity={};
 const data={};
 //Date Intervall
 const DateIntervall={};
@@ -92,6 +92,7 @@ function ChartsIrrigation(idButton, buttonColor1, buttonColor2){
         }
     }
 }
+
 function ChartsUpdateChart(oData){
     SortDataList(oData);
     i=0;
@@ -123,7 +124,7 @@ function ChartsUpdateChart(oData){
         i++;
     })
     //floorTemperatureHistoric=chartsSortDataWithScale(chFloorTemperature, scale);
-};
+}
 
 var $j = jQuery.noConflict();
 
@@ -139,27 +140,12 @@ function ChartsAjaxCallFunction(){
 ChartsAjaxCallFunction();
 var idInter = setInterval(ChartsAjaxCallFunction, 10000);
 
-function chartsSortDataWithScale(oDatas, sScales){
-    i=0;
-    iDatas=[0,0,0,0,0,0,0];
-    for(k=0; k<7; k++){
-        while(oDatas[i]!=null){
-            x=1;
-            if(TGDateCompare(oDatas[i].measureDate, sScales[k], sScales[k+1])){
-                iDatas[k]=(iDatas[k]+oDatas[i].valMeasure)/x;
-                x++;
-            }
-            i++;        
-        }
-    }
-    return iDatas;
-}
 
 const scaleSelect = document.getElementById('time-scale-select');
 function scaleChange() {
     const scaleValue = scaleSelect.value;
     if(scaleValue=="Day"){
-        //sChartDateIntervall=[TGGetDate(),TGGetDate()];
+        sChartDateIntervall=TGDayDateRange();
         label=['0h','4h','8h','12h','16h','20h','24h'];
         DayMode=1;
     }else if(scaleValue=="Week"){
@@ -192,6 +178,24 @@ function scaleChange() {
     ChartsAjaxCallFunction();
     return sChartDateIntervall; 
 }
+
+function chartsSortDataWithScale(oDatas, sScales){ // c'est pété
+    i=0;
+    iDatas=[0,0,0,0,0,0,0];
+    for(k=0; k<7; k++){
+        while(oDatas[i]!=null){
+            x=1;
+            if(TGDateCompare(oDatas[i].measureDate, sScales[k], sScales[k+1])){
+                iDatas[k]=(iDatas[k]+oDatas[i].valMeasure)/x;
+                x++;
+            }
+            i++;        
+        }
+    }
+    return iDatas;
+}
+
+
 scaleSelect.addEventListener('change', scaleChange);
 scaleChange();
 function ChartsGetLabels(){
@@ -208,22 +212,32 @@ function SortDataList(dataTable){
                 sort=dataTable[k]
                 dataTable[k]=dataTable[k+1];
                 dataTable[k+1]=sort;
+            }else if((dataTable[k].measureTime>dataTable[k+1].measureTime) && (dataTable[k].measureDate==dataTable[k+1].measureDate)){
+                sort=dataTable[k]
+                dataTable[k]=dataTable[k+1];
+                dataTable[k+1]=sort;
             }else n++;
             if(dataTableLen){
                 if(dataTable[dataTableLen].measureDate<dataTable[dataTableLen-1].measureDate){
                     sort=dataTable[dataTableLen-1];
                     dataTable[dataTableLen-1]=dataTable[dataTableLen];
                     dataTable[dataTableLen]=sort;
+                }else if((dataTable[dataTableLen].measureTime<dataTable[dataTableLen-1].measureTime) && (dataTable[dataTableLen].measureDate<dataTable[dataTableLen-1].measureDate)){
+                    sort=dataTable[dataTableLen-1];
+                    dataTable[dataTableLen-1]=dataTable[dataTableLen];
+                    dataTable[dataTableLen]=sort;
                 }
                 dataTableLen--;
             }
+
             k++;
         }
         DataTableLen=k;
         if(n==k){
             return dataTable;
         }
-        if(s==500){
+        if(s==5000){
+            alert("SortError");
             return dataTable;
         }
         s++;

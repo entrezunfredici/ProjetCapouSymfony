@@ -9,27 +9,41 @@ function DFMDownloadTxtDataFile(){
     let name="donnees telechargees le "+TGGetDateWithTime();
     i=0;
     sDateIntervall=scaleChange();
-    let Results="données de "+sDateIntervall[0]+" à "+TGGetDate()+"\n Temperatures sol: ";
+    let Results="données de "+sDateIntervall[0]+" à "+TGGetDateWithTime()+"\n Temperatures sol: ";
     while(dfmFloorTemperature[i]!=null){
-        if(TGDateCompare(dfmFloorTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature "+dfmFloorTemperature[i].measureDate+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
+        /*alert(TGCreateDateWithTime(dfmFloorTemperature[i].measureDate, dfmFloorTemperature[i].measureTime));
+        alert()*/
+        if(TGDateWithTimeCompare(TGCreateDateWithTime(dfmFloorTemperature[i].measureDate, dfmFloorTemperature[i].measureTime), sDateIntervall[0], sDateIntervall[1])){
+            Results=Results+"-Temperature "+dfmFloorTemperature[i].measureDate+" à "+dfmAirTemperature[i].measureTime+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
+        }
+        //if(TGDateCompare(dfmFloorTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature "+dfmFloorTemperature[i].measureDate+" à "+dfmAirTemperature[i].measureTime+" : "+dfmFloorTemperature[i].valMeasure+"°C;";
         i++;
     }
     i=0;
     Results=Results+"\n Temperatures air: "
     while(dfmAirTemperature[i]!=null){
-        if(TGDateCompare(dfmAirTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature "+dfmAirTemperature[i].measureDate+": "+dfmAirTemperature[i].valMeasure+"°C;";
+        if(TGDateWithTimeCompare(TGCreateDateWithTime(dfmAirTemperature[i].measureDate, dfmAirTemperature[i].measureTime), sDateIntervall[0], sDateIntervall[1])){
+            Results=Results+"-Temperature "+dfmAirTemperature[i].measureDate+" à "+dfmAirTemperature[i].measureTime+" : "+dfmAirTemperature[i].valMeasure+"°C;";
+        }
+        //if(TGDateCompare(dfmAirTemperature[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Temperature "+dfmAirTemperature[i].measureDate+" à "+dfmAirTemperature[i].measureTime+" : "+dfmAirTemperature[i].valMeasure+"°C;";
         i++;
     }
     i=0;
     Results=Results+"\n Humiditée sol: "
     while(dfmFloorHumidity[i]!=null){
-        if(TGDateCompare(dfmFloorHumidity[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Humiditée "+dfmFloorHumidity[i].measureDate+": "+dfmFloorHumidity[i].valMeasure+"%;";
+        if(TGDateWithTimeCompare(TGCreateDateWithTime(dfmFloorHumidity[i].measureDate, dfmFloorHumidity[i].measureTime), sDateIntervall[0], sDateIntervall[1])){
+            Results=Results+"-Humiditée "+dfmFloorHumidity[i].measureDate+" à "+dfmFloorHumidity[i].measureTime+" : "+dfmFloorHumidity[i].valMeasure+"%;";
+        }
+        //if(TGDateCompare(dfmFloorHumidity[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Humiditée "+dfmFloorHumidity[i].measureDate+" à "+dfmFloorHumidity[i].measureTime+" : "+dfmFloorHumidity[i].valMeasure+"%;";
         i++;
     }
     i=0;
     Results=Results+"\n Humiditée air: "
     while(dfmAirHumidity[i]!=null){
-        if(TGDateCompare(dfmAirHumidity[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Humiditée "+dfmAirHumidity[i].measureDate+": "+dfmAirHumidity[i].valMeasure+"%;";
+        if(TGDateWithTimeCompare(TGCreateDateWithTime(dfmAirHumidity[i].measureDate, dfmAirHumidity[i].measureTime), sDateIntervall[0], sDateIntervall[1])){
+            Results=Results+"-Humiditée "+dfmAirHumidity[i].measureDate+" à "+dfmAirHumidity[i].measureTime+" : "+dfmAirHumidity[i].valMeasure+"%;";
+        }
+        //if(TGDateCompare(dfmAirHumidity[i].measureDate, sDateIntervall[0], sDateIntervall[1]))Results=Results+"-Humiditée "+dfmAirHumidity[i].measureDate+" à "+dfmAirHumidity[i].measureTime+" : "+dfmAirHumidity[i].valMeasure+"%;";
         i++;
     }
     DFMCreateTextFile(Results, name, "txt")
